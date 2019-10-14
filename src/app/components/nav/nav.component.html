@@ -1,0 +1,19 @@
+<nav class="navbar navbar-expand-sm navbar-dark fixed-top" [style.background-color]="BackgroundColor()">
+  <a class="navbar-brand" href="#"></a>
+  <button type="button" class="navbar-toggler navbar-toggler-right" data-toggle="collapse" data-target="#nav-links" (click)="ToggleNavbar()">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" [ngClass]="{ 'show': expandNav }" id="nav-links">
+    <ul class="navbar-nav mr-auto" (click)="CloseNavBar()">
+      <app-nav-link *ngFor="let navLink of navLinksLeft" [navLink]="navLink"></app-nav-link>
+    </ul>
+
+    <ul class="navbar-nav" (click)="CloseNavBar()" *ngIf="!IsLoggedIn()">
+      <app-nav-link *ngFor="let navLink of navLinksRight" [navLink]="navLink"></app-nav-link>
+    </ul>
+
+    <ul class="navbar-nav" *ngIf="IsLoggedIn()">
+      <app-nav-link [navLink]="logoutLink" (click)="Logout()"></app-nav-link>
+    </ul>
+  </div>
+</nav>
