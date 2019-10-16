@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
 import { NavLink } from '../../interfaces/nav-link';
 import { DOCUMENT } from '@angular/common';
+import { faUserAlt , IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-nav',
@@ -11,6 +12,8 @@ import { DOCUMENT } from '@angular/common';
 })
 
 export class NavComponent {
+
+  public icon: IconDefinition = faUserAlt;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -23,12 +26,12 @@ export class NavComponent {
 
   public navLinksLeft = Array<NavLink>(
     { text: 'Feed', url: '/feed' },
-    { text: 'My Profile', url: '/profile' }
+    { text: 'Post', url: '/post' }
   );
 
   public navLinksRight = Array<NavLink>(
     { text: 'Login', url: '/login' },
-    { text: 'Register', url: '/register' }
+    { text: 'Sign Up', url: '/signup' }
   );
 
   public logoutLink: NavLink = ({ text: 'Logout' });

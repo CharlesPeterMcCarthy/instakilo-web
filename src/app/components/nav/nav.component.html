@@ -15,5 +15,9 @@
     <ul class="navbar-nav" *ngIf="IsLoggedIn()">
       <app-nav-link [navLink]="logoutLink" (click)="Logout()"></app-nav-link>
     </ul>
+
+    <a href="javascript:void(0)" routerLink="/profile" *ngIf="IsLoggedIn()" title="My Profile">
+      <fa-icon [icon]="icon"></fa-icon>
+    </a>
   </div>
 </nav>
