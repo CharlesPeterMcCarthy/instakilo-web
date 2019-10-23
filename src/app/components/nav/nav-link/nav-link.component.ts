@@ -14,6 +14,6 @@ export class NavLinkComponent {
 
   constructor(private _router: Router) { }
 
-  public IsActive = (): boolean => this._router.url === this.navLink.url;
+  public isActive = (): boolean => this._router.url === this.navLink.url;
 
 }

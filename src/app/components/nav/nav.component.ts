@@ -42,20 +42,20 @@ export class NavComponent {
     this.isBelowNav = offset >= 20;
   }
 
-  public BackgroundColor = (): string => this.isBelowNav || this.expandNav ? 'rgba(0, 0, 0, 1)' : 'rgba(0, 0, 0, 0.8)';
+  public backgroundColor = (): string => this.isBelowNav || this.expandNav ? 'rgba(0, 0, 0, 1)' : 'rgba(0, 0, 0, 0.8)';
 
-  public ToggleNavbar = (): boolean => this.expandNav = !this.expandNav;
+  public toggleNavBar = (): boolean => this.expandNav = !this.expandNav;
 
-  public CloseNavBar = (): void => {
+  public closeNavBar = (): void => {
     this.expandNav = false;
   }
 
-  public Logout = (): void => {
-    this._authService.Logout();
-    this.CloseNavBar();
-    this._router.navigate(['/']);
+  public logout = async (): Promise<void> => {
+    this.closeNavBar();
+    await this._authService.logout();
+    await this._router.navigate(['/']);
   }
 
-  public IsLoggedIn = (): boolean => this._authService.IsLoggedIn();
+  public IsLoggedIn = (): boolean => this._authService.isLoggedIn();
 
 }
