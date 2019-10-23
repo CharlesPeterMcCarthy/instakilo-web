@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from './services/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -6,6 +7,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
-  title = 'instagram';
+export class AppComponent implements OnInit {
+
+  title = 'instakilo';
+
+  constructor(private auth: AuthService) {}
+
+  async ngOnInit() {
+    await this.auth.checkUserAuthenticated();
+  }
+
 }
