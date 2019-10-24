@@ -88,5 +88,11 @@
   },
   "rulesDirectory": [
     "codelyzer"
-  ]
+  ],
+  "variable-name": {
+    "options":[
+      "allow-leading-underscore"
+    ]
+  },
+  "curly": false
 }
