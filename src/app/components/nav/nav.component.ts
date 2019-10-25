@@ -25,13 +25,13 @@ export class NavComponent {
   public expandNav: boolean = false;
 
   public navLinksLeft = Array<NavLink>(
-    { text: 'Feed', url: '/feed' },
-    { text: 'Post', url: '/post' }
+    // { text: 'Feed', url: '/feed' },
+    { text: 'Create', url: '/create-post' }
   );
 
   public navLinksRight = Array<NavLink>(
-    { text: 'Login', url: '/login' },
-    { text: 'Sign Up', url: '/signup' }
+    // { text: 'Login', url: '/login' },
+    // { text: 'Sign Up', url: '/signup' }
   );
 
   public logoutLink: NavLink = ({ text: 'Logout' });

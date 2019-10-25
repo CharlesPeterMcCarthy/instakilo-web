@@ -8,19 +8,24 @@ import { NavLinkComponent } from './components/nav/nav-link/nav-link.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AmplifyAngularModule, AmplifyModules, AmplifyService } from 'aws-amplify-angular';
 import Auth from '@aws-amplify/auth';
+import { CreatePostComponent } from './pages/create-post/create-post.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
-    NavLinkComponent
+    NavLinkComponent,
+    CreatePostComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FontAwesomeModule,
-    AmplifyAngularModule
+    AmplifyAngularModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [
     {

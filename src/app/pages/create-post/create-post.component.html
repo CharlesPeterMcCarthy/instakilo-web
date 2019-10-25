@@ -1,0 +1,18 @@
+<form [formGroup]="postForm" (ngSubmit)="submitForm()">
+  <div class="form-group">
+    <label for="location-field">Location</label>
+    <input type="text" class="form-control" id="location-field" formControlName="location" (keyup)="locationKeyup(locInput)" #locInput>
+  </div>
+  <div class="form-group">
+    <label for="description-field">Description</label>
+    <textarea class="form-control" id="description-field" formControlName="description" (keyup)="descriptionKeyup(descInput.value)" #descInput></textarea>
+  </div>
+  <div class="hash-tag-list">
+    <span class="hash-tag" *ngFor="let tag of hashTags">
+      {{ tag }}
+    </span>
+  </div>
+  <div class="text-right">
+    <button type="submit" class="btn btn-md btn-primary">Share</button>
+  </div>
+</form>

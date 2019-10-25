@@ -9,8 +9,6 @@ import { AuthService } from './services/auth/auth.service';
 
 export class AppComponent implements OnInit {
 
-  title = 'instakilo';
-
   constructor(private auth: AuthService) {}
 
   async ngOnInit() {
