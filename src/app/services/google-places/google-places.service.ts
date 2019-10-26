@@ -5,7 +5,10 @@
    Do not remove it
 */
 /// <reference types="@types/googlemaps" />
+
 import { Injectable } from '@angular/core';
+import GooglePlace from '../../interfaces/google-place';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,16 +16,14 @@ import { Injectable } from '@angular/core';
 
 export class GooglePlacesService {
 
+  private placesSubject = new BehaviorSubject<GooglePlace[]>(null);
+  private autoCompleteService = new google.maps.places.AutocompleteService();
+
   constructor() { }
 
-  public autocompletePlacesMatching = (input) => {
-    const autocomplete = new google.maps.places.Autocomplete(input, {
-      types: [ 'establishment' ]
-    });
-    google.maps.event.addListener(autocomplete, 'place_changed', () => {
-      const place = autocomplete.getPlace();
-      console.log(place);
-    });
-  }
+  public getMatchingPlaces = () => this.placesSubject.asObservable();
+
+  public autocompletePlacesMatching = (input: string): void =>
+    this.autoCompleteService.getPlacePredictions({ input }, (places: GooglePlace[]) => this.placesSubject.next(places));
 
 }
