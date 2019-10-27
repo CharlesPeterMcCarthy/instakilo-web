@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-nav-link',
   templateUrl: './nav-link.component.html',
-  styleUrls: ['./nav-link.component.css']
+  styleUrls: ['./nav-link.component.less']
 })
 
 export class NavLinkComponent {
