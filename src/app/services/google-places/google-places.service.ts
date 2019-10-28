@@ -7,7 +7,7 @@
 /// <reference types="@types/googlemaps" />
 
 import { Injectable } from '@angular/core';
-import GooglePlace from '../../interfaces/google-place';
+import { GooglePlace } from '@instakilo/common';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
