@@ -10,6 +10,7 @@ import { AmplifyAngularModule, AmplifyModules, AmplifyService } from 'aws-amplif
 import Auth from '@aws-amplify/auth';
 import { CreatePostComponent } from './pages/create-post/create-post.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { NOTYF, notyfFactory } from './utils/notyf.token';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
           Auth
         });
       }
+    },
+    {
+      provide: NOTYF,
+      useFactory: notyfFactory
     }
   ],
   bootstrap: [
