@@ -8,5 +8,11 @@ export const environment = {
       region: 'eu-west-1'
     },
     name: 'angular-instakilo'
+  },
+  cognitoConfig: {
+    identityPoolId: 'eu-west-1_6V0H7YYlb',
+    region: 'eu-west-1',
+    userPoolId: 'eu-west-1_6V0H7YYlb',
+    userPoolWebClientId: '6ahriip0la2v4gall49m3sddo3'
   }
 };
