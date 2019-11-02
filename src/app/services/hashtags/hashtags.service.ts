@@ -7,19 +7,17 @@ import _ from 'lodash';
 
 export class HashTagsService {
 
-  constructor() { }
-
-  public pluckHashTags = (text: string) =>
+  public pluckHashTags = (text: string): string[] =>
     _.uniq(text
-      .split(' ')
-      .filter(w => w.startsWith('#') && w.length > 1)
-      .map(t => this.removeHashSymbols(t))
-      .map(t => t.toLowerCase())
-      .filter(t => this.isValidHashTag(t))
+      .split(/\s+/) // Split by whitespace (including new lines)
+      .filter((w: string) => w.startsWith('#') && w.length > 1)
+      .map((t: string) => this.removeHashSymbols(t))
+      .map((t: string) => t.toLowerCase())
+      .filter((t: string) => this.isValidHashTag(t))
     );
 
-  public isValidHashTag = (tag: string) => /^([0-9]|[a-z])+([0-9a-z]+)$/i.test(tag); // Check tag is alphanumeric
+  public isValidHashTag = (tag: string): boolean => /^([0-9]|[a-z])+([0-9a-z]+)$/i.test(tag); // Check tag is alphanumeric
 
-  private removeHashSymbols = (tag: string) => tag.replace('#', ''); // Remove # symbol
+  private removeHashSymbols = (tag: string): string => tag.replace('#', ''); // Remove # symbol
 
 }

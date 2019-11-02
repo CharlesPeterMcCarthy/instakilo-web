@@ -29,7 +29,7 @@ export class ErrorHandlingService {
     const errorText = error.custom && error.message || 'Unknown Error';
     this.notyf.error(errorText);
 
-    return throwError(errorText);
+    return throwError({ success: false });
   }
 
 }

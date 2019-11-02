@@ -3,8 +3,7 @@ import * as S3 from 'aws-sdk/clients/s3';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Progress } from 'aws-sdk/lib/request';
-import { ManagedUpload } from 'aws-sdk/clients/s3';
-import SendData = ManagedUpload.SendData;
+import SendData = S3.ManagedUpload.SendData;
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +11,10 @@ import SendData = ManagedUpload.SendData;
 
 export class S3Service {
 
-  public uploadListener = new BehaviorSubject<string>(null);
-  public progressListener = new BehaviorSubject<Progress>(null);
+  public uploadListener: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+  public progressListener: BehaviorSubject<Progress> = new BehaviorSubject<Progress>(null);
 
-  constructor() { }
-
-  public upload = (file) => {
+  public upload = (file: File): void => {
     const bucket = new S3(environment.s3Bucket.access);
 
     const params = {
@@ -30,7 +27,7 @@ export class S3Service {
 
     bucket.upload(params).on('httpUploadProgress', (evt: Progress) =>
       this.progressListener.next(evt)
-    ).send((err, data: SendData) => {
+    ).send((err: Error, data: SendData) => {
       if (err) console.log('There was an error uploading your file: ', err);
       else this.uploadListener.next(data.Location);
     });

@@ -9,9 +9,9 @@ import { AuthService } from './services/auth/auth.service';
 
 export class AppComponent implements OnInit {
 
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService) { }
 
-  async ngOnInit() {
+  public async ngOnInit(): Promise<void> {
     await this.auth.checkUserAuthenticated();
   }
 
