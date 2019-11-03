@@ -8,7 +8,7 @@
 
 import { Injectable } from '@angular/core';
 import { GooglePlace } from '@instakilo/common';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,14 +16,14 @@ import { BehaviorSubject } from 'rxjs';
 
 export class GooglePlacesService {
 
-  private placesSubject = new BehaviorSubject<GooglePlace[]>(null);
-  private autoCompleteService = new google.maps.places.AutocompleteService();
+  private placesSubject: BehaviorSubject<GooglePlace[]> = new BehaviorSubject<GooglePlace[]>(null);
+  private autoCompleteService: google.maps.places.AutocompleteService = new google.maps.places.AutocompleteService();
 
-  constructor() { }
-
-  public getMatchingPlaces = () => this.placesSubject.asObservable();
+  public getMatchingPlaces = (): Observable<google.maps.places.AutocompletePrediction[]> => this.placesSubject.asObservable();
 
   public autocompletePlacesMatching = (input: string): void =>
-    this.autoCompleteService.getPlacePredictions({ input }, (places: GooglePlace[]) => this.placesSubject.next(places));
+    this.autoCompleteService.getPlacePredictions({ input }, (places: GooglePlace[]) =>
+      this.placesSubject.next(places)
+    );
 
 }

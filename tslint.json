@@ -106,6 +106,7 @@
     "class-name": false,
     "member-access": [ true, "check-accessor" ],
     "no-return-await": false,
+    "align": false,
     "no-import-side-effect": [
       true,
       {
