@@ -9,15 +9,18 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AmplifyAngularModule, AmplifyModules, AmplifyService } from 'aws-amplify-angular';
 import Auth from '@aws-amplify/auth';
 import { CreatePostComponent } from './pages/create-post/create-post.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NOTYF, notyfFactory } from './utils/notyf.token';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
     NavLinkComponent,
-    CreatePostComponent
+    CreatePostComponent,
+    SpinnerComponent
   ],
   imports: [
     AppRoutingModule,
@@ -26,12 +29,13 @@ import { NOTYF, notyfFactory } from './utils/notyf.token';
     FontAwesomeModule,
     AmplifyAngularModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgxSpinnerModule
   ],
   providers: [
     {
       provide: AmplifyService,
-      useFactory:  () => {
+      useFactory: (): AmplifyAngularModule => {
         return AmplifyModules({
           Auth
         });
