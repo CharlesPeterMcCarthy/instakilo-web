@@ -1,0 +1,122 @@
+.create-post-form {
+  position: relative;
+
+  .location-group {
+    .reset-location {
+      margin-right: 5px;
+      cursor: pointer;
+    }
+
+    .input-container {
+      position: relative;
+
+      fa-icon {
+        position: absolute;
+        right: 10px;
+        top: 7px;
+        cursor: pointer;
+      }
+
+      #location-field {
+        width: 100%;
+      }
+    }
+
+    .suggested-places {
+      position: absolute;
+      left: 0;
+      right: 0;
+
+      .suggested-place {
+        cursor: pointer;
+
+        &.highlighted {
+          background-color: #EEE;
+        }
+
+        &:hover {
+          background-color: #EEE;
+        }
+
+        .main-text {
+          font-weight: bold;
+          display: block;
+        }
+
+        .secondary-text {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  .hash-tag-list {
+    margin-top: 10px;
+
+    .hash-tag {
+      color: white;
+      background-color: #777;
+      padding: 6px 16px;
+      margin: 4px 8px 4px 0;
+      border-radius: 6px;
+    }
+  }
+
+  .uploaded-image {
+    text-align: center;
+    margin-bottom: 40px;
+
+    label {
+      position: relative;
+
+      .edit-image-badge {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        padding: 3px 5px 5px 8px;
+        color: white;
+        background-color: #AAA;
+        border-radius: 50%;
+        cursor: pointer;
+        -webkit-box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.05);
+        -moz-box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.05);
+        box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.05);
+
+        &:hover {
+          -webkit-box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.15);
+          -moz-box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.15);
+          box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.15);
+        }
+      }
+
+      img {
+        max-width: 100%;
+        border-radius: 6px;
+        -webkit-box-shadow: 0px 0px 6px 2px rgba(0,0,0,0.1);
+        -moz-box-shadow: 0px 0px 6px 2px rgba(0,0,0,0.1);
+        box-shadow: 0px 0px 6px 2px rgba(0,0,0,0.1);
+        cursor: pointer;
+
+        &:hover {
+          -webkit-box-shadow: 0px 0px 6px 4px rgba(0,0,0,0.2);
+          -moz-box-shadow: 0px 0px 6px 4px rgba(0,0,0,0.2);
+          box-shadow: 0px 0px 6px 4px rgba(0,0,0,0.2);
+        }
+      }
+    }
+  }
+
+  .hint-text {
+    color: #555;
+    font-size: 12px;
+    margin-left: 4px;
+  }
+
+  button[type="submit"] {
+    margin-top: 40px;
+  }
+
+  label {
+    font-weight: bold;
+  }
+}

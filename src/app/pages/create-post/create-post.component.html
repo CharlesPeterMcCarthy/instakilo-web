@@ -1,0 +1,62 @@
+<form [formGroup]="postForm" (ngSubmit)="submitForm()" (keydown.enter)="formEnterKey($event)" class="create-post-form">
+  <div class="form-group uploaded-image">
+    <label title="Click to upload a new image">
+      <div class="edit-image-badge">
+        <fa-icon [icon]="icons.edit"></fa-icon>
+      </div>
+      <input type="file" accept="image/*" (change)="imageSelected($event)" hidden>
+      <img src="{{ imageURL || './assets/images/noimage.png' }}">
+    </label>
+  </div>
+
+  <div class="form-group location-group">
+    <div *ngIf="location">
+      <fa-icon [icon]="icons.reset" class="reset-location" (click)="resetLocation()"></fa-icon>{{ location.locationName }}
+    </div>
+
+    <div *ngIf="!location">
+      <label for="location-field" title="Enter the location the image was taken">Location</label>
+      <div class="input-container">
+        <input type="text" class="form-control" id="location-field"
+               formControlName="location"
+               (keyup)="locationKeyup(locInput.value)"
+               (keyup.arrowDown)="highlightDown()"
+               (keyup.arrowUp)="highlightUp()"
+               (keyup.enter)="selectHighlightedLocation()"
+               #locInput>
+        <fa-icon [icon]="icons.close" (click)="clearLocationField()" *ngIf="locationField.value"></fa-icon>
+      </div>
+      <div class="hint-text" *ngIf="!matchingPlaces || !matchingPlaces.length">Begin typing the name of the location that this image was taken. We will search for the closest matching locations and suggest them to you.</div>
+      <div class="suggested-places">
+        <ul class="list-group">
+          <li class="list-group-item suggested-place {{ isHighlightedLocation(place) ? 'highlighted' : '' }}"
+              *ngFor="let place of matchingPlaces" (click)="setLocation(place)" (mouseenter)="setHighlightedLocation(place)">
+            <span class="main-text">{{ placeMainText(place) }}</span>
+            <span class="secondary-text">{{ placeSecondaryText(place) }}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="description-field" title="Enter a description of what the image is about">Description</label>
+    <textarea class="form-control" rows="3" id="description-field" formControlName="description" (keyup)="descriptionKeyup(descInput.value)" #descInput></textarea>
+    <div class="hint-text">Add a description about the image - Words beginning with a # symbol will be added as hashtags. Hashtags are used for filtering images.</div>
+  </div>
+
+  <div class="form-group" *ngIf="hashTags.length">
+    <label>HashTags</label>
+    <div class="hash-tag-list">
+      <span class="hash-tag" *ngFor="let tag of hashTags">
+        {{ tag }}
+      </span>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-lg btn-block btn-primary">Share <fa-icon [icon]="icons.share"></fa-icon></button>
+<!--  <button type="button" class="btn btn-sm btn-block btn-default" (click)="cancelPost()">Discard <fa-icon [icon]="icons.discard"></fa-icon></button>-->
+</form>
+
+<spinner [text]="'Sharing...'" [name]="'sharing'"></spinner>
+<spinner [text]="'Uploading...'" [name]="'uploading'"></spinner>
