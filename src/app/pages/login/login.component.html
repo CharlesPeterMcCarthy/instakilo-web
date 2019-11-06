@@ -1,0 +1,31 @@
+<div id="heading">
+    <h1>InstaKilo</h1>
+  </div>
+  <div id="loginBox">
+    <form [formGroup]="loginForm">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" class="form-control" formControlName="username">
+            <div class="feedback" *ngIf="!loginForm.controls['username'].valid && loginForm.controls['username'].touched">
+              You need to enter an Username
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" class="form-control" formControlName="password">
+            <div class="feedback" *ngIf="!loginForm.controls['password'].valid && loginForm.controls['password'].touched">
+              Password must be at least 8 characters
+            </div>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+              <button class="btn btn-block" [disabled]="loginForm.invalid" (click)="login()">Login</button>
+            </div>
+          </div>
