@@ -1,4 +1,4 @@
-<li class="nav-item" (click)="navLink.action()">
+<li class="nav-item" (click)="navLink.action && navLink.action()">
   <a class="nav-link" [ngClass]="{ 'active': isActive() }" routerLink="{{ navLink.url }}" href="javascript:void(0)">
     <span *ngIf="navLink.text">{{ navLink.text }}</span>
     <fa-icon *ngIf="navLink.icon" [icon]="navLink.icon"></fa-icon>

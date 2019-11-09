@@ -70,14 +70,14 @@ export class NavComponent implements OnInit {
     Declare the nav links after the functions - Any nav links using the action property
     must have the corresponding action (function) declared before the nav link.
   */
-  public navLinksLeft: NavLink[] = Array<NavLink>(
+  public navLinksLeft: NavLink[] = [
     { text: 'Feed', url: '/feed' }
-  );
+  ];
 
-  public navLinksRightLoggedIn: NavLink[] = Array<NavLink>(
+  public navLinksRightLoggedIn: NavLink[] = [
     { text: 'Login', url: '/login' },
     { text: 'Sign Up', url: '/signup' }
-  );
+  ];
 
   public navLinksRightLoggedOut: NavLink[] = Array<NavLink>(
     { icon: this.icons.profile, url: '/profile' },

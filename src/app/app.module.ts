@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NOTYF, notyfFactory } from './utils/notyf.token';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { FeedComponent } from './pages/feed/feed.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     NavComponent,
     NavLinkComponent,
     CreatePostComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    FeedComponent
   ],
   imports: [
     AppRoutingModule,

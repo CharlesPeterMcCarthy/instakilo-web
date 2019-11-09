@@ -29,6 +29,7 @@ export class AuthService {
     this._amplifyService.authStateChange$ // Listening for auth state changes
     .subscribe((authState: AuthState) => {
        console.log(authState);
+       this.setAccessToken(authState.user.signInUserSession.accessToken.jwtToken);
        this.setLoggedInState(authState.state === 'signedIn' && authState.user);
      }
     );
@@ -45,8 +46,8 @@ export class AuthService {
       user hasn't been forcefully logged out or removed from the system
     */
   public checkUserAuthenticated = async (): Promise<void> => { // Called when the app first loads
-    const session = await this.Auth.currentSession();
-    this.setAccessToken(session.getAccessToken().getJwtToken()); // TO BE REMOVED **************************
+    // const session = await this.Auth.currentSession();
+    // this.setAccessToken(session.getAccessToken().getJwtToken()); // TO BE REMOVED **************************
 
     try {
       await this.Auth.currentAuthenticatedUser({ bypassCache: true }); // Let state change listener handle user object
@@ -123,16 +124,16 @@ export class AuthService {
 
   private setAccessToken = (token: string): void => localStorage.setItem('access-token', token);
 
-  public refreshSession = async () => {
-    const user: CognitoUser = await this.Auth.currentAuthenticatedUser()
-    const curSession = await this.Auth.currentSession();
-
-    console.log(curSession);
-
-    user.refreshSession(curSession.getRefreshToken(), (err, session) => {
-      console.log(err);
-      console.log(session);
-    });
-  }
+  // public refreshSession = async () => {
+  //   const user: CognitoUser = await this.Auth.currentAuthenticatedUser()
+  //   const curSession = await this.Auth.currentSession();
+  //
+  //   console.log(curSession);
+  //
+  //   user.refreshSession(curSession.getRefreshToken(), (err, session) => {
+  //     console.log(err);
+  //     console.log(session);
+  //   });
+  // }
 
 }

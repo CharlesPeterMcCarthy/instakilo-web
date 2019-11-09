@@ -1,0 +1,12 @@
+<div class="posts">
+  <div *ngFor="let post of posts" class="post-container">
+    <div class="img-container">
+      <img src="{{ post.imageURL }}">
+    </div>
+    {{ post.description }}
+  </div>
+</div>
+
+<button class="btn btn-primary" (click)="loadMore()" *ngIf="moreAvailable">Load More</button>
+
+<spinner [text]="'Gathering posts...'" [name]="spinnerName"></spinner>
