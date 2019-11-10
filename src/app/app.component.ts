@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
 
   public async ngOnInit(): Promise<void> {
     await this.auth.checkUserAuthenticated();
+    // await this.auth.login('Chazo8', 'Test123$').then(d => console.log(d));
   }
 
 }

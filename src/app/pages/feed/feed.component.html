@@ -9,4 +9,9 @@
 
 <button class="btn btn-primary" (click)="loadMore()" *ngIf="moreAvailable">Load More</button>
 
-<spinner [text]="'Gathering posts...'" [name]="spinnerName"></spinner>
+<spinner [text]="'Gathering posts...'" [name]="initSpinnerName"></spinner>
+<div>
+<div style="width: 200px;height:200px;">
+  <spinner [text]="'Gathering posts...'" [name]="moreSpinnerName" [fullScreen]="false"></spinner>
+</div>
+</div>

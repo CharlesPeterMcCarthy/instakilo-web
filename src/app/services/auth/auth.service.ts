@@ -29,7 +29,7 @@ export class AuthService {
     this._amplifyService.authStateChange$ // Listening for auth state changes
     .subscribe((authState: AuthState) => {
        console.log(authState);
-       this.setAccessToken(authState.user.signInUserSession.accessToken.jwtToken);
+       if (authState.user) this.setAccessToken(authState.user.signInUserSession.accessToken.jwtToken);
        this.setLoggedInState(authState.state === 'signedIn' && authState.user);
      }
     );
