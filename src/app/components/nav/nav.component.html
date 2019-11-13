@@ -3,21 +3,27 @@
   <button type="button" class="navbar-toggler navbar-toggler-right" data-toggle="collapse" data-target="#nav-links" (click)="toggleNavBar()">
     <span class="navbar-toggler-icon"></span>
   </button>
+
   <div class="collapse navbar-collapse" [ngClass]="{ 'show': expandNav }" id="nav-links">
     <ul class="navbar-nav mr-auto" (click)="closeNavBar()">
+      <li class="nav-item" *ngIf="!isCreatingPost()">
+        <a class="nav-link" href="javascript:void(0)">
+          <label class="link-label">
+            <fa-icon [icon]="icons.upload"></fa-icon>
+            <input type="file" accept="image/*" (change)="uploadImage($event)" hidden>
+          </label>
+        </a>
+      </li>
+
       <app-nav-link *ngFor="let navLink of navLinksLeft" [navLink]="navLink"></app-nav-link>
     </ul>
 
     <ul class="navbar-nav" (click)="closeNavBar()" *ngIf="!IsLoggedIn()">
-      <app-nav-link *ngFor="let navLink of navLinksRight" [navLink]="navLink"></app-nav-link>
+      <app-nav-link *ngFor="let navLink of navLinksRightLoggedIn" [navLink]="navLink"></app-nav-link>
     </ul>
 
     <ul class="navbar-nav" *ngIf="IsLoggedIn()">
-      <app-nav-link [navLink]="logoutLink" (click)="logout()"></app-nav-link>
+      <app-nav-link *ngFor="let navLink of navLinksRightLoggedOut" [navLink]="navLink"></app-nav-link>
     </ul>
-
-    <a href="javascript:void(0)" routerLink="/profile" *ngIf="IsLoggedIn()" title="My Profile">
-      <fa-icon [icon]="icon"></fa-icon>
-    </a>
   </div>
 </nav>

@@ -1,40 +1,38 @@
-import { Component, Inject, HostListener } from '@angular/core';
+import { Component, Inject, HostListener, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
 import { NavLink } from '../../interfaces/nav-link';
 import { DOCUMENT } from '@angular/common';
-import { faUserAlt , IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faUserAlt, faUpload, faSignOutAlt, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { ImageCourierService } from '../../services/image-courier/image-courier.service';
+import HTMLInputEvent from '../../interfaces/html-input-event';
+import { IconCollection } from '../../interfaces/icon-collection';
 
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.css']
+  styleUrls: ['./nav.component.less']
 })
 
-export class NavComponent {
+export class NavComponent implements OnInit {
 
-  public icon: IconDefinition = faUserAlt;
+  public icons: IconCollection = {
+    profile: faUserAlt,
+    upload: faUpload,
+    logout: faSignOutAlt
+  };
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private _authService: AuthService,
-    private _router: Router
-  ) {}
+    private _router: Router,
+    private _imageCourier: ImageCourierService
+  ) { }
+
+  public ngOnInit(): void { }
 
   private isBelowNav: boolean = false;
   public expandNav: boolean = false;
-
-  public navLinksLeft = Array<NavLink>(
-    { text: 'Feed', url: '/feed' },
-    { text: 'Post', url: '/post' }
-  );
-
-  public navLinksRight = Array<NavLink>(
-    { text: 'Login', url: '/login' },
-    { text: 'Sign Up', url: '/signup' }
-  );
-
-  public logoutLink: NavLink = ({ text: 'Logout' });
 
   @HostListener('window:scroll', [])
   public OnScroll = (): void => {
@@ -47,7 +45,7 @@ export class NavComponent {
   public toggleNavBar = (): boolean => this.expandNav = !this.expandNav;
 
   public closeNavBar = (): void => {
-    this.expandNav = false;
+    this.expandNav = false; // Keep within curly braces to stop e.preventDefault() being triggered in the background
   }
 
   public logout = async (): Promise<void> => {
@@ -57,5 +55,33 @@ export class NavComponent {
   }
 
   public IsLoggedIn = (): boolean => this._authService.isLoggedIn();
+
+  public uploadImage = async (e: Event): Promise<void> => {
+    const event = e as HTMLInputEvent; // For intellisense
+    if (!event.target.files || !event.target.files[0]) return;
+
+    this._imageCourier.handoverImage(event.target.files[0]);
+    await this._router.navigate(['/create-post']);
+  }
+
+  public isCreatingPost = (): boolean => this._router.url === '/create-post'; // For hiding the upload button while on the create-post page
+
+  /*
+    Declare the nav links after the functions - Any nav links using the action property
+    must have the corresponding action (function) declared before the nav link.
+  */
+  public navLinksLeft: NavLink[] = Array<NavLink>(
+    { text: 'Feed', url: '/feed' }
+  );
+
+  public navLinksRightLoggedIn: NavLink[] = Array<NavLink>(
+    { text: 'Login', url: '/login' },
+    { text: 'Sign Up', url: '/signup' }
+  );
+
+  public navLinksRightLoggedOut: NavLink[] = Array<NavLink>(
+    { icon: this.icons.profile, url: '/profile' },
+    { icon: this.icons.logout, action: this.logout }
+  );
 
 }
