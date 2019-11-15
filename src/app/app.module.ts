@@ -8,12 +8,14 @@ import { NavLinkComponent } from './components/nav/nav-link/nav-link.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AmplifyAngularModule, AmplifyModules, AmplifyService } from 'aws-amplify-angular';
 import Auth from '@aws-amplify/auth';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
-    NavLinkComponent
+    NavLinkComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,
