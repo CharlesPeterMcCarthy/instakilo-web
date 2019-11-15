@@ -9,29 +9,45 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AmplifyAngularModule, AmplifyModules, AmplifyService } from 'aws-amplify-angular';
 import Auth from '@aws-amplify/auth';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { LoginComponent } from './pages/login/login.component';
+import { CreatePostComponent } from './pages/create-post/create-post.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NOTYF, notyfFactory } from './utils/notyf.token';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
     NavLinkComponent,
-    SignUpComponent
+    SignUpComponent,
+    LoginComponent,
+    CreatePostComponent,
+    SpinnerComponent
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
+    BrowserModule,
     HttpClientModule,
     FontAwesomeModule,
-    AmplifyAngularModule
+    AmplifyAngularModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NgxSpinnerModule
   ],
   providers: [
     {
       provide: AmplifyService,
-      useFactory:  () => {
+      useFactory: (): AmplifyAngularModule => {
         return AmplifyModules({
           Auth
         });
       }
+    },
+    {
+      provide: NOTYF,
+      useFactory: notyfFactory
     }
   ],
   bootstrap: [

@@ -1,19 +1,19 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators, FormArray, FormsModule, ReactiveFormsModule}  from '@angular/forms';
 import { User } from '../../interfaces/user';
-import {AuthService} from '../../services/auth/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.css']
+  styleUrls: ['./sign-up.component.less']
 })
 
 export class SignUpComponent implements OnInit {
     constructor(private fb: FormBuilder, private _auth: AuthService) { }
     @Input() user: User;
     @Output() userSubmitted = new EventEmitter<any>();
-    
+
     signup = new FormGroup({
     username: new FormControl(''),
     password: new FormControl(''),
