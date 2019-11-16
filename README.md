@@ -12,6 +12,9 @@
 - InvalidUsernameException: The username you have entered is invalid
 - InvalidEmailException: The email address you have entered is invalid
 - UsernameExistsException: An account with that username already exists
+- MissingBirthDateException: You must enter your date of birth
+- BirthDateTooLongException: The date of birth you entered is invalid
+- BirthDateTooShortException: The date of birth you entered is invalid
 
 ### Cognito Confirm Sign Up Errors
 

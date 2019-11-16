@@ -6,6 +6,8 @@ import { Notyf } from 'notyf';
 import { AuthClass } from 'aws-amplify';
 import { AuthState } from 'aws-amplify-angular/src/providers/auth.state';
 import { ISignUpResult, CognitoUser } from 'amazon-cognito-identity-js';
+import * as moment from 'moment';
+import { UtilsService } from '../utils/utils.service';
 
 export interface CustomAuthError {
   code: string;
@@ -29,16 +31,17 @@ export class AuthService {
   constructor(
     private _http: HttpClient,
     private _amplifyService: AmplifyService,
+    private _uilts: UtilsService,
     @Inject(NOTYF) private notyf: Notyf
   ) {
     this._amplifyService.authStateChange$ // Listening for auth state changes
       .subscribe((authState: AuthState) => {
         console.log(authState);
         if (authState.user) {
-          this.setAccessToken(authState.user.signInUserSession.accessToken.jwtToken);
+          // this.setAccessToken(authState.user.signInUserSession.accessToken.jwtToken);
           this.user = authState.user;
-          console.log(this.user);
         }
+
         this.setLoggedInState(authState.state === 'signedIn' && authState.user);
       }
     );
@@ -55,9 +58,6 @@ export class AuthService {
     user hasn't been forcefully logged out or removed from the system
   */
   public checkUserAuthenticated = async (): Promise<void> => { // Called when the app first loads
-    // const session = await this.Auth.currentSession();
-    // this.setAccessToken(session.getAccessToken().getJwtToken()); // TO BE REMOVED **************************
-
     try {
       await this.Auth.currentAuthenticatedUser({ bypassCache: true }); // Let state change listener handle user object
     } catch (e) { // User is invalid / not authenticated
@@ -75,7 +75,6 @@ export class AuthService {
       await this.Auth.signIn(username, password);
       return { success: true };
     } catch (e) {
-      console.log(e);
       return { error: e, success: false };
     }
   }
@@ -88,7 +87,7 @@ export class AuthService {
         password,
         attributes: {
           email,
-          birthdate: dob.toISOString().split('T')[0],
+          birthdate: moment(dob).format('YYYY-MM-DD'),
           'custom:firstname': firstName,
           'custom:lastname': lastName
         }
@@ -109,14 +108,14 @@ export class AuthService {
         in order to provide accurate validation error messages
     */
 
-    if (
-      e.code === 'InvalidPasswordException'
-      || e.code === 'InvalidParameterException'
-      && e.message.toLowerCase().indexOf('password') > -1
-    ) res.error.code = 'InvalidPasswordException';
-
-    if (e.message.toLowerCase().indexOf('username') > -1) res.error.code = 'InvalidUsernameException';
-    if (e.code === 'InvalidParameterException' && e.message.toLowerCase().indexOf('email') > -1) res.error.code = 'InvalidEmailException';
+    if (e.code === 'InvalidParameterException') {
+      if (this._uilts.textContains(e.message, ['username'])) res.error.code = 'InvalidUsernameException';
+      if (this._uilts.textContains(e.message, ['email'])) res.error.code = 'InvalidEmailException';
+      if (this._uilts.textContains(e.message, ['password'])) res.error.code = 'InvalidPasswordException';
+      if (this._uilts.textContains(e.message, ['birthdate', 'required'])) res.error.code = 'MissingBirthDateException';
+      if (this._uilts.textContains(e.message, ['birthdate', 'schema', 'longer'])) res.error.code = 'BirthDateTooLongException';
+      if (this._uilts.textContains(e.message, ['birthdate', 'schema', 'shorter'])) res.error.code = 'BirthDateTooShortException';
+    }
 
     return res;
   }
@@ -130,20 +129,6 @@ export class AuthService {
     }
   }
 
-  public getAccessToken = (): string => localStorage.getItem('access-token');
-
-  private setAccessToken = (token: string): void => localStorage.setItem('access-token', token);
-
-  // public refreshSession = async () => {
-  //   const user: CognitoUser = await this.Auth.currentAuthenticatedUser()
-  //   const curSession = await this.Auth.currentSession();
-  //
-  //   console.log(curSession);
-  //
-  //   user.refreshSession(curSession.getRefreshToken(), (err, session) => {
-  //     console.log(err);
-  //     console.log(session);
-  //   });
-  // }
+  public getAccessToken = (): string => this.user.getSignInUserSession().getAccessToken().getJwtToken();
 
 }
