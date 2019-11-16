@@ -7,16 +7,20 @@ import { AuthClass } from 'aws-amplify';
 import { AuthState } from 'aws-amplify-angular/src/providers/auth.state';
 import { ISignUpResult, CognitoUser } from 'amazon-cognito-identity-js';
 
-interface CustomAuthError {
-  error: Error;
+export interface CustomAuthError {
+  code: string;
+  message: string;
+  name: string;
+}
+
+export interface CustomResponse {
+  error?: CustomAuthError;
   success: boolean;
-  field: null | string;
 }
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class AuthService {
 
   private Auth: AuthClass = this._amplifyService.auth();
@@ -27,10 +31,11 @@ export class AuthService {
     @Inject(NOTYF) private notyf: Notyf
   ) {
     this._amplifyService.authStateChange$ // Listening for auth state changes
-    .subscribe((authState: AuthState) => {
-       console.log(authState);
-       this.setLoggedInState(authState.state === 'signedIn' && authState.user);
-     }
+      .subscribe((authState: AuthState) => {
+        console.log(authState);
+        if (authState.user) this.setAccessToken(authState.user.signInUserSession.accessToken.jwtToken);
+        this.setLoggedInState(authState.state === 'signedIn' && authState.user);
+      }
     );
   }
 
@@ -39,14 +44,14 @@ export class AuthService {
     else localStorage.clear();
   }
 
-    /*
-      Request Cognito to check if user is still valid & authenticated.
-      By-pass the local cache and make a direct call to Cognito to check
-      user hasn't been forcefully logged out or removed from the system
-    */
+  /*
+    Request Cognito to check if user is still valid & authenticated.
+    By-pass the local cache and make a direct call to Cognito to check
+    user hasn't been forcefully logged out or removed from the system
+  */
   public checkUserAuthenticated = async (): Promise<void> => { // Called when the app first loads
-    const session = await this.Auth.currentSession();
-    this.setAccessToken(session.getAccessToken().getJwtToken()); // TO BE REMOVED **************************
+    // const session = await this.Auth.currentSession();
+    // this.setAccessToken(session.getAccessToken().getJwtToken()); // TO BE REMOVED **************************
 
     try {
       await this.Auth.currentAuthenticatedUser({ bypassCache: true }); // Let state change listener handle user object
@@ -60,19 +65,17 @@ export class AuthService {
 
   public logout = async (): Promise<void> => await this.Auth.signOut();
 
-  public login = async (username: string, password: string): Promise<{ success: boolean; error?: Error }> => {
+  public login = async (username: string, password: string): Promise<CustomResponse> => {
     try {
       await this.Auth.signIn(username, password);
       return { success: true };
     } catch (e) {
-      if (e.code === 'UserNotFoundException') this.notyf.error('The username you enter does not match any accounts in our system');
-      if (e.code === 'NotAuthorizedException') this.notyf.error('The password you entered is incorrect');
-      if (e.code === 'UserNotConfirmedException') this.notyf.error('You have not confirmed your account yet');
+      console.log(e);
       return { error: e, success: false };
     }
   }
 
-  public signUp = async (username: string, email: string, password: string): Promise<ISignUpResult | CustomAuthError> => {
+  public signUp = async (username: string, email: string, password: string): Promise<ISignUpResult | CustomResponse> => {
     try {
       const response = await this.Auth.signUp({
         username,
@@ -84,37 +87,36 @@ export class AuthService {
 
       return response;
     } catch (e) {
-      return this.handleSignUpError(e);
+      return this.handleSignUpError(e as CustomAuthError);
     }
   }
 
-  private handleSignUpError = (e: any): CustomAuthError => {
-    const customError: CustomAuthError = { error: e, success: false, field: null };
+  private handleSignUpError = (e: CustomAuthError): CustomResponse => {
+    const res: CustomResponse = { error: e, success: false };
+
+    /*
+        Cognito does not specify which key / value is causing the issues
+        We must figure out the specific value that causes the error
+        in order to provide accurate validation error messages
+    */
 
     if (
       e.code === 'InvalidPasswordException'
       || e.code === 'InvalidParameterException'
       && e.message.toLowerCase().indexOf('password') > -1
-    ) customError.field = 'password';
+    ) res.error.code = 'InvalidPasswordException';
 
-    if (e.message.toLowerCase().indexOf('username') > -1) customError.field = 'username';
-    if (e.code === 'InvalidParameterException' && e.message.toLowerCase().indexOf('email') > -1) customError.field = 'email';
+    if (e.message.toLowerCase().indexOf('username') > -1) res.error.code = 'InvalidUsernameException';
+    if (e.code === 'InvalidParameterException' && e.message.toLowerCase().indexOf('email') > -1) res.error.code = 'InvalidEmailException';
 
-    if (customError.field === 'password') this.notyf.error('Password is invalid');
-    if (customError.field === 'username') this.notyf.error('Username is invalid');
-    if (e.code === 'UsernameExistsException') this.notyf.error('An account with that username already exists');
-
-    return customError;
+    return res;
   }
 
-  public confirmSignUp = async (username: string, code: string): Promise<{ success: boolean; error?: Error }> => {
+  public confirmSignUp = async (username: string, code: string): Promise<CustomResponse> => {
     try {
       await this.Auth.confirmSignUp(username, code);
       return { success: true };
     } catch (e) {
-      if (e.code === 'CodeMismatchException') this.notyf.error('The confirmation code you entered is incorrect');
-      if (e.code === 'NotAuthorizedException') this.notyf.error('This account has already been confirmed');
-      if (e.code === 'ExpiredCodeException') this.notyf.error('The confirmation code you entered has expired. Please request a new one.');
       return { error: e, success: false };
     }
   }
@@ -123,16 +125,16 @@ export class AuthService {
 
   private setAccessToken = (token: string): void => localStorage.setItem('access-token', token);
 
-  public refreshSession = async () => {
-    const user: CognitoUser = await this.Auth.currentAuthenticatedUser()
-    const curSession = await this.Auth.currentSession();
-
-    console.log(curSession);
-
-    user.refreshSession(curSession.getRefreshToken(), (err, session) => {
-      console.log(err);
-      console.log(session);
-    });
-  }
+  // public refreshSession = async () => {
+  //   const user: CognitoUser = await this.Auth.currentAuthenticatedUser()
+  //   const curSession = await this.Auth.currentSession();
+  //
+  //   console.log(curSession);
+  //
+  //   user.refreshSession(curSession.getRefreshToken(), (err, session) => {
+  //     console.log(err);
+  //     console.log(session);
+  //   });
+  // }
 
 }
