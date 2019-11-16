@@ -4,6 +4,7 @@ import { Post } from '@instakilo/common';
 import { GetPostsResponse } from '../../interfaces/api-response';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DOCUMENT } from '@angular/common';
+import { faSyncAlt, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-feed',
@@ -19,6 +20,8 @@ export class FeedComponent implements OnInit {
   private postRequestCount: number = 2;
   private lastEvaluatedKey: string;
   public moreAvailable: boolean = false;
+  private retrievingPosts: boolean = false; // Used to prevent multiple calls at the same time
+  public loadMoreIcon: IconDefinition = faSyncAlt;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -32,13 +35,15 @@ export class FeedComponent implements OnInit {
 
   @HostListener('window:scroll', [])
   public OnScroll = async (): Promise<void> => {
-    if (window.innerHeight + window.scrollY >= this.document.documentElement.offsetHeight && this.moreAvailable)
-      await this.getPosts(this.moreSpinnerName);
+    if (window.innerHeight + window.scrollY >= this.document.documentElement.offsetHeight
+      && this.moreAvailable
+      && !this.retrievingPosts) await this.getPosts(this.moreSpinnerName);
   }
 
   public loadMore = async (): Promise<void> => await this.getPosts(this.moreSpinnerName);
 
   private getPosts = async (spinnerName: string): Promise<void> => {
+    this.retrievingPosts = true;
     await this._spinner.show(spinnerName);
 
     this._postsService.getPosts(this.postRequestCount, this.lastEvaluatedKey)
@@ -46,7 +51,11 @@ export class FeedComponent implements OnInit {
         console.log(data);
         if (data) this.sortData(data);
         this._spinner.hide(spinnerName);
-      }, () => this._spinner.hide(spinnerName));
+        this.retrievingPosts = false;
+      }, () => {
+        this._spinner.hide(spinnerName);
+        this.retrievingPosts = false;
+      });
 
   }
 

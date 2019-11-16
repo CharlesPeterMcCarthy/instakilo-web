@@ -21,7 +21,7 @@ export interface GetPostResponse extends GenericResponse {
   // success
 }
 
-interface PostsResponse extends GenericResponse {
+export interface PostsResponse extends GenericResponse {
   posts: Post[];
   // success
 }

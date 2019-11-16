@@ -7,11 +7,9 @@
   </div>
 </div>
 
-<button class="btn btn-primary" (click)="loadMore()" *ngIf="moreAvailable">Load More</button>
+<div class="load-more">
+  <fa-icon [icon]="loadMoreIcon" (click)="loadMore()" *ngIf="moreAvailable"></fa-icon>
+</div>
 
 <spinner [text]="'Gathering posts...'" [name]="initSpinnerName"></spinner>
-<div>
-<div style="width: 200px;height:200px;">
-  <spinner [text]="'Gathering posts...'" [name]="moreSpinnerName" [fullScreen]="false"></spinner>
-</div>
-</div>
+<!--<spinner [text]="'Gathering posts...'" [name]="moreSpinnerName" [fullScreen]="false"></spinner>-->
