@@ -1,0 +1,49 @@
+     <form formGroup="sign-upform" (ngSubmit)="onSubmit()">
+
+        <div class="form-control">
+            <label for="firstName"> First Name: </label>
+            <input id="firstName" type="text" formControlName="firstName" class="form-control"/>
+        </div>
+
+        <div class="form-control">
+            <label for="lastName"> Last Name: </label>
+            <input id="lastName" type="text" formControlName="lastName" class="form-control"/>
+        </div>
+
+        <div class="form-control">
+            <label for="dob"> Date Of Birth: </label>
+            <input id="dob" type="text" formControlName="dob" class="form-control"/>
+            
+        </div>
+
+        <div class="form-control">
+            <label for="Username"> User Name: </label>
+            <input id="username" type="text" formControlName="userName" class="form-control"/>
+            <span *ngIf="username.invalid && username.touched && !username.errors">
+                You must enter a username
+            </span>
+        </div>
+
+        <div class="form-control">
+            <label for="password"> Password: </label>
+            <input id="password" type="text" formControlName="password" class="form-control"/>
+        </div>
+
+        <div class="form-control">
+            <label for="confirmpassword"> Confirm Password: </label>
+            <input id="confirmpassword" type="text" formControlName="confirmpassword" class="form-control"/>
+        </div>
+
+        <div class="form-control">
+            <label for="email"> Email: </label>
+            <input id="email" type="text" formControlName="email" class="form-control"/>
+        </div>
+
+        <div class="form-control">
+            <label for="confirmemail"> Confirm Email: </label>
+            <input id="confirmemail" type="text" formControlName="confirmemail" class="form-control"/>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+<!-- <div *ngFor="let signup of signups" class="form-group"> </div> -->
