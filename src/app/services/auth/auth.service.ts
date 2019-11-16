@@ -24,6 +24,7 @@ export interface CustomResponse {
 export class AuthService {
 
   private Auth: AuthClass = this._amplifyService.auth();
+  public user: CognitoUser;
 
   constructor(
     private _http: HttpClient,
@@ -33,7 +34,11 @@ export class AuthService {
     this._amplifyService.authStateChange$ // Listening for auth state changes
       .subscribe((authState: AuthState) => {
         console.log(authState);
-        if (authState.user) this.setAccessToken(authState.user.signInUserSession.accessToken.jwtToken);
+        if (authState.user) {
+          this.setAccessToken(authState.user.signInUserSession.accessToken.jwtToken);
+          this.user = authState.user;
+          console.log(this.user);
+        }
         this.setLoggedInState(authState.state === 'signedIn' && authState.user);
       }
     );
@@ -75,13 +80,17 @@ export class AuthService {
     }
   }
 
-  public signUp = async (username: string, email: string, password: string): Promise<ISignUpResult | CustomResponse> => {
+  public signUp = async (username: string, email: string, password: string, dob: Date, firstName: string, lastName: string):
+    Promise<ISignUpResult | CustomResponse> => {
     try {
       const response = await this.Auth.signUp({
         username,
         password,
         attributes: {
-          email
+          email,
+          birthdate: dob.toISOString().split('T')[0],
+          'custom:firstname': firstName,
+          'custom:lastname': lastName
         }
       });
 
