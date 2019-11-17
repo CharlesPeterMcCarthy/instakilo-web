@@ -4,7 +4,7 @@
   <div class="form-group">
     <label for="username">Username</label>
     <input type="text" id="username" class="form-control {{ username.invalid && username.touched ? 'error' :'' }}" formControlName="username">
-    <span *ngIf="username.invalid && username.touched && !username.errors">
+    <span *ngIf="username.invalid && username.touched">
       You must enter a username
     </span>
     <span *ngIf="username.errors && username.errors.UserNotFoundException">
@@ -18,7 +18,7 @@
   <div class="form-group">
     <label for="password">Password</label>
     <input type="password" id="password" class="form-control {{ password.invalid && password.touched ? 'error' :'' }}" formControlName="password">
-    <span *ngIf="password.invalid && password.touched && !password.errors">
+    <span *ngIf="password.invalid && password.touched">
       Password must enter your password
     </span>
     <span *ngIf="password.errors && password.errors.NotAuthorizedException">

@@ -10,23 +10,13 @@ import { Notyf } from 'notyf';
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.less']
 })
-
 export class SignUpComponent implements OnInit {
 
   private worked: boolean = false;
-  private passwordMatch: boolean = true;
-  private EmailErrorTypes: string[] = ['InvalidEmailException'];
-  private PasswordErrorTypes: string[] = ['InvalidPasswordException'];
-  private UserNameErrorTypes: string[] = ['UsernameExistsException', 'InvalidUsernameException' ];
-  private DOBErrorTypes: string[] = [' MissingBirthDateException', 'BirthDateTooLongException', 'BirthDateTooShortException' ];
-
-  constructor(
-    private fb: FormBuilder,
-    private _auth: AuthService,
-    private _router: Router,
-    @Inject(NOTYF) private _notyf: Notyf
-  ) { }
-
+  private emailErrorTypes: string[] = [ 'InvalidEmailException' ];
+  private passwordErrorTypes: string[] = [ 'InvalidPasswordException' ];
+  private userNameErrorTypes: string[] = [ 'UsernameExistsException', 'InvalidUsernameException' ];
+  private dobErrorTypes: string[] = [ 'MissingBirthDateException', 'BirthDateTooLongException', 'BirthDateTooShortException' ];
   public signup: FormGroup = new FormGroup({
     username: new FormControl(''),
     password: new FormControl(''),
@@ -37,15 +27,27 @@ export class SignUpComponent implements OnInit {
     lastname: new FormControl('')
   });
 
+  constructor(
+    private fb: FormBuilder,
+    private _auth: AuthService,
+    private _router: Router,
+    @Inject(NOTYF) private _notyf: Notyf
+  ) { }
+
   public ngOnInit(): void {
     this.signup = this.fb.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]],
       confirmpassword: ['', [Validators.required]],
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       firstname: ['', [Validators.required]],
       lastname: ['', [Validators.required]],
       dob: ['', [Validators.required]]
+    });
+
+    this.signup.valueChanges.subscribe((fields: { [key: string]: any }) => {
+        // Ensure password & confirm password values match
+      if (fields.password !== fields.confirmpassword) this.confirmpassword.setErrors({ PasswordMismatch: true });
     });
   }
 
@@ -57,34 +59,23 @@ export class SignUpComponent implements OnInit {
   public get lastName(): AbstractControl { return this.signup.get('lastname'); }
   public get dob(): AbstractControl { return this.signup.get('dob'); }
 
-  private isUsernameError = (code: string): boolean => this.UserNameErrorTypes.indexOf(code) > -1;
-  private isEmailError = (code: string): boolean => this.EmailErrorTypes.indexOf(code) > -1;
-  private isPasswordError = (code: string): boolean => this.PasswordErrorTypes.indexOf(code) > -1;
-  private isDOBError = (code: string): boolean => this.DOBErrorTypes.indexOf(code) > -1;
-
-  private checkMatch() {
-        
-        if (this.password == this.confirmpassword && this.password != null) this.passwordMatch=true;
-        else this.passwordMatch=false;
-  }
+  private isUsernameError = (code: string): boolean => this.userNameErrorTypes.indexOf(code) > -1;
+  private isEmailError = (code: string): boolean => this.emailErrorTypes.indexOf(code) > -1;
+  private isPasswordError = (code: string): boolean => this.passwordErrorTypes.indexOf(code) > -1;
+  private isDOBError = (code: string): boolean => this.dobErrorTypes.indexOf(code) > -1;
 
   public onSubmit = async (): Promise<void> => {
-        const res: CustomResponse = await this._auth.signUp(
-          this.username.value.trim(),
-          this.email.value.trim(),
-          this.password.value.trim(),
-          this.dob.value.trim(),
-          this.firstName.value.trim(),
-          this.lastName.value.trim()
-        );
+    const res: CustomResponse = await this._auth.signUp(
+      this.username.value.trim(),
+      this.email.value.trim(),
+      this.password.value.trim(),
+      this.dob.value.trim(),
+      this.firstName.value.trim(),
+      this.lastName.value.trim()
+    );
 
-    this.checkMatch();
-    if (this.passwordMatch)
-    {
-        if (res.success) this.worked = true;
-        else this.handleError(res.error);
-    }
-
+    if (res.success) this.worked = true;
+    else this.handleError(res.error);
   }
 
   private handleError = (err: CustomAuthError): void => {
