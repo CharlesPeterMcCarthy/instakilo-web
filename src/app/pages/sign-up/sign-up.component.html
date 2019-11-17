@@ -2,7 +2,7 @@
   <h1>Sign Up</h1>
 </div>
 
-<form [formGroup]="signup" (ngSubmit)="onSubmit()">
+<form [formGroup]="signup" (ngSubmit)="onSubmit()" class="signup">
   <div class="form-group">
       <label for="firstName"> First Name: </label>
       <input id="firstName" type="text" formControlName="firstName" class="form-control"/>
