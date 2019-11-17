@@ -14,9 +14,7 @@ import { Notyf } from 'notyf';
 export class SignUpComponent implements OnInit {
 
   private worked: boolean = false;
-  private emailMatch: boolean = true;
-  private passwordMatch: boolean = true; 
-  private allMatch: boolean = false;
+  private passwordMatch: boolean = true;
   private EmailErrorTypes: string[] = ['InvalidEmailException'];
   private PasswordErrorTypes: string[] = ['InvalidPasswordException'];
   private UserNameErrorTypes: string[] = ['UsernameExistsException', 'InvalidUsernameException' ];
@@ -34,7 +32,6 @@ export class SignUpComponent implements OnInit {
     password: new FormControl(''),
     confirmpassword: new FormControl(''),
     email: new FormControl(''),
-    confirmemail: new FormControl(''),
     dob: new FormControl(''),
     firstname: new FormControl(''),
     lastname: new FormControl('')
@@ -46,7 +43,6 @@ export class SignUpComponent implements OnInit {
       password: ['', [Validators.required]],
       confirmpassword: ['', [Validators.required]],
       email: ['', [Validators.required]],
-      confirmemail: ['', [Validators.required]],
       firstname: ['', [Validators.required]],
       lastname: ['', [Validators.required]],
       dob: ['', [Validators.required]]
@@ -57,7 +53,6 @@ export class SignUpComponent implements OnInit {
   public get password(): AbstractControl { return this.signup.get('password'); }
   public get confirmpassword(): AbstractControl { return this.signup.get('confirmpassword'); }
   public get email(): AbstractControl { return this.signup.get('email'); }
-  public get confirmemail(): AbstractControl { return this.signup.get('confirmemail'); }
   public get firstName(): AbstractControl { return this.signup.get('firstname'); }
   public get lastName(): AbstractControl { return this.signup.get('lastname'); }
   public get dob(): AbstractControl { return this.signup.get('dob'); }
@@ -68,14 +63,9 @@ export class SignUpComponent implements OnInit {
   private isDOBError = (code: string): boolean => this.DOBErrorTypes.indexOf(code) > -1;
 
   private checkMatch() {
-        if(this.confirmemail === this.email && this.email != null) this.emailMatch=true;
-        else this.emailMatch=false;
         
-        if (this.password === this.confirmpassword && this.password != null) this.passwordMatch=true;
-        else this.emailMatch=false;
-
-        if ((this.emailMatch = true) && (this.passwordMatch = true)) this.allMatch=true;
-        else this.allMatch=true;
+        if (this.password == this.confirmpassword && this.password != null) this.passwordMatch=true;
+        else this.passwordMatch=false;
   }
 
   public onSubmit = async (): Promise<void> => {
@@ -89,7 +79,7 @@ export class SignUpComponent implements OnInit {
         );
 
     this.checkMatch();
-    if (this.allMatch)
+    if (this.passwordMatch)
     {
         if (res.success) this.worked = true;
         else this.handleError(res.error);
