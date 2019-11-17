@@ -2,7 +2,7 @@
   <h1>Sign Up</h1>
 </div>
 
-<form [formGroup]="signup" (ngSubmit)="onSubmit()">
+<form [formGroup]="signup" (ngSubmit)="onSubmit()" class="signup">
   <div class="form-group">
       <label for="firstName"> First Name: </label>
       <input id="firstName" type="text" formControlName="firstName" class="form-control"/>
@@ -15,20 +15,40 @@
 
   <div class="form-group">
       <label for="dob"> Date Of Birth: </label>
-      <input id="dob" type="text" formControlName="dob" class="form-control"/>
+      <input id="dob" type="date" formControlName="dob" class="form-control  {{ dob.errors && dob.touched ? 'error' :'' }}"/>
+      <span *ngIf="dob.errors && dob.errors.MissingBirthDateException">
+        You must enter your date of birth
+      </span>
+      <span *ngIf="dob.errors && dob.errors.BirthDateTooLongException">
+        The date of birth you entered is invalid
+      </span>
+      <span *ngIf="dob.errors && dob.errors.BirthDateTooShortException">
+        The date of birth you entered is invalid
+      </span>
   </div>
 
   <div class="form-group">
       <label for="Username"> User Name: </label>
-      <input id="username" type="text" formControlName="username" class="form-control"/>
+      <input id="username" type="text" formControlName="username" class="form-control {{ username.invalid && username.touched ? 'error' :'' }}"/>
       <span *ngIf="username.invalid && username.touched && !username.errors">
           You must enter a username
+      </span>
+      <span *ngIf="username.errors && username.errors.InvalidUsernameException">
+        An account with that username already exists
       </span>
   </div>
 
   <div class="form-group">
       <label for="password"> Password: </label>
-      <input id="password" type="text" formControlName="password" class="form-control"/>
+      <input id="password" type="text" formControlName="password" class="form-control{{ password.errors && password.touched ? 'error' :'' }}"/>
+      <span *ngIf="password.errors && password.errors.InvalidPasswordException">
+        The password you have entered is invalid
+        - Passwords must contain:
+        - Lowercase letters
+        - Uppercase letters
+        - Numbers
+        - Special characters
+      </span>
   </div>
 
   <div class="form-group">
@@ -38,7 +58,10 @@
 
   <div class="form-group">
       <label for="email"> Email: </label>
-      <input id="email" type="text" formControlName="email" class="form-control"/>
+      <input id="email" type="text" formControlName="email" class="form-control  {{ email.errors && email.touched ? 'error' :'' }}" />
+      <span *ngIf="email.errors && email.errors.InvalidEmailException">
+        The email address you have entered is invalid
+      </span>
   </div>
 
   <div class="form-group">
