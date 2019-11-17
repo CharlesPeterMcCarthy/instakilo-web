@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth/auth.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +10,13 @@ import { AuthService } from './services/auth/auth.service';
 
 export class AppComponent implements OnInit {
 
-  constructor(private auth: AuthService) { }
+  constructor(
+    private _title: Title,
+    private auth: AuthService
+  ) { }
 
   public async ngOnInit(): Promise<void> {
+    this._title.setTitle('InstaKilo');
     await this.auth.checkUserAuthenticated();
   }
 

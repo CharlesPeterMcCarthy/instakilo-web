@@ -126,7 +126,7 @@ export class AuthService {
       await this.Auth.confirmSignUp(username, code);
       return { success: true };
     } catch (e) {
-      return { error: e, success: false };
+      return { success: false, error: e };
     }
   }
 

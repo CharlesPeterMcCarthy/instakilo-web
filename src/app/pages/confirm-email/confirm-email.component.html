@@ -1,0 +1,21 @@
+<h1 *ngIf="!isConfirmed && !error">Confirming Email</h1>
+<h1 *ngIf="isConfirmed">Email Confirmed</h1>
+<h1 *ngIf="error">Unable To Confirm Email</h1>
+
+<p *ngIf="isConfirmed">Your email address has been successfully confirmed.</p>
+<div *ngIf="!isConfirmed">
+  <div *ngIf="error && error === 'CodeMismatchException'">
+    <p class="error">The confirmation code supplied is incorrect.
+      Please check your email and click on the link supplied.</p>
+    <p>If this issues persists, you can request a new code.</p>
+  </div>
+  <div *ngIf="error && error === 'NotAuthorizedException'">
+    <p class="error">This account has already been confirmed.</p>
+  </div>
+  <div *ngIf="error && error === 'ExpiredCodeException'">
+    <p class="error">The confirmation code you entered has expired.</p>
+    <p>Please request a new one.</p>
+  </div>
+</div>
+
+<spinner [text]="'Confirming...'" [name]="'confirming'"></spinner>

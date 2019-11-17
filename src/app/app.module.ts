@@ -15,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NOTYF, notyfFactory } from './utils/notyf.token';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { ConfirmEmailComponent } from './pages/confirm-email/confirm-email.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     SignUpComponent,
     LoginComponent,
     CreatePostComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    ConfirmEmailComponent
   ],
   imports: [
     AppRoutingModule,
