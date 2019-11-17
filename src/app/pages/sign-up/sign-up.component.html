@@ -1,16 +1,18 @@
-<div id="heading">
+<div id="heading" *ngIf="!worked">
   <h1>Sign Up</h1>
 </div>
 
-<form [formGroup]="signup" (ngSubmit)="onSubmit()" class="signup">
+<form *ngIf="!worked" [formGroup]="signup" (ngSubmit)="onSubmit()" class="signup">
   <div class="form-group">
-      <label for="firstName"> First Name: </label>
-      <input id="firstName" type="text" formControlName="firstName" class="form-control"/>
+      <label for="firstname"> First Name: </label>
+      <input id="firstname" type="text" formControlName="firstname" class="form-control"/>
+      <!-- <input id="firstname" type="text" formControlName="firstname" class="form-control {{ firstname.touched ? 'error' :'' }}"/> -->
   </div>
 
   <div class="form-group">
-      <label for="lastName"> Last Name: </label>
-      <input id="lastName" type="text" formControlName="lastName" class="form-control"/>
+      <label for="lastname"> Last Name: </label>
+      <input id="lastname" type="text" formControlName="lastname" class="form-control"/>
+      <!-- <input id="lastname" type="text" formControlName="lastname" class="form-control {{ lastname.touched ? 'error' :'' }}"/> -->
   </div>
 
   <div class="form-group">
@@ -40,34 +42,35 @@
 
   <div class="form-group">
       <label for="password"> Password: </label>
-      <input id="password" type="text" formControlName="password" class="form-control{{ password.errors && password.touched ? 'error' :'' }}"/>
+      <input id="password" type="password" formControlName="password" class="form-control {{ password.errors && password.touched ? 'error' :'' }}"/>
       <span *ngIf="password.errors && password.errors.InvalidPasswordException">
         The password you have entered is invalid
-        - Passwords must contain:
-        - Lowercase letters
-        - Uppercase letters
-        - Numbers
-        - Special characters
+        <ul>
+        Passwords must contain:
+        <li>Lowercase letters</li>
+        <li>Uppercase letters</li>
+        <li>Numbers</li>
+        <li>Special characters</li>
+        </ul>
       </span>
   </div>
 
   <div class="form-group">
       <label for="confirmpassword"> Confirm Password: </label>
-      <input id="confirmpassword" type="text" formControlName="confirmpassword" class="form-control"/>
+      <input id="confirmpassword" type="password" formControlName="confirmpassword" class="form-control {{ confirmpassword.errors && confirmpassword.touched ? 'error' :'' }}"/>
+      <span *ngIf="!passwordMatch">Password And Confirm Password Must Match</span>
   </div>
 
   <div class="form-group">
       <label for="email"> Email: </label>
-      <input id="email" type="text" formControlName="email" class="form-control  {{ email.errors && email.touched ? 'error' :'' }}" />
+      <input id="email" type="email" formControlName="email" class="form-control {{ email.errors && email.touched ? 'error' :'' }}" />
       <span *ngIf="email.errors && email.errors.InvalidEmailException">
         The email address you have entered is invalid
       </span>
   </div>
-
-  <div class="form-group">
-      <label for="confirmemail"> Confirm Email: </label>
-      <input id="confirmemail" type="text" formControlName="confirmemail" class="form-control"/>
-  </div>
-
   <button class="btn btn-primary" type="submit">Submit</button>
 </form>
+
+<div *ngIf="worked">
+<h1>You Have Successfully Signed Up For InstaKilo! Please Check Your Email And Follow The Link To Confirm</h1>
+</div>

@@ -14,6 +14,7 @@ import { Notyf } from 'notyf';
 export class SignUpComponent implements OnInit {
 
   private worked: boolean = false;
+  private passwordMatch: boolean = true;
   private EmailErrorTypes: string[] = ['InvalidEmailException'];
   private PasswordErrorTypes: string[] = ['InvalidPasswordException'];
   private UserNameErrorTypes: string[] = ['UsernameExistsException', 'InvalidUsernameException' ];
@@ -31,10 +32,9 @@ export class SignUpComponent implements OnInit {
     password: new FormControl(''),
     confirmpassword: new FormControl(''),
     email: new FormControl(''),
-    confirmemail: new FormControl(''),
     dob: new FormControl(''),
-    firstName: new FormControl(''),
-    lastName: new FormControl('')
+    firstname: new FormControl(''),
+    lastname: new FormControl('')
   });
 
   public ngOnInit(): void {
@@ -43,9 +43,8 @@ export class SignUpComponent implements OnInit {
       password: ['', [Validators.required]],
       confirmpassword: ['', [Validators.required]],
       email: ['', [Validators.required]],
-      confirmemail: ['', [Validators.required]],
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
+      firstname: ['', [Validators.required]],
+      lastname: ['', [Validators.required]],
       dob: ['', [Validators.required]]
     });
   }
@@ -54,15 +53,20 @@ export class SignUpComponent implements OnInit {
   public get password(): AbstractControl { return this.signup.get('password'); }
   public get confirmpassword(): AbstractControl { return this.signup.get('confirmpassword'); }
   public get email(): AbstractControl { return this.signup.get('email'); }
-  public get confirmemail(): AbstractControl { return this.signup.get('confirmemail'); }
-  public get firstName(): AbstractControl { return this.signup.get('firstName'); }
-  public get lastName(): AbstractControl { return this.signup.get('lastName'); }
+  public get firstName(): AbstractControl { return this.signup.get('firstname'); }
+  public get lastName(): AbstractControl { return this.signup.get('lastname'); }
   public get dob(): AbstractControl { return this.signup.get('dob'); }
 
   private isUsernameError = (code: string): boolean => this.UserNameErrorTypes.indexOf(code) > -1;
   private isEmailError = (code: string): boolean => this.EmailErrorTypes.indexOf(code) > -1;
   private isPasswordError = (code: string): boolean => this.PasswordErrorTypes.indexOf(code) > -1;
   private isDOBError = (code: string): boolean => this.DOBErrorTypes.indexOf(code) > -1;
+
+  private checkMatch() {
+        
+        if (this.password == this.confirmpassword && this.password != null) this.passwordMatch=true;
+        else this.passwordMatch=false;
+  }
 
   public onSubmit = async (): Promise<void> => {
         const res: CustomResponse = await this._auth.signUp(
@@ -74,8 +78,13 @@ export class SignUpComponent implements OnInit {
           this.lastName.value.trim()
         );
 
+    this.checkMatch();
+    if (this.passwordMatch)
+    {
         if (res.success) this.worked = true;
         else this.handleError(res.error);
+    }
+
   }
 
   private handleError = (err: CustomAuthError): void => {
