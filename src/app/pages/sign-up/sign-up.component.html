@@ -16,6 +16,15 @@
   <div class="form-group">
       <label for="dob"> Date Of Birth: </label>
       <input id="dob" type="text" formControlName="dob" class="form-control"/>
+      <span *ngIf="dob.errors && dob.errors.MissingBirthDateException">
+        You must enter your date of birth
+      </span>
+      <span *ngIf="dob.errors && dob.errors.BirthDateTooLongException">
+        The date of birth you entered is invalid
+      </span>
+      <span *ngIf="dob.errors && dob.errors.BirthDateTooShortException">
+        The date of birth you entered is invalid
+      </span>
   </div>
 
   <div class="form-group">
@@ -24,11 +33,22 @@
       <span *ngIf="username.invalid && username.touched && !username.errors">
           You must enter a username
       </span>
+      <span *ngIf="username.errors && username.errors.InvalidUsernameException">
+        An account with that username already exists
+      </span>
   </div>
 
   <div class="form-group">
       <label for="password"> Password: </label>
       <input id="password" type="text" formControlName="password" class="form-control"/>
+      <span *ngIf="password.errors && password.errors.InvalidPasswordException">
+        The password you have entered is invalid
+        - Passwords must contain:
+        - Lowercase letters
+        - Uppercase letters
+        - Numbers
+        - Special characters
+      </span>
   </div>
 
   <div class="form-group">
@@ -39,6 +59,9 @@
   <div class="form-group">
       <label for="email"> Email: </label>
       <input id="email" type="text" formControlName="email" class="form-control"/>
+      <span *ngIf="email.errors && email.errors.InvalidEmailException">
+        The email address you have entered is invalid
+      </span>
   </div>
 
   <div class="form-group">
