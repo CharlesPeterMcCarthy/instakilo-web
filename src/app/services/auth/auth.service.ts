@@ -130,6 +130,15 @@ export class AuthService {
     }
   }
 
+  public requestNewCode = async (username: string): Promise<boolean> => {
+    try {
+      await this.Auth.resendSignUp(username);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   public getAccessToken = (): string => this.user.getSignInUserSession().getAccessToken().getJwtToken();
 
 }

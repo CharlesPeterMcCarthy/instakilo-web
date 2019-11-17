@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { AuthService, CustomAuthError, CustomResponse } from 'src/app/services/auth/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NOTYF } from '../../utils/notyf.token';
 import { Notyf } from 'notyf';
 
@@ -25,6 +26,8 @@ export class LoginComponent implements OnInit {
     private _fb: FormBuilder,
     private _auth: AuthService,
     private _router: Router,
+    private activatedroute: ActivatedRoute,
+    private location: Location,
     @Inject(NOTYF) private _notyf: Notyf
   ) { }
 
@@ -33,6 +36,9 @@ export class LoginComponent implements OnInit {
       username: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
+
+    const state: { [k: string]: any } = this.location.getState();
+    if (state.username) this.username.setValue(state.username); // Value passed from confirm email page
   }
 
   public get username(): AbstractControl { return this.loginForm.get('username'); }

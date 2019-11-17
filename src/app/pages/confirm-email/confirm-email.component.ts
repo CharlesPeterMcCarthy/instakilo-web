@@ -18,6 +18,7 @@ export class ConfirmEmailComponent implements OnInit {
   public isConfirmed: boolean = false;
   private knownErrorTypes: string[] = [ 'CodeMismatchException', 'NotAuthorizedException', 'ExpiredCodeException' ];
   public error: string;
+  public requestedCode: boolean;
 
   constructor(
     private _title: Title,
@@ -42,11 +43,12 @@ export class ConfirmEmailComponent implements OnInit {
     await this._spinner.show('confirming');
     const res: CustomResponse = await this._authService.confirmSignUp(this.username, this.confirmationCode);
 
-    console.log(res);
     if (res.success) {
       this.isConfirmed = true;
-      await this._router.navigate(['login']);
+      this._notyf.success('You have successfully confirmed your account');
+      await this._router.navigateByUrl('login', { state: { username: this.username } });
     } else this.handleError(res.error);
+
     await this._spinner.hide('confirming');
   }
 
@@ -54,5 +56,14 @@ export class ConfirmEmailComponent implements OnInit {
     if (this.isKnownError(err.code)) this.error = err.code;
     else this._notyf.error('An unknown error has occurred');
   }
+
+  public requestNewCode = async (): Promise<void> => {
+    await this._spinner.show('requesting');
+    const res: boolean = await this._authService.requestNewCode(this.username);
+    this.requestedCode = res;
+    await this._spinner.hide('requesting');
+  }
+
+  public goToLogin = async (): Promise<boolean> => await this._router.navigate(['login']);
 
 }
