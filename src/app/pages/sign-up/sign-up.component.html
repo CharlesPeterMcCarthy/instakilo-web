@@ -15,7 +15,7 @@
 
   <div class="form-group">
       <label for="dob"> Date Of Birth: </label>
-      <input id="dob" type="text" formControlName="dob" class="form-control  {{ dob.errors && dob.touched ? 'error' :'' }}"/>
+      <input id="dob" type="date" formControlName="dob" class="form-control  {{ dob.errors && dob.touched ? 'error' :'' }}"/>
       <span *ngIf="dob.errors && dob.errors.MissingBirthDateException">
         You must enter your date of birth
       </span>
@@ -29,7 +29,7 @@
 
   <div class="form-group">
       <label for="Username"> User Name: </label>
-      <input id="username" type="text" formControlName="Username" class="form-control {{ username.invalid && username.touched ? 'error' :'' }}"/>
+      <input id="username" type="text" formControlName="username" class="form-control {{ username.invalid && username.touched ? 'error' :'' }}"/>
       <span *ngIf="username.invalid && username.touched && !username.errors">
           You must enter a username
       </span>
