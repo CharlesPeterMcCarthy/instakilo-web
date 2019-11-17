@@ -1,0 +1,43 @@
+<h1 *ngIf="!isConfirmed && !error">Confirming Email</h1>
+<h1 *ngIf="isConfirmed">Email Confirmed</h1>
+<h1 *ngIf="error && !requestedCode">Unable To Confirm Email</h1>
+<h1 *ngIf="requestedCode">Check Your Email</h1>
+
+<div *ngIf="!requestedCode">
+  <p *ngIf="isConfirmed">Your email address has been successfully confirmed.</p>
+
+  <div *ngIf="!isConfirmed">
+    <div *ngIf="error && error === 'CodeMismatchException'">
+      <p class="error">The confirmation code supplied is incorrect.
+        Please check your email and click on the link supplied.</p>
+      <p>If this issues persists, you can request a new code.</p>
+      <p>It is also possible that you have confirmed your account. You can attempt to login.</p>
+      <div class="text-right">
+        <button class="btn btn-primary" (click)="requestNewCode()">Request New Code</button>
+        <button class="btn btn-primary" (click)="goToLogin()">Go To Login</button>
+      </div>
+    </div>
+
+    <div *ngIf="error && error === 'NotAuthorizedException'">
+      <p class="error">This account has already been confirmed.</p>
+      <div class="text-right">
+        <button class="btn btn-primary" (click)="goToLogin()">Go To Login</button>
+      </div>
+    </div>
+
+    <div *ngIf="error && error === 'ExpiredCodeException'">
+      <p class="error">The confirmation code you entered has expired.</p>
+      <p>Please request a new one.</p>
+      <div class="text-right">
+        <button class="btn btn-primary" (click)="requestNewCode()">Request New Code</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="requestedCode">
+  <p>A new confirmation link & code has been sent to your email.</p>
+</div>
+
+<spinner [text]="'Confirming...'" [name]="'confirming'"></spinner>
+<spinner [text]="'Requesting Code...'" [name]="'requesting'"></spinner>
