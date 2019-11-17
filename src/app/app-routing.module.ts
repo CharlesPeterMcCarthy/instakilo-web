@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CreatePostComponent } from './pages/create-post/create-post.component';
 import { LoginComponent } from './pages/login/login.component'
-import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { SignUpComponent } from './pages/sign-up/sign-up.component';
 
 const routes: Routes = [
   { path: 'create-post', component: CreatePostComponent },

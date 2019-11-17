@@ -8,7 +8,7 @@ import { NavLinkComponent } from './components/nav/nav-link/nav-link.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AmplifyAngularModule, AmplifyModules, AmplifyService } from 'aws-amplify-angular';
 import Auth from '@aws-amplify/auth';
-import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { LoginComponent } from './pages/login/login.component';
 import { CreatePostComponent } from './pages/create-post/create-post.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

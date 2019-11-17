@@ -17,6 +17,7 @@ export interface CustomAuthError {
 
 export interface CustomResponse {
   error?: CustomAuthError;
+  [key: string]: any;
   success: boolean;
 }
 
@@ -80,7 +81,7 @@ export class AuthService {
   }
 
   public signUp = async (username: string, email: string, password: string, dob: Date, firstName: string, lastName: string):
-    Promise<ISignUpResult | CustomResponse> => {
+    Promise<CustomResponse> => {
     try {
       const response = await this.Auth.signUp({
         username,
@@ -93,7 +94,7 @@ export class AuthService {
         }
       });
 
-      return response;
+      return { success: true, details: response };
     } catch (e) {
       return this.handleSignUpError(e as CustomAuthError);
     }
