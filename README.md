@@ -1,27 +1,29 @@
-# Instagram
+# InstaKilo
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.5.
+### Cognito Sign Up Errors
 
-## Development server
+- InvalidPasswordException: The password you have entered is invalid
+    - Passwords must contain:
+    - Lowercase letters
+    - Uppercase letters
+    - Numbers
+    - Special characters
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+- InvalidUsernameException: The username you have entered is invalid
+- InvalidEmailException: The email address you have entered is invalid
+- UsernameExistsException: An account with that username already exists
+- MissingBirthDateException: You must enter your date of birth
+- BirthDateTooLongException: The date of birth you entered is invalid
+- BirthDateTooShortException: The date of birth you entered is invalid
 
-## Code scaffolding
+### Cognito Confirm Sign Up Errors
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- CodeMismatchException: The confirmation code you entered is incorrect
+- NotAuthorizedException: This account has already been confirmed
+- ExpiredCodeException: The confirmation code you entered has expired. Please request a new one
 
-## Build
+### Cognito Login Errors
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+- UserNotFoundException: The username you entered does not match any accounts in our system
+- UserNotConfirmedException: You have not confirmed your account yet - Please check your email
+- NotAuthorizedException: The password you entered is incorrect

@@ -107,6 +107,7 @@
     "member-access": [ true, "check-accessor" ],
     "no-return-await": false,
     "align": false,
+    "object-literal-key-quotes": false,
     "no-import-side-effect": [
       true,
       {

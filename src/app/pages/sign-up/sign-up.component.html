@@ -1,0 +1,98 @@
+<div *ngIf="!worked">
+  <h1>Sign Up</h1>
+</div>
+
+<form *ngIf="!worked" [formGroup]="signup" (ngSubmit)="onSubmit()" class="signup">
+  <div class="form-group">
+    <label for="firstname">First Name</label>
+    <input id="firstname" type="text" formControlName="firstname" class="form-control {{ firstName.invalid && firstName.touched ? 'error' : '' }}" />
+    <span *ngIf="firstName.invalid && firstName.touched">
+      You must enter a first name
+    </span>
+  </div>
+
+  <div class="form-group">
+    <label for="lastname">Last Name</label>
+    <input id="lastname" type="text" formControlName="lastname" class="form-control {{ lastName.invalid && lastName.touched ? 'error' : '' }}" />
+    <span *ngIf="lastName.invalid && lastName.touched">
+      You must enter a last name
+    </span>
+  </div>
+
+  <div class="form-group">
+    <label for="dob">Date Of Birth</label>
+    <input id="dob" type="date" formControlName="dob" class="form-control {{ dob.invalid && dob.touched ? 'error' : '' }}" />
+    <span *ngIf="dob.invalid && dob.touched">
+      You must enter a date of birth
+    </span>
+    <span *ngIf="dob.errors && dob.errors.MissingBirthDateException">
+      You must enter your date of birth
+    </span>
+    <span *ngIf="dob.errors && dob.errors.BirthDateTooLongException">
+      The date of birth you entered is invalid
+    </span>
+    <span *ngIf="dob.errors && dob.errors.BirthDateTooShortException">
+      The date of birth you entered is invalid
+    </span>
+  </div>
+
+  <div class="form-group">
+    <label for="Username">User Name</label>
+    <input id="username" type="text" formControlName="username" class="form-control {{ username.invalid && username.touched ? 'error' : '' }}" />
+    <span *ngIf="username.invalid && username.touched">
+      You must enter a username
+    </span>
+    <span *ngIf="username.errors && username.errors.InvalidUsernameException">
+      An account with that username already exists
+    </span>
+  </div>
+
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input id="password" type="password" formControlName="password" class="form-control {{ password.errors && password.touched ? 'error' : '' }}" />
+    <span *ngIf="password.invalid && password.touched">
+      You must enter a password
+    </span>
+    <span *ngIf="password.errors && password.errors.InvalidPasswordException">
+      <p>The password you have entered is invalid</p>
+      <p>Passwords must contain:</p>
+      <ul>
+        <li>Lowercase letters</li>
+        <li>Uppercase letters</li>
+        <li>Numbers</li>
+        <li>Special characters</li>
+      </ul>
+    </span>
+  </div>
+
+  <div class="form-group">
+    <label for="confirmpassword">Confirm Password</label>
+    <input id="confirmpassword" type="password" formControlName="confirmpassword" class="form-control {{ confirmpassword.errors && confirmpassword.touched ? 'error' : '' }}" />
+    <span *ngIf="confirmpassword.invalid && confirmpassword.touched">
+      You must confirm your password
+    </span>
+    <span *ngIf="confirmpassword.touched && password.touched && confirmpassword.errors && confirmpassword.errors.PasswordMismatch">
+      Passwords do not match
+    </span>
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input id="email" type="email" formControlName="email" class="form-control {{ email.errors && email.touched ? 'error' : '' }}" />
+    <span *ngIf="email.invalid && email.touched">
+      You must enter a valid email address
+    </span>
+    <span *ngIf="email.errors && email.errors.InvalidEmailException">
+      The email address you have entered is invalid
+    </span>
+  </div>
+
+  <div class="text-right">
+    <button class="btn btn-primary" type="submit" [disabled]="signup.invalid">Submit</button>
+  </div>
+</form>
+
+<div *ngIf="worked">
+  <h1>You have successfully signed up for InstaKilo!</h1>
+  <p>Please check your email and following the link to confirm your account.</p>
+</div>
