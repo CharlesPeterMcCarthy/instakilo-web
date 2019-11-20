@@ -16,6 +16,9 @@ import { NOTYF, notyfFactory } from './utils/notyf.token';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { ConfirmEmailComponent } from './pages/confirm-email/confirm-email.component';
+import { CommentContainerComponent } from './components/comment-container/comment-container.component';
+import { PostCommentComponent } from './components/post-comment/post-comment.component';
+import { DisplayCommentComponent } from './components/display-comment/display-comment.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import { ConfirmEmailComponent } from './pages/confirm-email/confirm-email.compo
     LoginComponent,
     CreatePostComponent,
     SpinnerComponent,
-    ConfirmEmailComponent
+    ConfirmEmailComponent,
+    CommentContainerComponent,
+    PostCommentComponent,
+    DisplayCommentComponent
   ],
   imports: [
     AppRoutingModule,
