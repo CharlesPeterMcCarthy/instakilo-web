@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { AuthService } from './services/auth/auth.service';
 import { Title } from '@angular/platform-browser';
 
@@ -10,6 +10,8 @@ import { Title } from '@angular/platform-browser';
 
 export class AppComponent implements OnInit {
 
+  public isMobile: boolean = false;
+
   constructor(
     private _title: Title,
     private auth: AuthService
@@ -18,7 +20,12 @@ export class AppComponent implements OnInit {
   public async ngOnInit(): Promise<void> {
     this._title.setTitle('InstaKilo');
     await this.auth.checkUserAuthenticated();
-    // await this.auth.login('Chazo8', 'Test123$').then(d => console.log(d));
+    this.checkScreenSize(window.innerWidth);
   }
+
+  @HostListener('window:resize', ['$event'])
+  public onResize = (event: Event): void => this.checkScreenSize(window.innerWidth);
+
+  private checkScreenSize = (width: number): void => { this.isMobile = width <= 576; };
 
 }

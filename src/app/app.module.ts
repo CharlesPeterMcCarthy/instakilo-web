@@ -17,6 +17,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { FeedComponent } from './pages/feed/feed.component';
 import { ConfirmEmailComponent } from './pages/confirm-email/confirm-email.component';
+import { BottomNavComponent } from './components/bottom-nav/bottom-nav.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ConfirmEmailComponent } from './pages/confirm-email/confirm-email.compo
     CreatePostComponent,
     SpinnerComponent,
     FeedComponent,
-    ConfirmEmailComponent
+    ConfirmEmailComponent,
+    BottomNavComponent
   ],
   imports: [
     AppRoutingModule,
