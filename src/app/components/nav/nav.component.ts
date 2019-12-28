@@ -3,7 +3,7 @@ import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
 import { NavLink } from '../../interfaces/nav-link';
 import { DOCUMENT } from '@angular/common';
-import { faUserAlt, faUpload, faSignOutAlt, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faUserAlt, faUpload, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { ImageCourierService } from '../../services/image-courier/image-courier.service';
 import HTMLInputEvent from '../../interfaces/html-input-event';
 import { IconCollection } from '../../interfaces/icon-collection';

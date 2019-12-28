@@ -1,4 +1,4 @@
-<div id="bottom-nav" class="row">
+<div class="bottom-nav row" *ngIf="IsLoggedIn()">
   <div class="col-3 text-center bottom-nav-btn separator">
     <a class="bottom-nav-link" routerLink="/feed" href="javascript:void(0)">
       <fa-icon [icon]="icons.feed"></fa-icon>
@@ -20,6 +20,19 @@
   <div class="col-3 text-center bottom-nav-btn">
     <a class="bottom-nav-link" routerLink="/profile" href="javascript:void(0)">
       <fa-icon [icon]="icons.profile"></fa-icon>
+    </a>
+  </div>
+</div>
+
+<div class="bottom-nav row" *ngIf="!IsLoggedIn()">
+  <div class="col-6 text-center bottom-nav-btn separator">
+    <a class="bottom-nav-link" routerLink="/login" href="javascript:void(0)">
+      <fa-icon [icon]="icons.login"></fa-icon>
+    </a>
+  </div>
+  <div class="col-6 text-center bottom-nav-btn">
+    <a class="bottom-nav-link" routerLink="/signup" href="javascript:void(0)">
+      <fa-icon [icon]="icons.signup"></fa-icon>
     </a>
   </div>
 </div>

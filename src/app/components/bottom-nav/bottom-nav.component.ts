@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { faUserAlt, faUpload, faImages, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faUserAlt, faUpload, faImages, faSearch, faSignInAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { IconCollection } from '../../interfaces/icon-collection';
 import HTMLInputEvent from '../../interfaces/html-input-event';
 import { ImageCourierService } from '../../services/image-courier/image-courier.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-bottom-nav',
@@ -16,15 +17,20 @@ export class BottomNavComponent implements OnInit {
     profile: faUserAlt,
     upload: faUpload,
     feed: faImages,
-    search: faSearch
+    search: faSearch,
+    login: faSignInAlt,
+    signup: faUserPlus
   };
 
   constructor(
+    private _authService: AuthService,
     private _router: Router,
     private _imageCourier: ImageCourierService
   ) { }
 
   public ngOnInit(): void { }
+
+  public IsLoggedIn = (): boolean => this._authService.isLoggedIn();
 
   public uploadImage = async (e: Event): Promise<void> => {
     console.log(1);
