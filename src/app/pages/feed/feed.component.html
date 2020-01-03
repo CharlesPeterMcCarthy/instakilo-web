@@ -1,12 +1,7 @@
 <h1>Feed</h1>
 
 <div class="posts">
-  <div *ngFor="let post of posts" class="post-container">
-    <div class="img-container">
-      <img src="{{ post.imageURL }}">
-    </div>
-    {{ post.description }}
-  </div>
+  <post-brief *ngFor="let post of posts" [post]="post"></post-brief>
 </div>
 
 <div class="load-more">

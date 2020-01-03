@@ -1,0 +1,34 @@
+<div class="post-container">
+  <div class="post-title">
+    <img src="{{ post.createdBy.avatar || './assets/images/noavatar.jpg' }}" class="avatar">
+    <span class="username">{{ post.createdBy.username }}</span>
+    <fa-icon [icon]="icons.options"></fa-icon>
+  </div>
+
+  <div class="img-container">
+    <img src="{{ post.imageURL }}">
+  </div>
+
+  <div class="post-info">
+    <div class="location info-row">
+      <fa-icon [icon]="icons.location"></fa-icon>
+      {{ post.location.locationName }}
+    </div>
+
+    <div class="description info-row">
+      <fa-icon [icon]="icons.description"></fa-icon>
+      {{ post.description }}
+    </div>
+
+    <div class="hashtags info-row">
+      <fa-icon [icon]="icons.hashtags"></fa-icon>
+      <span class="hash-tag" *ngFor="let tag of post.hashTags">
+        {{ tag }}
+      </span>
+    </div>
+
+    <div class="comments info-row">
+      <fa-icon [icon]="icons.comments"></fa-icon>
+    </div>
+  </div>
+</div>

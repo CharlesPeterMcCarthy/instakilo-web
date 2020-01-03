@@ -18,6 +18,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { FeedComponent } from './pages/feed/feed.component';
 import { ConfirmEmailComponent } from './pages/confirm-email/confirm-email.component';
 import { BottomNavComponent } from './components/bottom-nav/bottom-nav.component';
+import { PostBriefComponent } from './components/posts/post-brief/post-brief.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { BottomNavComponent } from './components/bottom-nav/bottom-nav.component
     SpinnerComponent,
     FeedComponent,
     ConfirmEmailComponent,
-    BottomNavComponent
+    BottomNavComponent,
+    PostBriefComponent
   ],
   imports: [
     AppRoutingModule,
