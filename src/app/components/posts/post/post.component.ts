@@ -1,14 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Post } from '@instakilo/common';
-import { faMapMarkerAlt, faHashtag, faAlignLeft, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import { IconCollection } from '../../../interfaces/icon-collection';
+import { faAlignLeft, faComments, faEllipsisV, faHashtag, faMapMarkerAlt, faUserAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'post-brief',
-  templateUrl: './post-brief.component.html',
-  styleUrls: ['./post-brief.component.less']
+  selector: 'post',
+  templateUrl: './post.component.html',
+  styleUrls: ['./post.component.less']
 })
-export class PostBriefComponent implements OnInit {
+export class PostComponent implements OnInit {
 
   @Input() public post: Post;
 
@@ -16,7 +16,9 @@ export class PostBriefComponent implements OnInit {
     location: faMapMarkerAlt,
     description: faAlignLeft,
     hashtags: faHashtag,
-    options: faEllipsisV
+    comments: faComments,
+    options: faEllipsisV,
+    user: faUserAlt
   };
 
   constructor() { }
