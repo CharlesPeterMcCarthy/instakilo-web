@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Post } from '@instakilo/common';
-import { faMapMarkerAlt, faHashtag, faAlignLeft, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
+import { faMapMarkerAlt, faHashtag, faAlignLeft, faEllipsisV, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { IconCollection } from '../../../interfaces/icon-collection';
 
 @Component({
@@ -16,7 +16,8 @@ export class PostBriefComponent implements OnInit {
     location: faMapMarkerAlt,
     description: faAlignLeft,
     hashtags: faHashtag,
-    options: faEllipsisV
+    options: faEllipsisV,
+    continue: faArrowRight
   };
 
   constructor() { }

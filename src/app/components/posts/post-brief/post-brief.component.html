@@ -26,5 +26,9 @@
         {{ tag }}
       </span>
     </div>
+
+    <div class="text-right view-post">
+      <a [routerLink]="[ '/post', post._id ]">View <fa-icon [icon]="icons.continue"></fa-icon></a>
+    </div>
   </div>
 </div>
