@@ -19,6 +19,8 @@ import { FeedComponent } from './pages/feed/feed.component';
 import { ConfirmEmailComponent } from './pages/confirm-email/confirm-email.component';
 import { BottomNavComponent } from './components/bottom-nav/bottom-nav.component';
 import { PostBriefComponent } from './components/posts/post-brief/post-brief.component';
+import { ViewPostComponent } from './pages/view-post/view-post.component';
+import { PostComponent } from './components/posts/post/post.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { PostBriefComponent } from './components/posts/post-brief/post-brief.com
     FeedComponent,
     ConfirmEmailComponent,
     BottomNavComponent,
-    PostBriefComponent
+    PostBriefComponent,
+    ViewPostComponent,
+    PostComponent
   ],
   imports: [
     AppRoutingModule,

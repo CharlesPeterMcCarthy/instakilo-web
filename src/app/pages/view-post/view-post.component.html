@@ -1,0 +1,5 @@
+<h1>View Post</h1>
+
+<post [post]="post" *ngIf="post"></post>
+
+<h3 *ngIf="noPost && !post" class="no-post-error">There are no posts matching the ID supplied.</h3>
