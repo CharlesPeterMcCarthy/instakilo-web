@@ -1,11 +1,23 @@
 <div class="main-wrap">
-    <div class="container-fluid">
-        <app-nav></app-nav>
-        <div class="logged-in-as" *ngIf="auth.isLoggedIn()">Logged in as <strong>{{ auth.user && auth.user.getUsername() }}</strong></div>
-        <div class="row justify-content-md-center">
-            <div class="main col-sm-12 col-md-10 col-lg-8">
-                <router-outlet></router-outlet>
-            </div>
-        </div>
+  <div class="jumbotron" *ngIf="isMobile">
+    <h1>InstaKilo</h1>
+    <a href="javascript:void(0)" (click)="logout()" class="logout-mobile" *ngIf="auth.isLoggedIn()">
+      <fa-icon [icon]="signOutIcon"></fa-icon>
+    </a>
+  </div>
+    <div class="container-fluid" [class.mobile]="isMobile">
+      <app-nav *ngIf="!isMobile"></app-nav>
+      <div class="logged-in-as" [class.mobile]="isMobile" *ngIf="auth.isLoggedIn()">
+        Logged in as
+        <a routerLink="/profile" href="javascript:void(0)">
+          {{ auth.user && auth.user.getUsername() }}
+        </a>
+      </div>
+      <div class="row justify-content-md-center">
+          <div class="main col-sm-12 col-md-10 col-lg-8">
+              <router-outlet></router-outlet>
+          </div>
+      </div>
     </div>
+    <app-bottom-nav *ngIf="isMobile"></app-bottom-nav>
 </div>

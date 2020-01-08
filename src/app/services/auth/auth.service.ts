@@ -5,7 +5,7 @@ import { NOTYF } from '../../utils/notyf.token';
 import { Notyf } from 'notyf';
 import { AuthClass } from 'aws-amplify';
 import { AuthState } from 'aws-amplify-angular/src/providers/auth.state';
-import { ISignUpResult, CognitoUser } from 'amazon-cognito-identity-js';
+import { CognitoUser } from 'amazon-cognito-identity-js';
 import * as moment from 'moment';
 import { UtilsService } from '../utils/utils.service';
 
@@ -38,11 +38,7 @@ export class AuthService {
     this._amplifyService.authStateChange$ // Listening for auth state changes
       .subscribe((authState: AuthState) => {
         console.log(authState);
-        if (authState.user) {
-          // this.setAccessToken(authState.user.signInUserSession.accessToken.jwtToken);
-          this.user = authState.user;
-        }
-
+        if (authState.user) this.user = authState.user;
         this.setLoggedInState(authState.state === 'signedIn' && authState.user);
       }
     );

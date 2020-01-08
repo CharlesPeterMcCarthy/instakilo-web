@@ -25,6 +25,7 @@ export class ErrorHandlingService {
   ) { }
 
   public handleError = (err: HttpErrorResponse): Observable<never> => {
+    console.log(err);
     const error = err.error;
     const errorText = error.custom && error.message || 'Unknown Error';
     this.notyf.error(errorText);

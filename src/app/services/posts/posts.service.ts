@@ -53,10 +53,10 @@ export class PostsService {
     send back posts that haven't been sent yet.
   */
 
-  public getPosts = (LastEvaluatedKey?: string): Observable<GetPostsResponse> =>
+  public getPosts = (limit: number, LastEvaluatedKey?: string): Observable<GetPostsResponse> =>
     this._http.post(
       `${this.baseURL}/get-public-posts`,
-      { limit: 4, lastKey: LastEvaluatedKey, ...this.attachAccessToken() }
+      { limit, lastKey: LastEvaluatedKey, ...this.attachAccessToken() }
     ) as Observable<GetPostsResponse>;
 
   public getOwnPosts = (): Observable<GetOwnPostsResponse> =>

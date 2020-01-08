@@ -15,7 +15,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NOTYF, notyfFactory } from './utils/notyf.token';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { FeedComponent } from './pages/feed/feed.component';
 import { ConfirmEmailComponent } from './pages/confirm-email/confirm-email.component';
+import { BottomNavComponent } from './components/bottom-nav/bottom-nav.component';
+import { PostBriefComponent } from './components/posts/post-brief/post-brief.component';
+import { ViewPostComponent } from './pages/view-post/view-post.component';
+import { PostComponent } from './components/posts/post/post.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +31,12 @@ import { ConfirmEmailComponent } from './pages/confirm-email/confirm-email.compo
     LoginComponent,
     CreatePostComponent,
     SpinnerComponent,
-    ConfirmEmailComponent
+    FeedComponent,
+    ConfirmEmailComponent,
+    BottomNavComponent,
+    PostBriefComponent,
+    ViewPostComponent,
+    PostComponent
   ],
   imports: [
     AppRoutingModule,

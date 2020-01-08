@@ -10,5 +10,6 @@ export class SpinnerComponent {
 
   @Input() public text: string;
   @Input() public name: string;
+  @Input() public fullScreen: boolean = true;
 
 }

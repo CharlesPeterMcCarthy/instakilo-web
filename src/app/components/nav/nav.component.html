@@ -1,12 +1,14 @@
 <nav class="navbar navbar-expand-sm navbar-dark fixed-top" [style.background-color]="backgroundColor()">
-  <a class="navbar-brand" href="#"></a>
+  <a class="navbar-brand" href="#">
+    InstaKilo
+  </a>
   <button type="button" class="navbar-toggler navbar-toggler-right" data-toggle="collapse" data-target="#nav-links" (click)="toggleNavBar()">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" [ngClass]="{ 'show': expandNav }" id="nav-links">
     <ul class="navbar-nav mr-auto" (click)="closeNavBar()">
-      <li class="nav-item" *ngIf="!isCreatingPost()">
+      <li class="nav-item" *ngIf="!isCreatingPost() && IsLoggedIn()">
         <a class="nav-link" href="javascript:void(0)">
           <label class="link-label">
             <fa-icon [icon]="icons.upload"></fa-icon>
@@ -15,7 +17,9 @@
         </a>
       </li>
 
-      <app-nav-link *ngFor="let navLink of navLinksLeft" [navLink]="navLink"></app-nav-link>
+      <div *ngIf="IsLoggedIn()">
+        <app-nav-link *ngFor="let navLink of navLinksLeft" [navLink]="navLink"></app-nav-link>
+      </div>
     </ul>
 
     <ul class="navbar-nav" (click)="closeNavBar()" *ngIf="!IsLoggedIn()">

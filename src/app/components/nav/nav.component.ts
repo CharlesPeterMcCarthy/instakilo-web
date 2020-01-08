@@ -3,7 +3,7 @@ import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
 import { NavLink } from '../../interfaces/nav-link';
 import { DOCUMENT } from '@angular/common';
-import { faUserAlt, faUpload, faSignOutAlt, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faUserAlt, faUpload, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { ImageCourierService } from '../../services/image-courier/image-courier.service';
 import HTMLInputEvent from '../../interfaces/html-input-event';
 import { IconCollection } from '../../interfaces/icon-collection';
@@ -70,14 +70,14 @@ export class NavComponent implements OnInit {
     Declare the nav links after the functions - Any nav links using the action property
     must have the corresponding action (function) declared before the nav link.
   */
-  public navLinksLeft: NavLink[] = Array<NavLink>(
+  public navLinksLeft: NavLink[] = [
     { text: 'Feed', url: '/feed' }
-  );
+  ];
 
-  public navLinksRightLoggedIn: NavLink[] = Array<NavLink>(
+  public navLinksRightLoggedIn: NavLink[] = [
     { text: 'Login', url: '/login' },
     { text: 'Sign Up', url: '/signup' }
-  );
+  ];
 
   public navLinksRightLoggedOut: NavLink[] = Array<NavLink>(
     { icon: this.icons.profile, url: '/profile' },

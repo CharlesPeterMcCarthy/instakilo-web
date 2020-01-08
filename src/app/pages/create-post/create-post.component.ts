@@ -122,7 +122,7 @@ export class CreatePostComponent implements OnInit {
     this._postsService.createPost(post).subscribe((res: GenericResponse) => {
       this._spinner.hide('sharing');
       this.notyf.success('Post have been successfully shared with your friends');
-      if (res.success) this._router.navigate(['/']); // navigate to feed when page is built
+      if (res.success) this._router.navigateByUrl('/feed');
     }, () => this._spinner.hide('sharing'));
   }
 

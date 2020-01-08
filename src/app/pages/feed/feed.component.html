@@ -1,0 +1,12 @@
+<h1>Feed</h1>
+
+<div class="posts">
+  <post-brief *ngFor="let post of posts" [post]="post"></post-brief>
+</div>
+
+<div class="load-more">
+  <fa-icon [icon]="loadMoreIcon" (click)="loadMore()" *ngIf="moreAvailable"></fa-icon>
+</div>
+
+<spinner [text]="'Gathering posts...'" [name]="initSpinnerName"></spinner>
+<!--<spinner [text]="'Gathering posts...'" [name]="moreSpinnerName" [fullScreen]="false"></spinner>-->

@@ -1,0 +1,38 @@
+<div class="bottom-nav row" *ngIf="IsLoggedIn()">
+  <div class="col-3 text-center bottom-nav-btn separator">
+    <a class="bottom-nav-link" routerLink="/feed" href="javascript:void(0)">
+      <fa-icon [icon]="icons.feed"></fa-icon>
+    </a>
+  </div>
+  <div class="col-3 text-center bottom-nav-btn separator">
+    <a class="bottom-nav-link" href="javascript:void(0)">
+      <label class="link-label">
+        <fa-icon [icon]="icons.upload"></fa-icon>
+        <input type="file" accept="image/*" (change)="uploadImage($event)" hidden>
+      </label>
+    </a>
+  </div>
+  <div class="col-3 text-center bottom-nav-btn separator">
+    <a class="bottom-nav-link" routerLink="/search" href="javascript:void(0)">
+      <fa-icon [icon]="icons.search"></fa-icon>
+    </a>
+  </div>
+  <div class="col-3 text-center bottom-nav-btn">
+    <a class="bottom-nav-link" routerLink="/profile" href="javascript:void(0)">
+      <fa-icon [icon]="icons.profile"></fa-icon>
+    </a>
+  </div>
+</div>
+
+<div class="bottom-nav row" *ngIf="!IsLoggedIn()">
+  <div class="col-6 text-center bottom-nav-btn separator">
+    <a class="bottom-nav-link" routerLink="/login" href="javascript:void(0)">
+      <fa-icon [icon]="icons.login"></fa-icon>
+    </a>
+  </div>
+  <div class="col-6 text-center bottom-nav-btn">
+    <a class="bottom-nav-link" routerLink="/signup" href="javascript:void(0)">
+      <fa-icon [icon]="icons.signup"></fa-icon>
+    </a>
+  </div>
+</div>
