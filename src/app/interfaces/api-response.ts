@@ -1,4 +1,4 @@
-import { Post } from '@instakilo/common';
+import { Post, PostBrief } from '@instakilo/common';
 
 export interface GenericResponse {
   success: boolean;
@@ -23,5 +23,10 @@ export interface GetPostResponse extends GenericResponse {
 
 export interface PostsResponse extends GenericResponse {
   posts: Post[];
+  // success
+}
+
+export interface PostsBriefResponse extends GenericResponse {
+  posts: PostBrief[];
   // success
 }

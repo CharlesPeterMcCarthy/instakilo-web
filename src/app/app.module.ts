@@ -21,6 +21,7 @@ import { BottomNavComponent } from './components/bottom-nav/bottom-nav.component
 import { PostBriefComponent } from './components/posts/post-brief/post-brief.component';
 import { ViewPostComponent } from './pages/view-post/view-post.component';
 import { PostComponent } from './components/posts/post/post.component';
+import { SearchComponent } from './pages/search/search.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { PostComponent } from './components/posts/post/post.component';
     BottomNavComponent,
     PostBriefComponent,
     ViewPostComponent,
-    PostComponent
+    PostComponent,
+    SearchComponent
   ],
   imports: [
     AppRoutingModule,

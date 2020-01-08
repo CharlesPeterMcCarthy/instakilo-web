@@ -6,7 +6,14 @@ import { catchError } from 'rxjs/operators';
 import { ErrorHandlingService } from '../error-handling/error-handling.service';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
-import { GenericResponse, GetOwnPostsResponse, GetPostResponse, GetPostsResponse, PostsResponse } from '../../interfaces/api-response';
+import {
+  GenericResponse,
+  GetOwnPostsResponse,
+  GetPostResponse,
+  GetPostsResponse,
+  PostsBriefResponse,
+  PostsResponse
+} from '../../interfaces/api-response';
 
 @Injectable({
   providedIn: 'root'
@@ -83,17 +90,17 @@ export class PostsService {
       { postId, commentId, ...this.attachAccessToken() }
     ) as Observable<GenericResponse>;
 
-  public getPostsByHashTag = (hashTag: string): Observable<PostsResponse> =>
+  public getPostsByHashTag = (hashTag: string): Observable<PostsBriefResponse> =>
     this._http.post(
       `${this.baseURL}/posts-by-hashtag`,
       { hashTag, ...this.attachAccessToken() }
-    ) as Observable<PostsResponse>;
+    ) as Observable<PostsBriefResponse>;
 
-  public getPostsByLocation = (placeId: string): Observable<PostsResponse> =>
+  public getPostsByLocation = (placeId: string): Observable<PostsBriefResponse> =>
     this._http.post(
       `${this.baseURL}/posts-by-location`,
       { placeId, ...this.attachAccessToken() }
-    ) as Observable<PostsResponse>;
+    ) as Observable<PostsBriefResponse>;
 
   private attachAccessToken = (): { token: string } => ({ token: this._authService.getAccessToken() });
 
