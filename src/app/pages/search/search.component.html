@@ -1,6 +1,13 @@
 <div *ngIf="isSearching">
   <p>Search by HashTag</p>
   <input type="text" class="form-control" (keyup)="hashTagSearch($event)">
+
+  <ul class="list-group">
+    <li *ngFor="let tag of matchingHashTags" class="list-group-item matching-search" routerLink="/search/hashtag/{{tag._tag}}">
+      {{ tag._tag }}
+      <fa-icon [icon]="rightArrowIcon"></fa-icon>
+    </li>
+  </ul>
 </div>
 
 <div *ngIf="!isSearching">

@@ -30,3 +30,8 @@ export interface PostsBriefResponse extends GenericResponse {
   posts: PostBrief[];
   // success
 }
+
+export interface MatchingHashTagsResponse extends GenericResponse {
+  hashtags: Array<{ _tag: string }>;
+  // success
+}

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PostsService } from '../../services/posts/posts.service';
 import { ActivatedRoute } from '@angular/router';
-import { PostsBriefResponse } from '../../interfaces/api-response';
+import { MatchingHashTagsResponse, PostsBriefResponse } from '../../interfaces/api-response';
 import { PostBrief } from '@instakilo/common';
+import { faArrowRight, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-search',
@@ -15,6 +16,8 @@ export class SearchComponent implements OnInit {
   public searchType: string;
   public searchValue: string;
   public posts: PostBrief[];
+  public matchingHashTags: Array<{ _tag: string }>;
+  public rightArrowIcon: IconDefinition = faArrowRight;
 
   constructor(
     private _route: ActivatedRoute,
@@ -43,7 +46,13 @@ export class SearchComponent implements OnInit {
   }
 
   public hashTagSearch = (e: KeyboardEvent): void => {
-    // console.log(e.target.value);
+    const target = e.target as HTMLInputElement;
+
+    if (target.value) {
+      this._postsService.getMatchingHashTags(target.value).subscribe((data: MatchingHashTagsResponse) => {
+        if (data.success) this.matchingHashTags = data.hashtags;
+      });
+    } else this.matchingHashTags = [];
   }
 
 }
