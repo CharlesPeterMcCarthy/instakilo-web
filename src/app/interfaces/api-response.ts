@@ -31,7 +31,18 @@ export interface PostsBriefResponse extends GenericResponse {
   // success
 }
 
+export interface PostsByLocationResponse extends GenericResponse {
+  posts: PostBrief[];
+  locationName: string;
+  // success
+}
+
 export interface MatchingHashTagsResponse extends GenericResponse {
   hashtags: Array<{ _tag: string }>;
+  // success
+}
+
+export interface MatchingLocationsResponse extends GenericResponse {
+  locations: Array<{ locationName: string; _placeId: string }>;
   // success
 }

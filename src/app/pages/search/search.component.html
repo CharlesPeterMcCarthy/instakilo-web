@@ -3,8 +3,18 @@
   <input type="text" class="form-control" (keyup)="hashTagSearch($event)">
 
   <ul class="list-group">
-    <li *ngFor="let tag of matchingHashTags" class="list-group-item matching-search" routerLink="/search/hashtag/{{tag._tag}}">
+    <li *ngFor="let tag of matchingHashTags" class="list-group-item matching-search" routerLink="/search/hashtag/{{ tag._tag }}">
       {{ tag._tag }}
+      <fa-icon [icon]="rightArrowIcon"></fa-icon>
+    </li>
+  </ul>
+
+  <p>Search by Location</p>
+  <input type="text" class="form-control" (keyup)="locationSearch($event)">
+
+  <ul class="list-group">
+    <li *ngFor="let loc of matchingLocations" class="list-group-item matching-search" routerLink="/search/location/{{ loc._placeId }}">
+      {{ loc.locationName }}
       <fa-icon [icon]="rightArrowIcon"></fa-icon>
     </li>
   </ul>
@@ -12,6 +22,7 @@
 
 <div *ngIf="!isSearching">
   <h3 *ngIf="searchType === 'hashtag'"><strong>#{{ searchValue }}</strong> Posts</h3>
+  <h3 *ngIf="searchType === 'location' && locationName">Posts from <strong>{{ locationName }}</strong></h3>
   <div *ngFor="let post of posts" class="search-img">
     <img src="{{ post.imgURL }}">
   </div>

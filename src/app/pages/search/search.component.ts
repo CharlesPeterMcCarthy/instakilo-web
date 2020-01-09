@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { PostsService } from '../../services/posts/posts.service';
 import { ActivatedRoute } from '@angular/router';
-import { MatchingHashTagsResponse, PostsBriefResponse } from '../../interfaces/api-response';
+import {
+  MatchingHashTagsResponse,
+  MatchingLocationsResponse,
+  PostsBriefResponse,
+  PostsByLocationResponse
+} from '../../interfaces/api-response';
 import { PostBrief } from '@instakilo/common';
 import { faArrowRight, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
@@ -15,8 +20,10 @@ export class SearchComponent implements OnInit {
   public isSearching: boolean = false;
   public searchType: string;
   public searchValue: string;
+  public locationName: string;
   public posts: PostBrief[];
   public matchingHashTags: Array<{ _tag: string }>;
+  public matchingLocations: Array<{ locationName: string; _placeId: string }>;
   public rightArrowIcon: IconDefinition = faArrowRight;
 
   constructor(
@@ -42,7 +49,13 @@ export class SearchComponent implements OnInit {
   }
 
   private getPostsByLocation = (placeId: string): void => {
-
+    this._postsService.getPostsByLocation(placeId).subscribe((data: PostsByLocationResponse) => {
+      console.log(data);
+      if (data.success) {
+        this.locationName = data.locationName;
+        this.posts = data.posts;
+      }
+    });
   }
 
   public hashTagSearch = (e: KeyboardEvent): void => {
@@ -53,6 +66,17 @@ export class SearchComponent implements OnInit {
         if (data.success) this.matchingHashTags = data.hashtags;
       });
     } else this.matchingHashTags = [];
+  }
+
+  public locationSearch = (e: KeyboardEvent): void => {
+    const target = e.target as HTMLInputElement;
+
+    if (target.value) {
+      this._postsService.getMatchingLocations(target.value).subscribe((data: MatchingLocationsResponse) => {
+        console.log(data);
+        if (data.success) this.matchingLocations = data.locations;
+      });
+    } else this.matchingLocations = [];
   }
 
 }
