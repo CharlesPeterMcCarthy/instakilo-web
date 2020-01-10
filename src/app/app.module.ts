@@ -22,6 +22,7 @@ import { PostBriefComponent } from './components/posts/post-brief/post-brief.com
 import { ViewPostComponent } from './pages/view-post/view-post.component';
 import { PostComponent } from './components/posts/post/post.component';
 import { SearchComponent } from './pages/search/search.component';
+import { SearchPostsResultsComponent } from './components/search-posts-results/search-posts-results.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { SearchComponent } from './pages/search/search.component';
     PostBriefComponent,
     ViewPostComponent,
     PostComponent,
-    SearchComponent
+    SearchComponent,
+    SearchPostsResultsComponent
   ],
   imports: [
     AppRoutingModule,

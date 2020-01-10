@@ -38,11 +38,11 @@ export interface PostsByLocationResponse extends GenericResponse {
 }
 
 export interface MatchingHashTagsResponse extends GenericResponse {
-  hashtags: Array<{ _tag: string }>;
+  hashtags: Array<{ _tag: string; count: number }>;
   // success
 }
 
 export interface MatchingLocationsResponse extends GenericResponse {
-  locations: Array<{ locationName: string; _placeId: string }>;
+  locations: Array<{ locationName: string; _placeId: string; count: number }>;
   // success
 }

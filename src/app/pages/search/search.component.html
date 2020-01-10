@@ -2,42 +2,51 @@
 <h1 *ngIf="!isSearching">Matching Posts</h1>
 <div *ngIf="isSearching" class="searching-form">
   <div *ngIf="!matchingLocationSearchTerm">
-    <p>By HashTag</p>
-    <input type="text" class="form-control" (keyup)="hashTagSearch($event)">
+    <p>By HashTag <fa-icon [icon]="icons.hashtag"></fa-icon></p>
+    <div class="input-container">
+      <input type="text" class="form-control" (keyup)="hashTagSearch($event)">
+      <fa-icon [icon]="icons.search"></fa-icon>
+    </div>
     <small *ngIf="!matchingHashTagSearchTerm">Type a part of or the full hashtag, eg. tech</small>
 
     <ul class="list-group">
       <li *ngFor="let tag of matchingHashTags" class="list-group-item matching-search" routerLink="/search/hashtag/{{ tag._tag }}">
-        {{ tag._tag }}
-        <fa-icon [icon]="rightArrowIcon"></fa-icon>
+        <span class="matching-term">#{{ tag._tag }}</span>
+        <small class="matching-posts-count">{{ tag.count }} posts</small>
+        <fa-icon [icon]="icons.rightArrow"></fa-icon>
       </li>
     </ul>
 
-    <p *ngIf="noMatchingHashTags">There are no hashtags containing the text <strong>{{ matchingHashTagSearchTerm }}</strong></p>
+    <p *ngIf="noMatchingHashTags" class="no-results">There are no hashtags containing the text <strong>{{ matchingHashTagSearchTerm }}</strong></p>
   </div>
 
   <p class="or-text" *ngIf="!matchingHashTagSearchTerm && !matchingLocationSearchTerm">OR</p>
 
   <div *ngIf="!matchingHashTagSearchTerm">
-    <p>By Location</p>
-    <input type="text" class="form-control" (keyup)="locationSearch($event)">
+    <p>By Location <fa-icon [icon]="icons.location"></fa-icon></p>
+    <div class="input-container">
+      <input type="text" class="form-control" (keyup)="locationSearch($event)">
+      <fa-icon [icon]="icons.search"></fa-icon>
+    </div>
     <small *ngIf="!matchingLocationSearchTerm">Type a part of or the full name of a location, eg. dub</small>
 
     <ul class="list-group">
       <li *ngFor="let loc of matchingLocations" class="list-group-item matching-search" routerLink="/search/location/{{ loc._placeId }}">
-        {{ loc.locationName }}
-        <fa-icon [icon]="rightArrowIcon"></fa-icon>
+        <span class="matching-term">{{ loc.locationName }}</span>
+        <small class="matching-posts-count">{{ loc.count }} posts</small>
+
+        <fa-icon [icon]="icons.rightArrow"></fa-icon>
       </li>
     </ul>
 
-    <p *ngIf="noMatchingLocations">There are no locations containing the text <strong>{{ matchingLocationSearchTerm }}</strong></p>
+    <p *ngIf="noMatchingLocations" class="no-results">There are no locations containing the text <strong>{{ matchingLocationSearchTerm }}</strong></p>
   </div>
 </div>
 
-<div *ngIf="!isSearching">
-  <h3 *ngIf="searchType === 'hashtag'"><strong>#{{ searchValue }}</strong> Posts</h3>
-  <h3 *ngIf="searchType === 'location' && locationName">Posts from <strong>{{ locationName }}</strong></h3>
-  <div *ngFor="let post of posts" class="search-img">
-    <img src="{{ post.imgURL }}">
-  </div>
-</div>
+<search-posts-results
+  [searchType]="searchType"
+  [searchValue]="searchValue"
+  [locationName]="locationName"
+  [posts]="posts"
+  *ngIf="!isSearching">
+</search-posts-results>

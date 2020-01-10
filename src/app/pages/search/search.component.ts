@@ -8,7 +8,8 @@ import {
   PostsByLocationResponse
 } from '../../interfaces/api-response';
 import { PostBrief } from '@instakilo/common';
-import { faArrowRight, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faSearch, faMapMarkerAlt, faHashtag } from '@fortawesome/free-solid-svg-icons';
+import { IconCollection } from '../../interfaces/icon-collection';
 
 @Component({
   selector: 'app-search',
@@ -22,13 +23,19 @@ export class SearchComponent implements OnInit {
   public searchValue: string;
   public locationName: string;
   public posts: PostBrief[];
-  public matchingHashTags: Array<{ _tag: string }>;
-  public matchingLocations: Array<{ locationName: string; _placeId: string }>;
+  public matchingHashTags: Array<{ _tag: string; count: number }>;
+  public matchingLocations: Array<{ locationName: string; _placeId: string; count: number }>;
   public noMatchingHashTags: boolean = false;
   public noMatchingLocations: boolean = false;
   public matchingHashTagSearchTerm: string;
   public matchingLocationSearchTerm: string;
-  public rightArrowIcon: IconDefinition = faArrowRight;
+
+  public icons: IconCollection = {
+    rightArrow: faArrowRight,
+    search: faSearch,
+    location: faMapMarkerAlt,
+    hashtag: faHashtag
+  };
 
   constructor(
     private _route: ActivatedRoute,
