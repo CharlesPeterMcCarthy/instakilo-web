@@ -3,6 +3,7 @@ import { AuthService } from './services/auth/auth.service';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { faSignOutAlt, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { UsersService } from './services/users/users.service';
 
 @Component({
   selector: 'app-root',
@@ -18,13 +19,16 @@ export class AppComponent implements OnInit {
   constructor(
     private _title: Title,
     private _router: Router,
-    private auth: AuthService
+    private auth: AuthService,
+    private _user: UsersService
   ) { }
 
   public async ngOnInit(): Promise<void> {
     this._title.setTitle('InstaKilo');
     await this.auth.checkUserAuthenticated();
     this.checkScreenSize(window.innerWidth);
+
+    this._user.getOtherUserProfile('135e6832-458f-404f-a5b4-1938d434b88b').subscribe(data => console.log(data));
   }
 
   @HostListener('window:resize', ['$event'])
