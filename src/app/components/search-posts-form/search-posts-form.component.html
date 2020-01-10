@@ -1,42 +1,29 @@
 <div class="searching-form">
-  <div *ngIf="!matchingLocationSearchTerm">
-    <p>By HashTag <fa-icon [icon]="icons.hashtag"></fa-icon></p>
-    <div class="input-container">
-      <input type="text" class="form-control" (keyup)="hashTagSearch($event)">
-      <fa-icon [icon]="icons.search"></fa-icon>
-    </div>
-    <small *ngIf="!matchingHashTagSearchTerm">Type a part of or the full hashtag, eg. tech</small>
-
-    <ul class="list-group">
-      <li *ngFor="let tag of matchingHashTags" class="list-group-item matching-search" routerLink="/search/hashtag/{{ tag._tag }}">
-        <span class="matching-term">#{{ tag._tag }}</span>
-        <small class="matching-posts-count">{{ tag.count }} posts</small>
-        <fa-icon [icon]="icons.rightArrow"></fa-icon>
-      </li>
-    </ul>
-
-    <p *ngIf="noMatchingHashTags" class="no-results">There are no hashtags containing the text <strong>{{ matchingHashTagSearchTerm }}</strong></p>
-  </div>
+  <search-posts-by
+    searchBy="HashTag"
+    [searchByIcon]="icons.hashtag"
+    searchHelpText="Type a part of or the full hashtag, eg. tech"
+    linkStart="/search/hashtag/"
+    [searchTerm]="matchingHashTagSearchTerm"
+    [matchResults]="matchingHashTags | genericSearchResults : 'hashtag'"
+    [noResults]="noMatchingHashTags"
+    (keyPressedEE)="hashTagSearch($event)"
+    *ngIf="!matchingLocationSearchTerm"
+  >
+  </search-posts-by>
 
   <p class="or-text" *ngIf="!matchingHashTagSearchTerm && !matchingLocationSearchTerm">OR</p>
 
-  <div *ngIf="!matchingHashTagSearchTerm">
-    <p>By Location <fa-icon [icon]="icons.location"></fa-icon></p>
-    <div class="input-container">
-      <input type="text" class="form-control" (keyup)="locationSearch($event)">
-      <fa-icon [icon]="icons.search"></fa-icon>
-    </div>
-    <small *ngIf="!matchingLocationSearchTerm">Type a part of or the full name of a location, eg. dub</small>
-
-    <ul class="list-group">
-      <li *ngFor="let loc of matchingLocations" class="list-group-item matching-search" routerLink="/search/location/{{ loc._placeId }}">
-        <span class="matching-term">{{ loc.locationName }}</span>
-        <small class="matching-posts-count">{{ loc.count }} posts</small>
-
-        <fa-icon [icon]="icons.rightArrow"></fa-icon>
-      </li>
-    </ul>
-
-    <p *ngIf="noMatchingLocations" class="no-results">There are no locations containing the text <strong>{{ matchingLocationSearchTerm }}</strong></p>
-  </div>
+  <search-posts-by
+    searchBy="Location"
+    [searchByIcon]="icons.location"
+    searchHelpText="Type a part of or the full name of a location, eg. dub"
+    linkStart="/search/location/"
+    [searchTerm]="matchingLocationSearchTerm"
+    [matchResults]="matchingLocations | genericSearchResults : 'location'"
+    [noResults]="noMatchingLocations"
+    (keyPressedEE)="locationSearch($event)"
+    *ngIf="!matchingHashTagSearchTerm"
+  >
+  </search-posts-by>
 </div>

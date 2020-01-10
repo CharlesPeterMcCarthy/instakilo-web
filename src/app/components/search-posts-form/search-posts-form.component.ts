@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatchingHashTagsResponse, MatchingLocationsResponse } from '../../interfaces/api-response';
 import { PostsService } from '../../services/posts/posts.service';
 import { IconCollection } from '../../interfaces/icon-collection';
-import { faArrowRight, faHashtag, faMapMarkerAlt, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faHashtag, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import { HashTagSearchResult, LocationSearchResult } from '@instakilo/common';
 
 @Component({
   selector: 'search-posts-form',
@@ -11,16 +12,14 @@ import { faArrowRight, faHashtag, faMapMarkerAlt, faSearch } from '@fortawesome/
 })
 export class SearchPostsFormComponent implements OnInit {
 
-  public matchingHashTags: Array<{ _tag: string; count: number }>;
-  public matchingLocations: Array<{ locationName: string; _placeId: string; count: number }>;
+  public matchingHashTags: HashTagSearchResult[];
+  public matchingLocations: LocationSearchResult[];
   public noMatchingHashTags: boolean = false;
   public noMatchingLocations: boolean = false;
   public matchingHashTagSearchTerm: string;
   public matchingLocationSearchTerm: string;
 
   public icons: IconCollection = {
-    rightArrow: faArrowRight,
-    search: faSearch,
     location: faMapMarkerAlt,
     hashtag: faHashtag
   };
@@ -31,10 +30,8 @@ export class SearchPostsFormComponent implements OnInit {
 
   public ngOnInit(): void { }
 
-  public hashTagSearch = (e: KeyboardEvent): void => {
-    const target = e.target as HTMLInputElement;
-
-    this.matchingHashTagSearchTerm = target.value;
+  public hashTagSearch = (value: string): void => {
+    this.matchingHashTagSearchTerm = value;
 
     if (this.matchingHashTagSearchTerm) {
       this._postsService.getMatchingHashTags(this.matchingHashTagSearchTerm).subscribe((data: MatchingHashTagsResponse) => {
@@ -49,10 +46,8 @@ export class SearchPostsFormComponent implements OnInit {
     }
   }
 
-  public locationSearch = (e: KeyboardEvent): void => {
-    const target = e.target as HTMLInputElement;
-
-    this.matchingLocationSearchTerm = target.value;
+  public locationSearch = (value: string): void => {
+    this.matchingLocationSearchTerm = value;
 
     if (this.matchingLocationSearchTerm) {
       this._postsService.getMatchingLocations(this.matchingLocationSearchTerm).subscribe((data: MatchingLocationsResponse) => {
