@@ -1,4 +1,4 @@
-import { Post } from '@instakilo/common';
+import { MyUserProfile, Post, UserProfile } from '@instakilo/common';
 
 export interface GenericResponse {
   success: boolean;
@@ -23,5 +23,15 @@ export interface GetPostResponse extends GenericResponse {
 
 export interface PostsResponse extends GenericResponse {
   posts: Post[];
+  // success
+}
+
+export interface OtherProfileResponse extends GenericResponse {
+  profile: UserProfile;
+  // success
+}
+
+export interface MyProfileResponse extends GenericResponse {
+  profile: MyUserProfile;
   // success
 }
