@@ -23,6 +23,7 @@ import { ViewPostComponent } from './pages/view-post/view-post.component';
 import { PostComponent } from './components/posts/post/post.component';
 import { SearchComponent } from './pages/search/search.component';
 import { SearchPostsResultsComponent } from './components/search-posts-results/search-posts-results.component';
+import { SearchPostsFormComponent } from './components/search-posts-form/search-posts-form.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { SearchPostsResultsComponent } from './components/search-posts-results/s
     ViewPostComponent,
     PostComponent,
     SearchComponent,
-    SearchPostsResultsComponent
+    SearchPostsResultsComponent,
+    SearchPostsFormComponent
   ],
   imports: [
     AppRoutingModule,

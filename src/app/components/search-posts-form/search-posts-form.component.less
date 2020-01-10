@@ -1,0 +1,49 @@
+.matching-search {
+  cursor: pointer;
+  transition: background-color 0.4s;
+
+  &:hover {
+    background-color: #EEE;
+  }
+
+  fa-icon {
+    position: absolute;
+    top: 25px;
+    right: 20px;
+  }
+
+  .matching-term {
+    font-weight: bold;
+    display: block;
+  }
+
+  .matching-posts-count {
+    font-size: 14px;
+    color: #555;
+  }
+}
+
+.or-text {
+  text-align: center;
+  font-weight: bold;
+  margin: 20px 0;
+  font-size: 18px;
+}
+
+.searching-form {
+  .input-container {
+    position: relative;
+
+    fa-icon {
+      position: absolute;
+      right: 8px;
+      top: 7px;
+      color: #555;
+    }
+  }
+
+  .no-results {
+    color: red;
+    margin-top: 10px;
+  }
+}
