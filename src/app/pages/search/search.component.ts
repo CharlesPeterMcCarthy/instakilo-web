@@ -24,6 +24,10 @@ export class SearchComponent implements OnInit {
   public posts: PostBrief[];
   public matchingHashTags: Array<{ _tag: string }>;
   public matchingLocations: Array<{ locationName: string; _placeId: string }>;
+  public noMatchingHashTags: boolean = false;
+  public noMatchingLocations: boolean = false;
+  public matchingHashTagSearchTerm: string;
+  public matchingLocationSearchTerm: string;
   public rightArrowIcon: IconDefinition = faArrowRight;
 
   constructor(
@@ -61,22 +65,37 @@ export class SearchComponent implements OnInit {
   public hashTagSearch = (e: KeyboardEvent): void => {
     const target = e.target as HTMLInputElement;
 
-    if (target.value) {
-      this._postsService.getMatchingHashTags(target.value).subscribe((data: MatchingHashTagsResponse) => {
-        if (data.success) this.matchingHashTags = data.hashtags;
+    this.matchingHashTagSearchTerm = target.value;
+
+    if (this.matchingHashTagSearchTerm) {
+      this._postsService.getMatchingHashTags(this.matchingHashTagSearchTerm).subscribe((data: MatchingHashTagsResponse) => {
+        if (data.success) {
+          this.noMatchingHashTags = !data.hashtags.length; // Set to true if no matching hashtags are returned (or false if length > 0)
+          this.matchingHashTags = data.hashtags;
+        }
       });
-    } else this.matchingHashTags = [];
+    } else {
+      this.matchingHashTags = [];
+      this.noMatchingHashTags = false;
+    }
   }
 
   public locationSearch = (e: KeyboardEvent): void => {
     const target = e.target as HTMLInputElement;
 
-    if (target.value) {
-      this._postsService.getMatchingLocations(target.value).subscribe((data: MatchingLocationsResponse) => {
-        console.log(data);
-        if (data.success) this.matchingLocations = data.locations;
+    this.matchingLocationSearchTerm = target.value;
+
+    if (this.matchingLocationSearchTerm) {
+      this._postsService.getMatchingLocations(this.matchingLocationSearchTerm).subscribe((data: MatchingLocationsResponse) => {
+        if (data.success) {
+          this.noMatchingLocations = !data.locations.length; // Set to true if no matching locations are returned (or false if length > 0)
+          this.matchingLocations = data.locations;
+        }
       });
-    } else this.matchingLocations = [];
+    } else {
+      this.matchingLocations = [];
+      this.noMatchingLocations = false;
+    }
   }
 
 }

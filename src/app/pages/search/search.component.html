@@ -1,23 +1,37 @@
-<div *ngIf="isSearching">
-  <p>Search by HashTag</p>
-  <input type="text" class="form-control" (keyup)="hashTagSearch($event)">
+<h1 *ngIf="isSearching">Search</h1>
+<h1 *ngIf="!isSearching">Matching Posts</h1>
+<div *ngIf="isSearching" class="searching-form">
+  <div *ngIf="!matchingLocationSearchTerm">
+    <p>By HashTag</p>
+    <input type="text" class="form-control" (keyup)="hashTagSearch($event)">
+    <small *ngIf="!matchingHashTagSearchTerm">Type a part of or the full hashtag, eg. tech</small>
 
-  <ul class="list-group">
-    <li *ngFor="let tag of matchingHashTags" class="list-group-item matching-search" routerLink="/search/hashtag/{{ tag._tag }}">
-      {{ tag._tag }}
-      <fa-icon [icon]="rightArrowIcon"></fa-icon>
-    </li>
-  </ul>
+    <ul class="list-group">
+      <li *ngFor="let tag of matchingHashTags" class="list-group-item matching-search" routerLink="/search/hashtag/{{ tag._tag }}">
+        {{ tag._tag }}
+        <fa-icon [icon]="rightArrowIcon"></fa-icon>
+      </li>
+    </ul>
 
-  <p>Search by Location</p>
-  <input type="text" class="form-control" (keyup)="locationSearch($event)">
+    <p *ngIf="noMatchingHashTags">There are no hashtags containing the text <strong>{{ matchingHashTagSearchTerm }}</strong></p>
+  </div>
 
-  <ul class="list-group">
-    <li *ngFor="let loc of matchingLocations" class="list-group-item matching-search" routerLink="/search/location/{{ loc._placeId }}">
-      {{ loc.locationName }}
-      <fa-icon [icon]="rightArrowIcon"></fa-icon>
-    </li>
-  </ul>
+  <p class="or-text" *ngIf="!matchingHashTagSearchTerm && !matchingLocationSearchTerm">OR</p>
+
+  <div *ngIf="!matchingHashTagSearchTerm">
+    <p>By Location</p>
+    <input type="text" class="form-control" (keyup)="locationSearch($event)">
+    <small *ngIf="!matchingLocationSearchTerm">Type a part of or the full name of a location, eg. dub</small>
+
+    <ul class="list-group">
+      <li *ngFor="let loc of matchingLocations" class="list-group-item matching-search" routerLink="/search/location/{{ loc._placeId }}">
+        {{ loc.locationName }}
+        <fa-icon [icon]="rightArrowIcon"></fa-icon>
+      </li>
+    </ul>
+
+    <p *ngIf="noMatchingLocations">There are no locations containing the text <strong>{{ matchingLocationSearchTerm }}</strong></p>
+  </div>
 </div>
 
 <div *ngIf="!isSearching">
