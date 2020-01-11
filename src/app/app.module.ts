@@ -26,6 +26,7 @@ import { SearchPostsResultsComponent } from './components/search-posts-results/s
 import { SearchPostsFormComponent } from './components/search-posts-form/search-posts-form.component';
 import { SearchPostsByComponent } from './components/search-posts-form/search-posts-by/search-posts-by.component';
 import { GenericSearchResultsPipe } from './pipes/generic-search-results/generic-search-results.pipe';
+import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { GenericSearchResultsPipe } from './pipes/generic-search-results/generic
     SearchPostsResultsComponent,
     SearchPostsFormComponent,
     SearchPostsByComponent,
-    GenericSearchResultsPipe
+    GenericSearchResultsPipe,
+    HomeComponent
   ],
   imports: [
     AppRoutingModule,
