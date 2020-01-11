@@ -21,6 +21,9 @@ import { BottomNavComponent } from './components/bottom-nav/bottom-nav.component
 import { PostBriefComponent } from './components/posts/post-brief/post-brief.component';
 import { ViewPostComponent } from './pages/view-post/view-post.component';
 import { PostComponent } from './components/posts/post/post.component';
+import { CommentContainerComponent } from './components/comments/comment-container/comment-container.component';
+import { CommentDisplayComponent } from './components/comments/comment-display/comment-display.component';
+import { CommentEnterComponent } from './components/comments/comment-enter/comment-enter.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,10 @@ import { PostComponent } from './components/posts/post/post.component';
     BottomNavComponent,
     PostBriefComponent,
     ViewPostComponent,
-    PostComponent
+    PostComponent,
+    CommentContainerComponent,
+    CommentDisplayComponent,
+    CommentEnterComponent
   ],
   imports: [
     AppRoutingModule,

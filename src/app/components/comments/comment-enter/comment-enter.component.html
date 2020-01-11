@@ -1,0 +1,8 @@
+<form [formGroup]="commentForm" (ngSubmit)="onSubmit()" class="commentForm">
+    <div class="form-group">
+    <img id="userImage"/>
+    <p id="userName"><!--{{username.value}}--></p>
+    <input id="commentText" type="text" formControlName="commentText" placeholder="Enter Comment"/>
+    <button class="btn btn-primary" type="submit" [disabled]="commentForm.invalid" >Submit</button>
+    </div> 
+</form>
