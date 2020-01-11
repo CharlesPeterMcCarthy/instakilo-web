@@ -27,7 +27,10 @@
     </div>
 
     <div class="comments info-row">
-      <fa-icon [icon]="icons.comments"></fa-icon>
+      <comment-enter></comment-enter>
+      <span class="comment-display" *ngFor="let comment-display of post.comments">
+        {{ tag }}
+      </span>
     </div>
   </div>
 </div>

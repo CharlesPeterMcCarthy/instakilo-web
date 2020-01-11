@@ -5,6 +5,8 @@ import { Notyf } from 'notyf';
 import { DateTime } from 'aws-sdk/clients/devicefarm';
 import { v1 as uuid } from 'uuid';
 import {PostsService} from '../../../services/posts/posts.service';
+import { IconCollection } from '../../../interfaces/icon-collection';
+import { faComments, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -13,6 +15,10 @@ import {PostsService} from '../../../services/posts/posts.service';
   styleUrls: ['./comment-enter.component.less']
 })
 export class CommentEnterComponent implements OnInit {
+  public icons: IconCollection = {
+    comments: faComments,
+    continue: faArrowRight
+  };
 
   private id: string = uuid();
   private commentText: string="Initial";
@@ -38,7 +44,8 @@ export class CommentEnterComponent implements OnInit {
   }
 
   public onSubmit = async (): Promise<void> => {
-     this._postService.addComment(this.id.trim(), this.commentText.trim());
+     //this._postService.addComment(this.id.trim(), this.commentText.trim());
+     console.log(this.id, this.commentText);
      this.id= uuid();
   }
 }
