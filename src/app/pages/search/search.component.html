@@ -1,0 +1,12 @@
+<h1 *ngIf="isSearching">Search</h1>
+<h1 *ngIf="!isSearching">Matching Posts</h1>
+
+<search-posts-form *ngIf="isSearching"></search-posts-form>
+
+<search-posts-results
+  [searchType]="searchType"
+  [searchValue]="searchValue"
+  [locationName]="locationName"
+  [posts]="posts"
+  *ngIf="!isSearching">
+</search-posts-results>

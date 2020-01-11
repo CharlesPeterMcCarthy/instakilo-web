@@ -12,7 +12,7 @@
   <div class="post-info">
     <div class="location info-row">
       <fa-icon [icon]="icons.location"></fa-icon>
-      {{ post.location.locationName }}
+      <a href="javascript:void(0)" routerLink="/search/location/{{ post.location.placeData.place_id }}">{{ post.location.locationName }}</a>
     </div>
 
     <div class="description info-row">
@@ -23,7 +23,7 @@
     <div class="hashtags info-row">
       <fa-icon [icon]="icons.hashtags"></fa-icon>
       <span class="hash-tag" *ngFor="let tag of post.hashTags">
-        {{ tag }}
+        <a href="javascript:void(0)" routerLink="/search/hashtag/{{ tag }}">{{ tag }}</a>
       </span>
     </div>
 

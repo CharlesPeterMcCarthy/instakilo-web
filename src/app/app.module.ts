@@ -21,6 +21,11 @@ import { BottomNavComponent } from './components/bottom-nav/bottom-nav.component
 import { PostBriefComponent } from './components/posts/post-brief/post-brief.component';
 import { ViewPostComponent } from './pages/view-post/view-post.component';
 import { PostComponent } from './components/posts/post/post.component';
+import { SearchComponent } from './pages/search/search.component';
+import { SearchPostsResultsComponent } from './components/search-posts-results/search-posts-results.component';
+import { SearchPostsFormComponent } from './components/search-posts-form/search-posts-form.component';
+import { SearchPostsByComponent } from './components/search-posts-form/search-posts-by/search-posts-by.component';
+import { GenericSearchResultsPipe } from './pipes/generic-search-results/generic-search-results.pipe';
 
 @NgModule({
   declarations: [
@@ -36,7 +41,12 @@ import { PostComponent } from './components/posts/post/post.component';
     BottomNavComponent,
     PostBriefComponent,
     ViewPostComponent,
-    PostComponent
+    PostComponent,
+    SearchComponent,
+    SearchPostsResultsComponent,
+    SearchPostsFormComponent,
+    SearchPostsByComponent,
+    GenericSearchResultsPipe
   ],
   imports: [
     AppRoutingModule,
