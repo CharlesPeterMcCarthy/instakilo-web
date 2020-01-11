@@ -7,6 +7,7 @@ import { v1 as uuid } from 'uuid';
 import {PostsService} from '../../../services/posts/posts.service';
 import { IconCollection } from '../../../interfaces/icon-collection';
 import { faComments, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { GenericResponse } from 'src/app/interfaces/api-response';
 
 
 @Component({
@@ -41,11 +42,16 @@ export class CommentEnterComponent implements OnInit {
     this.commentForm.valueChanges.subscribe((fields: { [key: string]: any }) => {
     this.commentText=this.commentForm.get('commentText').value;
   });
+  //console.log(this.commentText);
+  
   }
 
   public onSubmit = async (): Promise<void> => {
+    this._postService.addComment(this._id,this.commentText).subscribe();
      this._postService.addComment(this._id.trim(), this.commentText.trim());
      console.log(this._id, this.commentText);
      this.id= uuid();
   }
+
+  
 }
