@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { NOTYF } from 'src/app/utils/notyf.token';
 import { Notyf } from 'notyf';
@@ -19,7 +19,7 @@ export class CommentEnterComponent implements OnInit {
     comments: faComments,
     continue: faArrowRight
   };
-
+  @Input() _id: string;
   private id: string = uuid();
   private commentText: string="Initial";
   
@@ -44,8 +44,8 @@ export class CommentEnterComponent implements OnInit {
   }
 
   public onSubmit = async (): Promise<void> => {
-     //this._postService.addComment(this.id.trim(), this.commentText.trim());
-     console.log(this.id, this.commentText);
+     this._postService.addComment(this._id.trim(), this.commentText.trim());
+     console.log(this._id, this.commentText);
      this.id= uuid();
   }
 }
