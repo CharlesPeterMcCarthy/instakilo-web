@@ -40,8 +40,6 @@ export class NavComponent implements OnInit {
     this.isBelowNav = offset >= 20;
   }
 
-  public backgroundColor = (): string => this.isBelowNav || this.expandNav ? 'rgba(0, 0, 0, 1)' : 'rgba(0, 0, 0, 0.8)';
-
   public toggleNavBar = (): boolean => this.expandNav = !this.expandNav;
 
   public closeNavBar = (): void => {
