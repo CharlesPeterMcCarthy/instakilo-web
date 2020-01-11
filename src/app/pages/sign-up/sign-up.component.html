@@ -1,8 +1,6 @@
-<div *ngIf="!worked">
-  <h2>Sign Up</h2>
-</div>
+<h1 class="page-heading wide-screen-gap" *ngIf="!worked">Sign Up</h1>
 
-<form *ngIf="!worked" [formGroup]="signup" (ngSubmit)="onSubmit()" class="signup">
+<form *ngIf="!worked" [formGroup]="signup" (ngSubmit)="onSubmit()" class="signup auth-form">
   <div class="form-group">
     <label for="firstname">First Name</label>
     <input id="firstname" type="text" formControlName="firstname" class="form-control {{ firstName.invalid && firstName.touched ? 'error' : '' }}" />
@@ -88,11 +86,11 @@
   </div>
 
   <div class="text-right">
-    <button class="btn btn-primary" type="submit" [disabled]="signup.invalid">Submit</button>
+    <button class="btn btn-primary btn-lg wide-btn orange-btn" type="submit" [disabled]="signup.invalid">Sign Up <fa-icon [icon]="signUpIcon"></fa-icon></button>
   </div>
 </form>
 
 <div *ngIf="worked">
-  <h1>You have successfully signed up for InstaKilo!</h1>
+  <h1 class="page-heading wide-screen-gap">You have successfully signed up for InstaKilo!</h1>
   <p>Please check your email and following the link to confirm your account.</p>
 </div>

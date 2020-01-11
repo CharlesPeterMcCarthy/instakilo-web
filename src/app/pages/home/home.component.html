@@ -1,5 +1,13 @@
 <div class="home">
   <div class="home-img-container">
-    <img src="../../../assets/svg/home1.svg" class="home-img">
+    <img src="{{ imageSrc }}" class="home-img">
+  </div>
+
+  <div class="nav-btn">
+    <button class="btn btn-primary btn-lg wide-btn orange-btn" routerLink="/login">Login <fa-icon [icon]="icons.login"></fa-icon></button>
+  </div>
+
+  <div class="nav-btn">
+    <button class="btn btn-primary btn-lg wide-btn orange-btn" routerLink="/signup">Sign Up <fa-icon [icon]="icons.signup"></fa-icon></button>
   </div>
 </div>

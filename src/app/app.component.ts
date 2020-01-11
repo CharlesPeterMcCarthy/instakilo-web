@@ -27,8 +27,6 @@ export class AppComponent implements OnInit {
     this._title.setTitle('InstaKilo');
     await this.auth.checkUserAuthenticated();
     this.checkScreenSize(window.innerWidth);
-
-    this._user.getOtherUserProfile('135e6832-458f-404f-a5b4-1938d434b88b').subscribe(data => console.log(data));
   }
 
   @HostListener('window:resize', ['$event'])

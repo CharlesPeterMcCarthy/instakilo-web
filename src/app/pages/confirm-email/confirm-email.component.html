@@ -1,7 +1,7 @@
-<h1 *ngIf="!isConfirmed && !error">Confirming Email</h1>
-<h1 *ngIf="isConfirmed">Email Confirmed</h1>
-<h1 *ngIf="error && !requestedCode">Unable To Confirm Email</h1>
-<h1 *ngIf="requestedCode">Check Your Email</h1>
+<h1 class="page-heading" *ngIf="!isConfirmed && !error">Confirming Email</h1>
+<h1 class="page-heading" *ngIf="isConfirmed">Email Confirmed</h1>
+<h1 class="page-heading" *ngIf="error && !requestedCode">Unable To Confirm Email</h1>
+<h1 class="page-heading" *ngIf="requestedCode">Check Your Email</h1>
 
 <div *ngIf="!requestedCode">
   <p *ngIf="isConfirmed">Your email address has been successfully confirmed.</p>
