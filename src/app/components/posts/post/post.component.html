@@ -28,9 +28,9 @@
 
     <div class="comments info-row">
       <comment-enter [_id]="post._id"></comment-enter>
-      <span class="comment-display" *ngFor="let comment-display of post.comments">
-        {{ tag }}
-      </span>
+      <comment-display *ngFor="let comment-display of post.comments" ></comment-display>
     </div>
   </div>
 </div>
+
+[username]="post.comments.username" [commentText]="post.comments.text"

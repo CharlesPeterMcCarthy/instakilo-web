@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { NOTYF } from 'src/app/utils/notyf.token';
 import { Notyf } from 'notyf';
@@ -10,7 +10,9 @@ import { Notyf } from 'notyf';
 })
 export class CommentDisplayComponent implements OnInit {
   
-  
+  @Input() username: string="as";
+  @Input() commentText: string="aaaaaaaaaaaaaaa";
+
   ngOnInit(): void {
   }
 

@@ -42,8 +42,6 @@ export class CommentEnterComponent implements OnInit {
     this.commentForm.valueChanges.subscribe((fields: { [key: string]: any }) => {
     this.commentText=this.commentForm.get('commentText').value;
   });
-  //console.log(this.commentText);
-  
   }
 
   public onSubmit = async (): Promise<void> => {
@@ -52,6 +50,4 @@ export class CommentEnterComponent implements OnInit {
      console.log(this._id, this.commentText);
      this.id= uuid();
   }
-
-  
 }
