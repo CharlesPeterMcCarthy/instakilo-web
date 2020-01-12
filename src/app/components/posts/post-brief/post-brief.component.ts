@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { Post } from '@instakilo/common';
-import { faMapMarkerAlt, faHashtag, faAlignLeft, faEllipsisV, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faMapMarkerAlt, faHashtag, faAlignLeft, faEllipsisV, faArrowRight, faComments } from '@fortawesome/free-solid-svg-icons';
 import { IconCollection } from '../../../interfaces/icon-collection';
 import { PostsService } from '../../../services/posts/posts.service';
 import { GenericResponse } from '../../../interfaces/api-response';
@@ -26,7 +26,8 @@ export class PostBriefComponent implements OnInit {
     description: faAlignLeft,
     hashtags: faHashtag,
     options: faEllipsisV,
-    continue: faArrowRight
+    continue: faArrowRight,
+    comments: faComments
   };
 
   // public deleteModalBtns: ModalButton[] = [

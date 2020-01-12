@@ -15,13 +15,12 @@
     </div>
 
     <div class="description info-row">
-      <fa-icon [icon]="icons.description"></fa-icon>
-      {{ post.description }}
+      <fa-icon [icon]="icons.description"></fa-icon>{{ post.description }}
     </div>
 
     <div class="hashtags info-row">
       <fa-icon [icon]="icons.hashtags"></fa-icon>
-      <span class="hash-tag" *ngFor="let tag of post.hashTags">
+      <span class="hash-tag pointer" *ngFor="let tag of post.hashTags" routerLink="/search/hashtag/{{ tag }}">
         {{ tag }}
       </span>
     </div>
