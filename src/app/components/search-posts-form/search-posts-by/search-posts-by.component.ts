@@ -13,6 +13,7 @@ export class SearchPostsByComponent implements OnInit {
   @Input() public searchByIcon: IconDefinition;
   @Input() public searchHelpText: string;
   @Input() public searchTerm: string;
+  @Input() public isSearching: boolean = false;
   @Input() public linkStart: string;
   @Input() public matchResults: Array<{ value: string; id: string; count: number }>;
   @Input() public noResults: boolean = false;

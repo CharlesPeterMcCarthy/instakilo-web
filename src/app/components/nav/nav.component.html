@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-sm navbar-dark fixed-top">
-  <a class="navbar-brand" href="#">
+  <a class="navbar-brand" href="javascript:void(0)" routerLink="/">
     InstaKilo
   </a>
   <button type="button" class="navbar-toggler navbar-toggler-right" data-toggle="collapse" data-target="#nav-links" (click)="toggleNavBar()">
@@ -8,16 +8,15 @@
 
   <div class="collapse navbar-collapse" [ngClass]="{ 'show': expandNav }" id="nav-links">
     <ul class="navbar-nav mr-auto" (click)="closeNavBar()">
-      <li class="nav-item" *ngIf="!isCreatingPost() && IsLoggedIn()">
-        <a class="nav-link" href="javascript:void(0)">
-          <label class="link-label">
-            <fa-icon [icon]="icons.upload"></fa-icon>
-            <input type="file" accept="image/*" (change)="uploadImage($event)" hidden>
-          </label>
-        </a>
-      </li>
-
       <div *ngIf="IsLoggedIn()">
+        <li class="nav-item" *ngIf="!isCreatingPost() && IsLoggedIn()">
+          <a class="nav-link" href="javascript:void(0)">
+            <label class="link-label">
+              <fa-icon [icon]="icons.upload"></fa-icon>
+              <input type="file" accept="image/*" (change)="uploadImage($event)" hidden>
+            </label>
+          </a>
+        </li>
         <app-nav-link *ngFor="let navLink of navLinksLeft" [navLink]="navLink"></app-nav-link>
       </div>
     </ul>

@@ -1,6 +1,6 @@
 <h1 class="page-heading wide-screen-gap">Login</h1>
 
-<form [formGroup]="loginForm" class="login-form auth-form">
+<form [formGroup]="loginForm" class="login-form content-panel">
   <div class="form-group">
     <label for="username">Username</label>
     <input type="text" id="username" class="form-control {{ username.invalid && username.touched ? 'error' :'' }}" formControlName="username">

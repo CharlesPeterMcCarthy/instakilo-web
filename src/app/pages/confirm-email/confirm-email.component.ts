@@ -16,9 +16,9 @@ export class ConfirmEmailComponent implements OnInit {
   private readonly confirmationCode: string;
   private readonly username: string;
   public isConfirmed: boolean = false;
-  private knownErrorTypes: string[] = [ 'CodeMismatchException', 'NotAuthorizedException', 'ExpiredCodeException' ];
+  private knownErrorTypes: string[] = [ 'CodeMismatchException', 'NotAuthorizedException', 'ExpiredCodeException', 'LimitExceededException' ];
   public error: string;
-  public requestedCode: boolean;
+  public requestedCode: boolean = false;
 
   constructor(
     private _title: Title,
@@ -53,6 +53,7 @@ export class ConfirmEmailComponent implements OnInit {
   }
 
   private handleError = (err: CustomAuthError): void => {
+    console.log(err);
     if (this.isKnownError(err.code)) this.error = err.code;
     else this._notyf.error('An unknown error has occurred');
   }

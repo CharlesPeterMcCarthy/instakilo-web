@@ -1,6 +1,6 @@
 <h1 class="page-heading wide-screen-gap" *ngIf="!worked">Sign Up</h1>
 
-<form *ngIf="!worked" [formGroup]="signup" (ngSubmit)="onSubmit()" class="signup auth-form">
+<form *ngIf="!worked" [formGroup]="signup" (ngSubmit)="onSubmit()" class="signup content-panel">
   <div class="form-group">
     <label for="firstname">First Name</label>
     <input id="firstname" type="text" formControlName="firstname" class="form-control {{ firstName.invalid && firstName.touched ? 'error' : '' }}" />

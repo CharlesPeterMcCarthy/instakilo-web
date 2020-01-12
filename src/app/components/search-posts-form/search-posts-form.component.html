@@ -1,4 +1,4 @@
-<div class="searching-form">
+<div class="searching-form content-panel">
   <search-posts-by
     searchBy="HashTag"
     [searchByIcon]="icons.hashtag"
@@ -7,8 +7,10 @@
     [searchTerm]="matchingHashTagSearchTerm"
     [matchResults]="matchingHashTags | genericSearchResults : 'hashtag'"
     [noResults]="noMatchingHashTags"
+    [isSearching]="isSearching"
     (keyPressedEE)="hashTagSearch($event)"
     *ngIf="!matchingLocationSearchTerm"
+
   >
   </search-posts-by>
 
@@ -22,6 +24,7 @@
     [searchTerm]="matchingLocationSearchTerm"
     [matchResults]="matchingLocations | genericSearchResults : 'location'"
     [noResults]="noMatchingLocations"
+    [isSearching]="isSearching"
     (keyPressedEE)="locationSearch($event)"
     *ngIf="!matchingHashTagSearchTerm"
   >

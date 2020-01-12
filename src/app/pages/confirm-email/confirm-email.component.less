@@ -1,7 +1,31 @@
 .error {
   color: red;
+  font-weight: bold;
 }
 
 button {
   margin-left: 10px;
+}
+
+img {
+  width: 40%;
+  margin-bottom: 20px;
+}
+
+@media screen and (max-width: 576px) {
+  img {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 768px) and (min-width: 577px) {
+  img {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 992px) and (min-width: 769px) {
+  img {
+    width: 40%;
+  }
 }
