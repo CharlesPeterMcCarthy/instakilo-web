@@ -24,6 +24,12 @@ import { PostComponent } from './components/posts/post/post.component';
 import { CommentContainerComponent } from './components/comments/comment-container/comment-container.component';
 import { CommentDisplayComponent } from './components/comments/comment-display/comment-display.component';
 import { CommentEnterComponent } from './components/comments/comment-enter/comment-enter.component';
+import { SearchComponent } from './pages/search/search.component';
+import { SearchPostsResultsComponent } from './components/search-posts-results/search-posts-results.component';
+import { SearchPostsFormComponent } from './components/search-posts-form/search-posts-form.component';
+import { SearchPostsByComponent } from './components/search-posts-form/search-posts-by/search-posts-by.component';
+import { GenericSearchResultsPipe } from './pipes/generic-search-results/generic-search-results.pipe';
+import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +48,13 @@ import { CommentEnterComponent } from './components/comments/comment-enter/comme
     PostComponent,
     CommentContainerComponent,
     CommentDisplayComponent,
-    CommentEnterComponent
+    CommentEnterComponent,
+    SearchComponent,
+    SearchPostsResultsComponent,
+    SearchPostsFormComponent,
+    SearchPostsByComponent,
+    GenericSearchResultsPipe,
+    HomeComponent
   ],
   imports: [
     AppRoutingModule,

@@ -27,3 +27,60 @@
     color: #555!important;
   }
 }
+
+h1 {
+  &.page-heading {
+    font-weight: bold;
+    margin-bottom: 30px;
+  }
+}
+
+label {
+  font-weight: bold;
+}
+
+button {
+  &.orange-btn {
+    background-color: #fcba03;
+    color: #555;
+    border: none;
+
+    &:hover {
+      background-color: #e6aa02;
+      color: #444;
+    }
+
+    &:disabled {
+      background-color: #e6aa02;
+      color: #444;
+    }
+  }
+}
+
+form {
+  &.auth-form {
+    background-color: rgba(255, 255, 255, 0.4);
+    padding: 20px;
+    border-radius: 4px;
+    margin: auto -30px;
+
+    @media screen and (max-width: 767px) {
+      padding: 20px 30px;
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  button {
+    &.wide-btn {
+      width: 100% !important;
+    }
+  }
+}
+
+@media screen and (min-width: 576px) {
+  .wide-screen-gap {
+    margin-top: 60px;
+    margin-left: -10px;
+  }
+}

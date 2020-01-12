@@ -3,6 +3,7 @@ import { AuthService } from './services/auth/auth.service';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { faSignOutAlt, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { UsersService } from './services/users/users.service';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,8 @@ export class AppComponent implements OnInit {
   constructor(
     private _title: Title,
     private _router: Router,
-    private auth: AuthService
+    private auth: AuthService,
+    private _user: UsersService
   ) { }
 
   public async ngOnInit(): Promise<void> {

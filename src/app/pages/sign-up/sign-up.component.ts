@@ -4,6 +4,7 @@ import { AuthService, CustomAuthError, CustomResponse  } from '../../services/au
 import { Router } from '@angular/router';
 import { NOTYF } from '../../utils/notyf.token';
 import { Notyf } from 'notyf';
+import { faUserPlus, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-sign-up',
@@ -13,6 +14,7 @@ import { Notyf } from 'notyf';
 export class SignUpComponent implements OnInit {
 
   private worked: boolean = false;
+  public signUpIcon: IconDefinition = faUserPlus;
   private emailErrorTypes: string[] = [ 'InvalidEmailException' ];
   private passwordErrorTypes: string[] = [ 'InvalidPasswordException' ];
   private userNameErrorTypes: string[] = [ 'UsernameExistsException', 'InvalidUsernameException' ];

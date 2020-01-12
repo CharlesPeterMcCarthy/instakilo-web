@@ -5,6 +5,7 @@ import { AuthService, CustomAuthError, CustomResponse } from 'src/app/services/a
 import { ActivatedRoute, Router } from '@angular/router';
 import { NOTYF } from '../../utils/notyf.token';
 import { Notyf } from 'notyf';
+import { faSignInAlt, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,8 @@ import { Notyf } from 'notyf';
 export class LoginComponent implements OnInit {
 
   public loginForm: FormGroup;
+  public loginIcon: IconDefinition = faSignInAlt;
+
   private usernameErrorTypes: string[] = [
     'UserNotFoundException',
     'UserNotConfirmedException'

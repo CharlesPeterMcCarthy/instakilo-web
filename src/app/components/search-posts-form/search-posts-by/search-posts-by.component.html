@@ -1,0 +1,17 @@
+<p>By {{ searchBy }} <fa-icon [icon]="searchByIcon"></fa-icon></p>
+<div class="input-container">
+  <input type="text" class="form-control" (keyup)="keyPressed($event)" #field>
+  <fa-icon [icon]="icons.search" *ngIf="!searchTerm" (click)="focusField(field)"></fa-icon>
+  <fa-icon [icon]="icons.remove" *ngIf="searchTerm" (click)="resetField(field)"></fa-icon>
+</div>
+<small *ngIf="!searchTerm">{{ searchHelpText }}</small>
+
+<ul class="list-group">
+  <li *ngFor="let res of matchResults" class="list-group-item matching-search" routerLink="{{ linkStart }}{{ res.id }}">
+    <span class="matching-term">#{{ res.value }}</span>
+    <small class="matching-posts-count">{{ res.count }} posts</small>
+    <fa-icon [icon]="icons.rightArrow"></fa-icon>
+  </li>
+</ul>
+
+<p *ngIf="noResults" class="no-results">There are no {{ searchBy.toLowerCase() }}s containing the text <strong>{{ searchTerm }}</strong></p>

@@ -6,7 +6,18 @@ import { catchError } from 'rxjs/operators';
 import { ErrorHandlingService } from '../error-handling/error-handling.service';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
-import { GenericResponse, GetOwnPostsResponse, GetPostResponse, GetPostsResponse, PostsResponse, UpdatedCommentsResponse } from '../../interfaces/api-response';
+import {
+  GenericResponse,
+  GetOwnPostsResponse,
+  GetPostResponse,
+  GetPostsResponse, 
+  MatchingHashTagsResponse, 
+  MatchingLocationsResponse,
+  PostsBriefResponse, 
+  PostsByLocationResponse,
+  PostsResponse, 
+  UpdatedCommentsResponse
+} from '../../interfaces/api-response';
 
 @Injectable({
   providedIn: 'root'
@@ -83,17 +94,29 @@ export class PostsService {
       { postId, commentId, ...this.attachAccessToken() }
     ) as Observable<UpdatedCommentsResponse>;
 
-  public getPostsByHashTag = (hashTag: string): Observable<PostsResponse> =>
+  public getPostsByHashTag = (hashTag: string): Observable<PostsBriefResponse> =>
     this._http.post(
       `${this.baseURL}/posts-by-hashtag`,
       { hashTag, ...this.attachAccessToken() }
-    ) as Observable<PostsResponse>;
+    ) as Observable<PostsBriefResponse>;
 
-  public getPostsByLocation = (placeId: string): Observable<PostsResponse> =>
+  public getPostsByLocation = (placeId: string): Observable<PostsByLocationResponse> =>
     this._http.post(
       `${this.baseURL}/posts-by-location`,
       { placeId, ...this.attachAccessToken() }
-    ) as Observable<PostsResponse>;
+    ) as Observable<PostsByLocationResponse>;
+
+  public getMatchingHashTags = (hashTag: string): Observable<MatchingHashTagsResponse> =>
+    this._http.post(
+      `${this.baseURL}/matching-hashtags`,
+      { hashTag, ...this.attachAccessToken() }
+    ) as Observable<MatchingHashTagsResponse>;
+
+  public getMatchingLocations = (location: string): Observable<MatchingLocationsResponse> =>
+    this._http.post(
+      `${this.baseURL}/matching-locations`,
+      { location, ...this.attachAccessToken() }
+    ) as Observable<MatchingLocationsResponse>;
 
   private attachAccessToken = (): { token: string } => ({ token: this._authService.getAccessToken() });
 

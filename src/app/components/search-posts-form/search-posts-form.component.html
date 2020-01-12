@@ -1,0 +1,29 @@
+<div class="searching-form">
+  <search-posts-by
+    searchBy="HashTag"
+    [searchByIcon]="icons.hashtag"
+    searchHelpText="Type a part of or the full hashtag, eg. tech"
+    linkStart="/search/hashtag/"
+    [searchTerm]="matchingHashTagSearchTerm"
+    [matchResults]="matchingHashTags | genericSearchResults : 'hashtag'"
+    [noResults]="noMatchingHashTags"
+    (keyPressedEE)="hashTagSearch($event)"
+    *ngIf="!matchingLocationSearchTerm"
+  >
+  </search-posts-by>
+
+  <p class="or-text" *ngIf="!matchingHashTagSearchTerm && !matchingLocationSearchTerm">OR</p>
+
+  <search-posts-by
+    searchBy="Location"
+    [searchByIcon]="icons.location"
+    searchHelpText="Type a part of or the full name of a location, eg. dub"
+    linkStart="/search/location/"
+    [searchTerm]="matchingLocationSearchTerm"
+    [matchResults]="matchingLocations | genericSearchResults : 'location'"
+    [noResults]="noMatchingLocations"
+    (keyPressedEE)="locationSearch($event)"
+    *ngIf="!matchingHashTagSearchTerm"
+  >
+  </search-posts-by>
+</div>

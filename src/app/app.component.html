@@ -1,6 +1,6 @@
 <div class="main-wrap">
   <div class="jumbotron" *ngIf="isMobile">
-    <h1>InstaKilo</h1>
+    <h1 routerLink="/">InstaKilo</h1>
     <a href="javascript:void(0)" (click)="logout()" class="logout-mobile" *ngIf="auth.isLoggedIn()">
       <fa-icon [icon]="signOutIcon"></fa-icon>
     </a>
