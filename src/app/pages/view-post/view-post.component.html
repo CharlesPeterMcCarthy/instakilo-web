@@ -3,3 +3,5 @@
 <post [post]="post" *ngIf="post"></post>
 
 <h3 *ngIf="noPost && !post" class="no-post-error">There are no posts matching the ID supplied.</h3>
+
+<spinner [text]="'Retrieving post...'" name="spinner"></spinner>

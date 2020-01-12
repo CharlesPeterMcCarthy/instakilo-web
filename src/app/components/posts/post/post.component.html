@@ -1,33 +1,38 @@
-<div class="post-container">
+<div class="post-container content-panel">
+  <div class="post-creator">
+    <img src="{{ post.createdBy.avatar && post.createdBy.avatar.imageURL || './assets/images/noavatar.jpg' }}" class="avatar pointer" [routerLink]="[ '/profile', post.createdBy._id ]">
+    <span class="username">Posted by <strong class="pointer" [routerLink]="[ '/profile', post.createdBy._id ]">{{ post.createdBy.username }}</strong></span>
+  </div>
+
   <div class="img-container">
     <img src="{{ post.imageURL }}">
   </div>
 
-  <div class="post-creator">
-    <img src="{{ post.createdBy.avatar || './assets/images/noavatar.jpg' }}" class="avatar">
-    <span class="username">Posted by <strong>{{ post.createdBy.username }}</strong></span>
-  </div>
-
   <div class="post-info">
     <div class="location info-row">
-      <fa-icon [icon]="icons.location"></fa-icon>
-      {{ post.location.locationName }}
+      <h5><fa-icon [icon]="icons.location"></fa-icon> Location</h5>
+      <div class="row-content">
+        <a href="javascript:void(0)" [routerLink]="[ '/search/location', post.location.placeData.place_id ]">{{ post.location.locationName }}</a>
+      </div>
     </div>
 
-    <div class="description info-row">
-      <fa-icon [icon]="icons.description"></fa-icon>{{ post.description }}
+    <div class="description info-row with-border">
+      <h5><fa-icon [icon]="icons.description"></fa-icon> Description</h5>
+      <div class="row-content">{{ post.description }}</div>
     </div>
 
-    <div class="hashtags info-row">
-      <fa-icon [icon]="icons.hashtags"></fa-icon>
-      <span class="hash-tag pointer" *ngFor="let tag of post.hashTags" routerLink="/search/hashtag/{{ tag }}">
-        {{ tag }}
-      </span>
+    <div class="hashtags info-row with-border">
+      <h5><fa-icon [icon]="icons.hashtags"></fa-icon> HashTags</h5>
+      <div class="row-content">
+        <span class="hash-tag pointer" *ngFor="let tag of post.hashTags" [routerLink]="[ '/search/hashtag/', tag ]">
+          {{ tag }}
+        </span>
+      </div>
     </div>
 
-    <div class="comments info-row">
-      <comment-enter [_id]="post._id"></comment-enter>
-      <comment-display *ngFor="let comment of post.comments" [currentUsername]="" [username]="comment.user.username" [commentText]="comment.text" [id]="comment._id" [postId]="post._id" [comments]="post.comments"></comment-display>
+    <div class="comments info-row with-border">
+      <h5><fa-icon [icon]="icons.comments"></fa-icon> Comments ({{ post.commentCount }})</h5>
+      <comment-container [post]="post"></comment-container>
     </div>
   </div>
 </div>

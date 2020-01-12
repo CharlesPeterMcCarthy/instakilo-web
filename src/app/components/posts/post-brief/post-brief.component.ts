@@ -30,11 +30,6 @@ export class PostBriefComponent implements OnInit {
     comments: faComments
   };
 
-  // public deleteModalBtns: ModalButton[] = [
-  //   { text: 'Cancel', message: 'CANCEL' },
-  //   { text: 'Delete', message: 'DELETE' }
-  // ];
-
   constructor(
     private _postsService: PostsService,
     private _usersService: UsersService,

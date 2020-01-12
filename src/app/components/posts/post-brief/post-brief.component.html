@@ -1,7 +1,7 @@
 <div class="post-container">
   <div class="post-title">
-    <img src="{{ post.createdBy.avatar && post.createdBy.avatar.imageURL || './assets/images/noavatar.jpg' }}" class="avatar pointer" routerLink="/profile/{{ post.createdBy._id }}">
-    <span class="username pointer" routerLink="/profile/{{ post.createdBy._id }}">{{ post.createdBy.username }}</span>
+    <img src="{{ post.createdBy.avatar && post.createdBy.avatar.imageURL || './assets/images/noavatar.jpg' }}" class="avatar pointer" [routerLink]="[ '/profile', post.createdBy._id ]">
+    <span class="username pointer" [routerLink]="[ '/profile', post.createdBy._id ]">{{ post.createdBy.username }}</span>
 
     <div ngbDropdown>
       <fa-icon [icon]="icons.options" id="option-dd" class="pointer" ngbDropdownToggle></fa-icon>

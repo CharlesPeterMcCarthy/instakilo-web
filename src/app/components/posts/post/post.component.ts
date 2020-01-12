@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, EventEmitter } from '@angular/core';
-import { Post,Comment } from '@instakilo/common';
+import { Post } from '@instakilo/common';
 import { IconCollection } from '../../../interfaces/icon-collection';
 import { faAlignLeft, faComments, faEllipsisV, faHashtag, faMapMarkerAlt, faUserAlt } from '@fortawesome/free-solid-svg-icons';
 
@@ -11,7 +11,6 @@ import { faAlignLeft, faComments, faEllipsisV, faHashtag, faMapMarkerAlt, faUser
 export class PostComponent implements OnInit {
 
   @Input() public post: Post;
-  private comments: Comment[];
 
   public icons: IconCollection = {
     location: faMapMarkerAlt,

@@ -32,6 +32,7 @@ import { GenericSearchResultsPipe } from './pipes/generic-search-results/generic
 import { HomeComponent } from './pages/home/home.component';
 import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from './components/modal/modal.component';
+import { TimeSincePipe } from './pipes/time-since/time-since.pipe';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { ModalComponent } from './components/modal/modal.component';
     SearchPostsByComponent,
     GenericSearchResultsPipe,
     HomeComponent,
-    ModalComponent
+    ModalComponent,
+    TimeSincePipe
   ],
   imports: [
     AppRoutingModule,

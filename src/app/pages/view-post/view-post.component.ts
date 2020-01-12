@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PostsService } from '../../services/posts/posts.service';
 import { GetPostResponse } from '../../interfaces/api-response';
 import { Title } from '@angular/platform-browser';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-view-post',
@@ -18,16 +19,22 @@ export class ViewPostComponent implements OnInit {
   constructor(
     private _title: Title,
     private _route: ActivatedRoute,
-    private _postService: PostsService
+    private _postService: PostsService,
+    private _spinner: NgxSpinnerService
   ) {
     this._title.setTitle('View Post | InstaKilo');
   }
 
-  public ngOnInit(): void {
+  public async ngOnInit(): Promise<void> {
+    await this._spinner.show('spinner');
+
     const postId: string = this._route.snapshot.paramMap.get('id');
-    this._postService.getPost(postId).subscribe((res: GetPostResponse) => {
+
+    this._postService.getPost(postId).subscribe(async (res: GetPostResponse) => {
       if (res.success && res.post) this.post = res.post;
       else this.noPost = true;
+
+      await this._spinner.hide('spinner');
     });
   }
 
