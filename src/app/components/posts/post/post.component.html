@@ -27,7 +27,8 @@
     </div>
 
     <div class="comments info-row">
-      <fa-icon [icon]="icons.comments"></fa-icon>
+      <comment-enter [_id]="post._id"></comment-enter>
+      <comment-display *ngFor="let comment of post.comments" [currentUsername]="" [username]="comment.user.username" [commentText]="comment.text" [id]="comment._id" [postId]="post._id" [comments]="post.comments"></comment-display>
     </div>
   </div>
 </div>

@@ -10,9 +10,13 @@ import {
   GenericResponse,
   GetOwnPostsResponse,
   GetPostResponse,
-  GetPostsResponse, MatchingHashTagsResponse, MatchingLocationsResponse,
-  PostsBriefResponse, PostsByLocationResponse,
-  PostsResponse
+  GetPostsResponse, 
+  MatchingHashTagsResponse, 
+  MatchingLocationsResponse,
+  PostsBriefResponse, 
+  PostsByLocationResponse,
+  PostsResponse, 
+  UpdatedCommentsResponse
 } from '../../interfaces/api-response';
 
 @Injectable({
@@ -78,17 +82,17 @@ export class PostsService {
       { postId, ...this.attachAccessToken() }
     ) as Observable<GetPostResponse>;
 
-  public addComment = (postId: string, commentText: string): Observable<GenericResponse> =>
+  public addComment = (postId: string, commentText: string): Observable<UpdatedCommentsResponse> =>
     this._http.post(
       `${this.baseURL}/add-comment`,
       { commentText, postId, ...this.attachAccessToken() }
-    ) as Observable<GenericResponse>;
+    ) as Observable<UpdatedCommentsResponse>;
 
-  public deleteComment = (postId: string, commentId: string): Observable<GenericResponse> =>
+  public deleteComment = (postId: string, commentId: string): Observable<UpdatedCommentsResponse> =>
     this._http.post(
       `${this.baseURL}/delete-comment`,
       { postId, commentId, ...this.attachAccessToken() }
-    ) as Observable<GenericResponse>;
+    ) as Observable<UpdatedCommentsResponse>;
 
   public getPostsByHashTag = (hashTag: string): Observable<PostsBriefResponse> =>
     this._http.post(
