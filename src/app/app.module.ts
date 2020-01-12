@@ -21,6 +21,9 @@ import { BottomNavComponent } from './components/bottom-nav/bottom-nav.component
 import { PostBriefComponent } from './components/posts/post-brief/post-brief.component';
 import { ViewPostComponent } from './pages/view-post/view-post.component';
 import { PostComponent } from './components/posts/post/post.component';
+import { CommentContainerComponent } from './components/comments/comment-container/comment-container.component';
+import { CommentDisplayComponent } from './components/comments/comment-display/comment-display.component';
+import { CommentEnterComponent } from './components/comments/comment-enter/comment-enter.component';
 import { SearchComponent } from './pages/search/search.component';
 import { SearchPostsResultsComponent } from './components/search-posts-results/search-posts-results.component';
 import { SearchPostsFormComponent } from './components/search-posts-form/search-posts-form.component';
@@ -45,6 +48,9 @@ import { ModalComponent } from './components/modal/modal.component';
     PostBriefComponent,
     ViewPostComponent,
     PostComponent,
+    CommentContainerComponent,
+    CommentDisplayComponent,
+    CommentEnterComponent,
     SearchComponent,
     SearchPostsResultsComponent,
     SearchPostsFormComponent,
