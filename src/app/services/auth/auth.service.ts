@@ -63,6 +63,11 @@ export class AuthService {
     }
   }
 
+  public userId = async (): Promise<string> => {
+    const info = await this.Auth.currentUserInfo();
+    return info.attributes.sub;
+  }
+
   public isLoggedIn = (): boolean => !!localStorage.getItem('isLoggedIn');
 
   public logout = async (): Promise<void> => await this.Auth.signOut();

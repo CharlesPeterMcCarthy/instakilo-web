@@ -27,6 +27,8 @@ import { SearchPostsFormComponent } from './components/search-posts-form/search-
 import { SearchPostsByComponent } from './components/search-posts-form/search-posts-by/search-posts-by.component';
 import { GenericSearchResultsPipe } from './pipes/generic-search-results/generic-search-results.pipe';
 import { HomeComponent } from './pages/home/home.component';
+import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ModalComponent } from './components/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,8 @@ import { HomeComponent } from './pages/home/home.component';
     SearchPostsFormComponent,
     SearchPostsByComponent,
     GenericSearchResultsPipe,
-    HomeComponent
+    HomeComponent,
+    ModalComponent
   ],
   imports: [
     AppRoutingModule,
@@ -58,7 +61,9 @@ import { HomeComponent } from './pages/home/home.component';
     AmplifyAngularModule,
     ReactiveFormsModule,
     FormsModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    NgbModule,
+    NgbModalModule
   ],
   providers: [
     {
@@ -76,6 +81,9 @@ import { HomeComponent } from './pages/home/home.component';
   ],
   bootstrap: [
     AppComponent
+  ],
+  entryComponents: [
+    ModalComponent
   ]
 })
 export class AppModule { }

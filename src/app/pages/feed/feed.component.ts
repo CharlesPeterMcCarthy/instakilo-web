@@ -6,6 +6,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { DOCUMENT } from '@angular/common';
 import { faSyncAlt, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Title } from '@angular/platform-browser';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-feed',
@@ -23,18 +24,23 @@ export class FeedComponent implements OnInit {
   public moreAvailable: boolean = false;
   private retrievingPosts: boolean = false; // Used to prevent multiple calls at the same time
   public loadMoreIcon: IconDefinition = faSyncAlt;
+  private currentUserId: string;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private _postsService: PostsService,
     private _spinner: NgxSpinnerService,
-    private _title: Title
+    private _title: Title,
+    private _authService: AuthService
   ) {
     this._title.setTitle('Post Feed | InstaKilo');
   }
 
   public async ngOnInit(): Promise<void> {
     await this.getPosts(this.initSpinnerName);
+
+    const userId = await this._authService.userId();
+    this.currentUserId = userId;
   }
 
   @HostListener('window:scroll', [])
@@ -67,6 +73,10 @@ export class FeedComponent implements OnInit {
     this.posts = [ ...this.posts, ...data.posts ];
     this.lastEvaluatedKey = data.lastKey;
     this.moreAvailable = data.moreAvailable;
+  }
+
+  public postDeleted = (postId: string): void => { // Remove deleted post from the currently displayed array
+    if (postId) this.posts = this.posts.filter((p: Post) => p._id !== postId);
   }
 
 }

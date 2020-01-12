@@ -77,6 +77,11 @@ export class UsersService {
     }
   }
 
+  public updateAvatar = (postId: string, imageURL: string): Observable<GenericResponse> =>
+    this._http.post(
+    `${this.baseURL}/user-profile/update-avatar`,
+    { postId, imageURL, ...this.attachAccessToken() }) as Observable<GenericResponse>;
+
   private attachAccessToken = (): { token: string } => ({ token: this._authService.getAccessToken() });
 
 }

@@ -14,7 +14,6 @@ export class AppComponent implements OnInit {
 
   public isMobile: boolean = false;
   public signOutIcon: IconDefinition = faSignOutAlt;
-  public username: string = this.auth.user && this.auth.user.getUsername();
 
   constructor(
     private _title: Title,
@@ -39,5 +38,7 @@ export class AppComponent implements OnInit {
   }
 
   public isLoggedIn = (): boolean => this.auth.isLoggedIn();
+
+  public username = (): string => this.auth.user && this.auth.user.getUsername();
 
 }

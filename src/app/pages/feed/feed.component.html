@@ -1,7 +1,12 @@
 <h1 class="page-heading">Feed</h1>
 
 <div class="posts">
-  <post-brief *ngFor="let post of posts" [post]="post"></post-brief>
+  <post-brief
+    *ngFor="let post of posts"
+    [post]="post"
+    [ownsPost]="currentUserId === post.createdBy._id"
+    (deletedEE)="postDeleted($event)"
+  ></post-brief>
 </div>
 
 <div class="load-more">
