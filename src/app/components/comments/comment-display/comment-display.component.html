@@ -1,2 +1,9 @@
-<h4 id="username">{{username}}</h4>
-<p id="commentField">{{commentText}}</p>
+<form [formGroup]="deleteForm" (ngSubmit)="onSubmit()" class="commentForm">
+    <div class="form-group">
+        <h5 id="username">{{username}}</h5>
+        <div>
+            <p id="commentField">{{commentText}}</p>
+            <button type="submit" ><fa-icon [icon]="icons.delete" *ngIf="isOwned"></fa-icon></button>
+        </div>
+    </div> 
+</form>

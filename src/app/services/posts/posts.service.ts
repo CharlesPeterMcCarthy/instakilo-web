@@ -6,7 +6,7 @@ import { catchError } from 'rxjs/operators';
 import { ErrorHandlingService } from '../error-handling/error-handling.service';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
-import { GenericResponse, GetOwnPostsResponse, GetPostResponse, GetPostsResponse, PostsResponse } from '../../interfaces/api-response';
+import { GenericResponse, GetOwnPostsResponse, GetPostResponse, GetPostsResponse, PostsResponse, UpdatedCommentsResponse } from '../../interfaces/api-response';
 
 @Injectable({
   providedIn: 'root'
@@ -71,17 +71,17 @@ export class PostsService {
       { postId, ...this.attachAccessToken() }
     ) as Observable<GetPostResponse>;
 
-  public addComment = (postId: string, commentText: string): Observable<GenericResponse> =>
+  public addComment = (postId: string, commentText: string): Observable<UpdatedCommentsResponse> =>
     this._http.post(
       `${this.baseURL}/add-comment`,
       { commentText, postId, ...this.attachAccessToken() }
-    ) as Observable<GenericResponse>;
+    ) as Observable<UpdatedCommentsResponse>;
 
-  public deleteComment = (postId: string, commentId: string): Observable<GenericResponse> =>
+  public deleteComment = (postId: string, commentId: string): Observable<UpdatedCommentsResponse> =>
     this._http.post(
       `${this.baseURL}/delete-comment`,
       { postId, commentId, ...this.attachAccessToken() }
-    ) as Observable<GenericResponse>;
+    ) as Observable<UpdatedCommentsResponse>;
 
   public getPostsByHashTag = (hashTag: string): Observable<PostsResponse> =>
     this._http.post(

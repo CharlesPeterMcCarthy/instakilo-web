@@ -48,6 +48,6 @@ export class CommentEnterComponent implements OnInit {
     this._postService.addComment(this._id,this.commentText).subscribe();
      this._postService.addComment(this._id.trim(), this.commentText.trim());
      console.log(this._id, this.commentText);
-     this.id= uuid();
   }
+
 }
