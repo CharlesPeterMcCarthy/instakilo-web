@@ -16,6 +16,7 @@ import { Progress } from 'aws-sdk/lib/request';
 import { IconCollection } from '../../interfaces/icon-collection';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-create-post',
@@ -45,6 +46,7 @@ export class CreatePostComponent implements OnInit {
   public location: Location;
   public hashTags: string[] = [];
   public imageURL: string;
+  public courieringImage: boolean = false;
 
   constructor(
     private _googlePlaceService: GooglePlacesService,
@@ -55,17 +57,22 @@ export class CreatePostComponent implements OnInit {
     private _imageCourier: ImageCourierService,
     private _spinner: NgxSpinnerService,
     private _router: Router,
+    private _title: Title,
     @Inject(NOTYF) private notyf: Notyf
-  ) { }
+  ) {
+    this._title.setTitle('Create Post | InstaKilo');
+  }
 
-  public ngOnInit(): void {
+  public async ngOnInit(): Promise<void> {
     this.placesListener();
     this.imageUploadListener();
     this.imageUploadProgressListener();
 
     const imageFile: File = this._imageCourier.takeImage();
-    console.log(imageFile);
-    imageFile && this.uploadImage(imageFile);
+    if (imageFile) {
+      this.courieringImage = true;
+      await this.uploadImage(imageFile);
+    }
   }
 
   public locationKeyup = (input: string): void | undefined[] => {
@@ -87,8 +94,6 @@ export class CreatePostComponent implements OnInit {
   public descriptionKeyup = (description: string): string[] => this.hashTags = this._hashTagService.pluckHashTags(description);
 
   public setLocation = (place: GooglePlace): void => {
-    console.log(place);
-
     this.location = {
       placeData: place,
       locationName: place.structured_formatting.main_text
@@ -114,10 +119,10 @@ export class CreatePostComponent implements OnInit {
     };
 
     if (!post.imageURL) return this.notyf.error('You must upload an image');
+    if (!post.location) return this.notyf.error('You must select a location');
+    if (!post.description) return this.notyf.error('You must add a description');
 
     await this._spinner.show('sharing');
-
-    console.log(post);
 
     this._postsService.createPost(post).subscribe((res: GenericResponse) => {
       this._spinner.hide('sharing');
@@ -128,8 +133,8 @@ export class CreatePostComponent implements OnInit {
 
   public imageSelected = async (e: Event): Promise<void> => {
     const event = e as HTMLInputEvent; // For intellisense
-    const imageFile: File = event.target.files && event.target.files[0];
-    if (!imageFile) this.notyf.error('No image was selected');
+    const imageFile: File = event.target.files && event.target.files.length && event.target.files[0];
+    if (!imageFile) return;
     await this.uploadImage(imageFile);
   }
 
@@ -139,8 +144,10 @@ export class CreatePostComponent implements OnInit {
   }
 
   private imageUploadListener = (): Subscription => this._s3Service.uploadListener.subscribe(async (imageURL: string) => {
+    if (!imageURL) return;
     this.imageURL = imageURL;
     await this._spinner.hide('uploading');
+    this.courieringImage = false;
   });
 
   private imageUploadProgressListener = (): Subscription => this._s3Service.progressListener.subscribe((res: Progress) => console.log(res));
@@ -191,7 +198,7 @@ export class CreatePostComponent implements OnInit {
   */
   public formEnterKey = (e: Event): boolean => (e as HTMLInputEvent).target.tagName === 'TEXTAREA';
 
-  private get locationField(): FormControl {
+  public get locationField(): FormControl {
     return <FormControl> this.postForm.get('location');
   }
 

@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NOTYF } from '../../utils/notyf.token';
 import { Notyf } from 'notyf';
 import { faSignInAlt, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-login',
@@ -26,13 +27,16 @@ export class LoginComponent implements OnInit {
   ];
 
   constructor(
+    private _title: Title,
     private _fb: FormBuilder,
     private _auth: AuthService,
     private _router: Router,
     private activatedroute: ActivatedRoute,
     private location: Location,
     @Inject(NOTYF) private _notyf: Notyf
-  ) { }
+  ) {
+    this._title.setTitle('Login | InstaKilo');
+  }
 
   public ngOnInit(): void {
     this.loginForm = this._fb.group({

@@ -5,6 +5,7 @@ import { GetPostsResponse } from '../../interfaces/api-response';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DOCUMENT } from '@angular/common';
 import { faSyncAlt, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-feed',
@@ -26,8 +27,11 @@ export class FeedComponent implements OnInit {
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private _postsService: PostsService,
-    private _spinner: NgxSpinnerService
-  ) { }
+    private _spinner: NgxSpinnerService,
+    private _title: Title
+  ) {
+    this._title.setTitle('Post Feed | InstaKilo');
+  }
 
   public async ngOnInit(): Promise<void> {
     await this.getPosts(this.initSpinnerName);

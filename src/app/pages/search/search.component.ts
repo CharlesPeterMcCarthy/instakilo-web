@@ -3,6 +3,7 @@ import { PostsService } from '../../services/posts/posts.service';
 import { ActivatedRoute } from '@angular/router';
 import { PostsBriefResponse, PostsByLocationResponse } from '../../interfaces/api-response';
 import { PostBrief } from '@instakilo/common';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-search',
@@ -18,9 +19,12 @@ export class SearchComponent implements OnInit {
   public posts: PostBrief[];
 
   constructor(
+    private _title: Title,
     private _route: ActivatedRoute,
     private _postsService: PostsService
-  ) { }
+  ) {
+    this._title.setTitle('Search | InstaKilo');
+  }
 
   public ngOnInit(): void {
     this.searchType = this._route.snapshot.paramMap.get('type');

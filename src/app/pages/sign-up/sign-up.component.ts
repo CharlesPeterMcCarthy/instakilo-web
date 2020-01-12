@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { NOTYF } from '../../utils/notyf.token';
 import { Notyf } from 'notyf';
 import { faUserPlus, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-sign-up',
@@ -13,7 +14,7 @@ import { faUserPlus, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 })
 export class SignUpComponent implements OnInit {
 
-  private worked: boolean = false;
+  public worked: boolean = false;
   public signUpIcon: IconDefinition = faUserPlus;
   private emailErrorTypes: string[] = [ 'InvalidEmailException' ];
   private passwordErrorTypes: string[] = [ 'InvalidPasswordException' ];
@@ -30,11 +31,14 @@ export class SignUpComponent implements OnInit {
   });
 
   constructor(
+    private _title: Title,
     private fb: FormBuilder,
     private _auth: AuthService,
     private _router: Router,
     @Inject(NOTYF) private _notyf: Notyf
-  ) { }
+  ) {
+    this._title.setTitle('Sign Up | InstaKilo');
+  }
 
   public ngOnInit(): void {
     this.signup = this.fb.group({

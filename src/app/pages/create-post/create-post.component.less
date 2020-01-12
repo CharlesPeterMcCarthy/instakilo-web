@@ -24,8 +24,13 @@
 
     .suggested-places {
       position: absolute;
-      left: 0;
-      right: 0;
+      left: 20px;
+      right: 20px;
+
+      @media screen and (max-width: 767px) {
+        left: 30px;
+        right: 30px;
+      }
 
       .suggested-place {
         cursor: pointer;
@@ -90,26 +95,47 @@
       }
 
       img {
-        max-width: 100%;
-        border-radius: 6px;
-        -webkit-box-shadow: 0px 0px 6px 2px rgba(0,0,0,0.1);
-        -moz-box-shadow: 0px 0px 6px 2px rgba(0,0,0,0.1);
-        box-shadow: 0px 0px 6px 2px rgba(0,0,0,0.1);
+        max-width: 800px;
+        border-radius: 4px;
         cursor: pointer;
+        transition: 0.4s;
 
-        &:hover {
-          -webkit-box-shadow: 0px 0px 6px 4px rgba(0,0,0,0.2);
-          -moz-box-shadow: 0px 0px 6px 4px rgba(0,0,0,0.2);
-          box-shadow: 0px 0px 6px 4px rgba(0,0,0,0.2);
+        &.selected {
+          -webkit-box-shadow: 0px 0px 6px 2px rgba(0,0,0,0.1);
+          -moz-box-shadow: 0px 0px 6px 2px rgba(0,0,0,0.1);
+          box-shadow: 0px 0px 6px 2px rgba(0,0,0,0.1);
+          background-color: white;
+
+          &:hover {
+            -webkit-box-shadow: 0px 0px 6px 4px rgba(0,0,0,0.2);
+            -moz-box-shadow: 0px 0px 6px 4px rgba(0,0,0,0.2);
+            box-shadow: 0px 0px 6px 4px rgba(0,0,0,0.2);
+          }
+        }
+
+        &.not-selected {
+          max-width: 60%;
+
+          &:hover {
+            max-width: 62%;
+          }
+
+          @media screen and (max-width: 576px) {
+            max-width: 98%;
+
+            &:hover {
+              max-width: 100%;
+            }
+          }
         }
       }
     }
   }
 
   .hint-text {
-    color: #555;
     font-size: 12px;
     margin-left: 4px;
+    margin-top: 4px;
   }
 
   button[type="submit"] {

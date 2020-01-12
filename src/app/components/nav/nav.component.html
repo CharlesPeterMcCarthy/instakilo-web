@@ -9,15 +9,16 @@
   <div class="collapse navbar-collapse" [ngClass]="{ 'show': expandNav }" id="nav-links">
     <ul class="navbar-nav mr-auto" (click)="closeNavBar()">
       <div *ngIf="IsLoggedIn()">
+        <app-nav-link *ngFor="let navLink of navLinksLeft" [navLink]="navLink"></app-nav-link>
+
         <li class="nav-item" *ngIf="!isCreatingPost() && IsLoggedIn()">
           <a class="nav-link" href="javascript:void(0)">
             <label class="link-label">
-              <fa-icon [icon]="icons.upload"></fa-icon>
+              Upload
               <input type="file" accept="image/*" (change)="uploadImage($event)" hidden>
             </label>
           </a>
         </li>
-        <app-nav-link *ngFor="let navLink of navLinksLeft" [navLink]="navLink"></app-nav-link>
       </div>
     </ul>
 
