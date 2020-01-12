@@ -27,6 +27,9 @@ import { SearchPostsFormComponent } from './components/search-posts-form/search-
 import { SearchPostsByComponent } from './components/search-posts-form/search-posts-by/search-posts-by.component';
 import { GenericSearchResultsPipe } from './pipes/generic-search-results/generic-search-results.pipe';
 import { HomeComponent } from './pages/home/home.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
+import { ViewProfileComponent } from './components/view-profile/view-profile.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +51,10 @@ import { HomeComponent } from './pages/home/home.component';
     SearchPostsFormComponent,
     SearchPostsByComponent,
     GenericSearchResultsPipe,
-    HomeComponent
+    HomeComponent,
+    ProfileComponent,
+    EditProfileComponent,
+    ViewProfileComponent
   ],
   imports: [
     AppRoutingModule,

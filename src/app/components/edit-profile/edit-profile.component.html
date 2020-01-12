@@ -1,0 +1,23 @@
+<form *ngIf="user | async; else loading" [formGroup]="form" (ngSubmit)="submit()">
+
+    <label for="firstname">First Name</label>
+    <input id="firstname" formControlName="firstName" />
+    <div *ngIf="form.controls.firstName.errors?.required && form.controls.firstName.touched" class="error">
+      *Required
+    </div>
+  
+    <label for="lastname">Last Name</label>
+    <input id="lastname" formControlName="lastName" />
+    <div *ngIf="form.controls.lastName.errors?.required && form.controls.lastName.touched" class="error">
+      *Required
+    </div>
+
+    <label for="dob">Date Of Birth</label>
+    <input id="dob" formControlName="dob" />
+    <div *ngIf="form.controls.dob.errors?.required && form.controls.dateOfBirth.touched" class="error">
+      *Required
+    </div>
+  
+    <button [disabled]="!form.valid">Save Profile</button>
+  </form>
+  
