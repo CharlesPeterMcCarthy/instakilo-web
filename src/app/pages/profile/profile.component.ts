@@ -30,6 +30,7 @@ export class ProfileComponent implements OnInit {
 
     if (this.route.snapshot.routeConfig.path === 'profile/edit') this.editProfile = true;
 
+    console.log(userId);
     this.isMyProfile = !userId;
 
     await this._spinner.show('spinner');

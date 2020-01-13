@@ -7,6 +7,7 @@ import * as moment from 'moment';
 export class TimeSincePipe implements PipeTransform {
 
   public transform(datetime: string, args?: any[]): any {
+    console.log(datetime);
     const dt = new Date(datetime);
     const duration = moment.duration(moment(new Date()).diff(moment(dt)));
     const days = Math.floor(duration.asDays());

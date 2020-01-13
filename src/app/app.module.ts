@@ -31,7 +31,6 @@ import { SearchPostsByComponent } from './components/search-posts-form/search-po
 import { GenericSearchResultsPipe } from './pipes/generic-search-results/generic-search-results.pipe';
 import { HomeComponent } from './pages/home/home.component';
 import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ModalComponent } from './components/modal/modal.component';
 import { TimeSincePipe } from './pipes/time-since/time-since.pipe';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
@@ -61,7 +60,6 @@ import { ViewProfileComponent } from './components/view-profile/view-profile.com
     SearchPostsByComponent,
     GenericSearchResultsPipe,
     HomeComponent,
-    ModalComponent,
     TimeSincePipe,
     ProfileComponent,
     EditProfileComponent,
@@ -95,9 +93,6 @@ import { ViewProfileComponent } from './components/view-profile/view-profile.com
   ],
   bootstrap: [
     AppComponent
-  ],
-  entryComponents: [
-    ModalComponent
   ]
 })
 export class AppModule { }

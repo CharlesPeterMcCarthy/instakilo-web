@@ -19,7 +19,7 @@ export class FeedComponent implements OnInit {
   public posts: Post[] = [];
   public initSpinnerName: string = 'initGathering';
   public moreSpinnerName: string = 'moreGathering';
-  private postRequestCount: number = 2;
+  private postRequestCount: number = 4;
   private lastEvaluatedKey: string;
   public moreAvailable: boolean = false;
   private retrievingPosts: boolean = false; // Used to prevent multiple calls at the same time

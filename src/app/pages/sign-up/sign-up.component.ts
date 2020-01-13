@@ -7,6 +7,7 @@ import { Notyf } from 'notyf';
 import { faUserPlus, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Title } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-sign-up',
@@ -21,15 +22,7 @@ export class SignUpComponent implements OnInit {
   private passwordErrorTypes: string[] = [ 'InvalidPasswordException' ];
   private userNameErrorTypes: string[] = [ 'UsernameExistsException', 'InvalidUsernameException' ];
   private dobErrorTypes: string[] = [ 'MissingBirthDateException', 'BirthDateTooLongException', 'BirthDateTooShortException' ];
-  public signup: FormGroup = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl(''),
-    confirmpassword: new FormControl(''),
-    email: new FormControl(''),
-    dob: new FormControl(''),
-    firstname: new FormControl(''),
-    lastname: new FormControl('')
-  });
+  public signup: FormGroup;
 
   constructor(
     private _title: Title,
@@ -50,7 +43,7 @@ export class SignUpComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       firstname: ['', [Validators.required]],
       lastname: ['', [Validators.required]],
-      dob: ['', [Validators.required]]
+      dob: [moment().format('YYYY-MM-DD'), [Validators.required]]
     });
 
     this.signup.valueChanges.subscribe((fields: { [key: string]: any }) => {

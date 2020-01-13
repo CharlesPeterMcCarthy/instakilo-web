@@ -2,6 +2,14 @@
   <div class="post-creator">
     <img src="{{ post.createdBy.avatar && post.createdBy.avatar.imageURL || './assets/images/noavatar.jpg' }}" class="avatar pointer" [routerLink]="[ '/profile', post.createdBy._id ]">
     <span class="username">Posted by <strong class="pointer" [routerLink]="[ '/profile', post.createdBy._id ]">{{ post.createdBy.username }}</strong></span>
+
+    <div ngbDropdown *ngIf="isOwnedByUser">
+      <fa-icon [icon]="icons.options" id="option-dd" class="pointer" ngbDropdownToggle></fa-icon>
+      <div ngbDropdownMenu aria-labelledby="options-dd">
+        <button ngbDropdownItem (click)="deletePost(deleteModal, post._id)">Delete</button>
+        <button ngbDropdownItem (click)="setAvatar(avatarModal, post._id, post.imageURL)">Set As Avatar</button>
+      </div>
+    </div>
   </div>
 
   <div class="img-container">
@@ -9,7 +17,14 @@
   </div>
 
   <div class="post-info">
-    <div class="location info-row">
+    <div class="time info-row with-border">
+      <h5><fa-icon [icon]="icons.time"></fa-icon> Posted</h5>
+      <div class="row-content">
+        {{ post.times.createdAt | timeSince }}
+      </div>
+    </div>
+
+    <div class="location info-row with-border" *ngIf="post.location">
       <h5><fa-icon [icon]="icons.location"></fa-icon> Location</h5>
       <div class="row-content">
         <a href="javascript:void(0)" [routerLink]="[ '/search/location', post.location.placeData.place_id ]">{{ post.location.locationName }}</a>
@@ -27,6 +42,8 @@
         <span class="hash-tag pointer" *ngFor="let tag of post.hashTags" [routerLink]="[ '/search/hashtag/', tag ]">
           {{ tag }}
         </span>
+
+        <span *ngIf="!post.hashTags.length">No HashTags</span>
       </div>
     </div>
 
@@ -36,3 +53,35 @@
     </div>
   </div>
 </div>
+
+<ng-template #deleteModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="delete-post-modal">Delete Post</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('CANCEL')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure you want to delete this post?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('CANCEL')">Cancel</button>
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('DELETE')">Delete</button>
+  </div>
+</ng-template>
+
+<ng-template #avatarModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="set-avatar-modal">Change Avatar</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('CANCEL')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure you want to set this image as your avatar?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('CANCEL')">Cancel</button>
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('CONFIRM')">Change Avatar</button>
+  </div>
+</ng-template>

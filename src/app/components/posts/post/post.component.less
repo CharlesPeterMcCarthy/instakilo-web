@@ -1,8 +1,11 @@
 .post-container {
-  margin: 10px 0;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   padding-top: 0!important;
+
+  @media screen and (max-width: 767px) {
+    padding: 20px;
+  }
 
   .img-container {
     text-align: center;
@@ -36,13 +39,18 @@
 
     fa-icon {
       position: absolute;
-      right: 10px;
-      top: 6px;
+      right: 0;
+      top: -34px;
+      font-size: 20px
+    }
+
+    .dropdown-toggle::after {
+      display: none;
     }
   }
 
   .post-info {
-    padding: 10px;
+    padding: 10px 0;
 
     .info-row {
       margin-bottom: 4px;

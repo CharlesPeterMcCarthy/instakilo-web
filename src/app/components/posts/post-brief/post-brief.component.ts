@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { Post } from '@instakilo/common';
-import { faMapMarkerAlt, faHashtag, faAlignLeft, faEllipsisV, faArrowRight, faComments } from '@fortawesome/free-solid-svg-icons';
+import { faMapMarkerAlt, faHashtag, faAlignLeft, faEllipsisV, faArrowRight, faComments, faClock } from '@fortawesome/free-solid-svg-icons';
 import { IconCollection } from '../../../interfaces/icon-collection';
 import { PostsService } from '../../../services/posts/posts.service';
 import { GenericResponse } from '../../../interfaces/api-response';
@@ -27,7 +27,8 @@ export class PostBriefComponent implements OnInit {
     hashtags: faHashtag,
     options: faEllipsisV,
     continue: faArrowRight,
-    comments: faComments
+    comments: faComments,
+    time: faClock
   };
 
   constructor(
@@ -37,7 +38,8 @@ export class PostBriefComponent implements OnInit {
     @Inject(NOTYF) private notyf: Notyf
   ) { }
 
-  public ngOnInit(): void { }
+  public ngOnInit(): void {
+  }
 
   public deletePost = (content: any, postId: string): void => {
     this.modalService.open(content).result.then((result: string) => { // Button clicked on modal

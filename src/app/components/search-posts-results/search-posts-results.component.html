@@ -12,4 +12,9 @@
   <div *ngIf="!posts.length" class="text-center">
     <strong>No posts to show</strong>
   </div>
+
+  <div *ngIf="posts.length" class="text-center results-count">
+    <hr>
+    <small>Showing {{ posts.length }} post{{ posts.length === 0 || posts.length > 1 ? 's' : '' }}</small>
+  </div>
 </div>

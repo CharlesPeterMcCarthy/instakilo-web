@@ -18,7 +18,11 @@
   </div>
 
   <div class="post-info">
-    <div class="location info-row">
+    <div class="time info-row">
+      <fa-icon [icon]="icons.time"></fa-icon>{{ post.times.createdAt | timeSince }}
+    </div>
+
+    <div class="location info-row" *ngIf="post.location">
       <fa-icon [icon]="icons.location"></fa-icon>
       <a href="javascript:void(0)" [routerLink]="[ '/search/location', post.location.placeData.place_id ]">{{ post.location.locationName }}</a>
     </div>
@@ -46,9 +50,6 @@
     </div>
   </div>
 </div>
-
-<!--<app-modal #deleteModal title="delete-post-modal" titleText="Delete Post" bodyText="Are you sure you want to delete this post?" [btns]="deleteModalBtns">-->
-<!--</app-modal>-->
 
 <ng-template #deleteModal let-modal>
   <div class="modal-header">

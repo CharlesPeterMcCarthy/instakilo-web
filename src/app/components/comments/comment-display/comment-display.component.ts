@@ -18,9 +18,11 @@ export class CommentDisplayComponent implements OnInit {
 
   @Input() public comment: Comment;
   @Input() public postId: string;
+  @Input() public postCreatorId: string;
   @Output() public commentsEE: EventEmitter<Comment[]> = new EventEmitter<Comment[]>();
   public isDeleting: boolean = false;
-  public isOwnedByUser: boolean = false;
+  public deleteAuthorised: boolean = false;
+  private isOwnedByUser: boolean = false;
 
   public icons: IconCollection = {
     delete: faTimes
@@ -36,6 +38,7 @@ export class CommentDisplayComponent implements OnInit {
   public async ngOnInit(): Promise<void> {
     const userId = await this._authService.userId();
     this.isOwnedByUser = userId === this.comment.user._id;
+    this.deleteAuthorised = userId === this.comment.user._id || userId === this.postCreatorId;
   }
 
   public deleteComment = (modal: any): void => {
@@ -47,7 +50,7 @@ export class CommentDisplayComponent implements OnInit {
       this._postService.deleteComment(this.postId, this.comment._id).subscribe((res: UpdatedCommentsResponse) => {
         if (res.success && res.comments) {
           this.commentsEE.emit(res.comments);
-          this.notyf.success('Your comment has been successfully deleted');
+          this.notyf.success(`${ this.isOwnedByUser ? 'Your' : 'The' } comment has been successfully deleted`);
         }
 
         this.isDeleting = false;

@@ -4,7 +4,7 @@
   <div class="comment-text">{{ comment.text }}</div>
   <div class="comment-time">{{ comment.datetime | timeSince }}</div>
   <div class="simple-spinner absolute-spinner" *ngIf="isDeleting"></div>
-  <fa-icon [icon]="icons.delete" (click)="deleteComment(deleteCommentModal)" class="pointer" *ngIf="!isDeleting && isOwnedByUser"></fa-icon>
+  <fa-icon [icon]="icons.delete" (click)="deleteComment(deleteCommentModal)" class="pointer" *ngIf="!isDeleting && deleteAuthorised"></fa-icon>
 </div>
 
 <ng-template #deleteCommentModal let-modal>

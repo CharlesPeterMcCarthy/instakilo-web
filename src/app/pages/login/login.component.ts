@@ -7,6 +7,7 @@ import { NOTYF } from '../../utils/notyf.token';
 import { Notyf } from 'notyf';
 import { faSignInAlt, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Title } from '@angular/platform-browser';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-login',
@@ -33,6 +34,7 @@ export class LoginComponent implements OnInit {
     private _router: Router,
     private activatedroute: ActivatedRoute,
     private location: Location,
+    private _spinner: NgxSpinnerService,
     @Inject(NOTYF) private _notyf: Notyf
   ) {
     this._title.setTitle('Login | InstaKilo');
@@ -55,15 +57,21 @@ export class LoginComponent implements OnInit {
   private isPasswordError = (code: string): boolean => this.passwordErrorTypes.indexOf(code) > -1;
 
   public login = async (): Promise<void> => {
+    await this._spinner.show('spinner');
+
     const res: CustomResponse = await this._auth.login(this.username.value.trim(), this.password.value.trim());
     if (res.success) await this._router.navigate(['feed']);
     else this.handleError(res.error);
+
+    await this._spinner.hide('spinner');
   }
 
   private handleError = (err: CustomAuthError): void => {
     if (this.isUsernameError(err.code)) this.username.setErrors({ [err.code]: true });
     else if (this.isPasswordError(err.code)) this.password.setErrors({ [err.code]: true });
     else this._notyf.error('An unknown error has occurred');
+
+    console.log(this.username.errors);
   }
 
 }

@@ -24,7 +24,8 @@ const routes: Routes = [
   { path: 'search/:type/:value', component: SearchComponent, canActivate: [ LoggedInGuard ] },
   { path: 'profile', component: ProfileComponent, canActivate: [ LoggedInGuard ] },
   { path: 'profile/edit', component: ProfileComponent, canActivate: [ LoggedInGuard ] },
-  { path: 'profile/:userId', component: ProfileComponent, canActivate: [ LoggedInGuard ] }
+  { path: 'profile/:userId', component: ProfileComponent, canActivate: [ LoggedInGuard ] },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

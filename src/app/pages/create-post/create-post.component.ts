@@ -99,6 +99,8 @@ export class CreatePostComponent implements OnInit {
       locationName: place.structured_formatting.main_text
     };
 
+    this._googlePlaceService.resetResults(); // Reset results to remove from memory
+
     this._cdr.detectChanges(); // Needed to refresh zone
   }
 
@@ -106,7 +108,12 @@ export class CreatePostComponent implements OnInit {
     this._googlePlaceService.getMatchingPlaces()
       .subscribe((places: GooglePlace[]) => {
         this.matchingPlaces = places;
-        this._cdr.detectChanges(); // Needed to refresh places list lag
+
+        try { // This may throw an error but this does not effect anything -
+          this._cdr.detectChanges(); // Needed to refresh places list
+        } catch (e) {
+          return;
+        }
       });
   }
 
