@@ -36,7 +36,6 @@ export class EditProfileComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    console.log(this.profile);
     this.form = new FormGroup({
       firstName: new FormControl(this.profile.firstName, Validators.required),
       lastName: new FormControl(this.profile.lastName, Validators.required),
@@ -50,10 +49,7 @@ export class EditProfileComponent implements OnInit {
 
   public submit = async (): Promise<void> => {
     if (this.form.valid) {
-      console.log(this.form.value);
-
       const res = await this._usersService.editProfile(this.form.value);
-
       if (res.success) this._notyf.success('You have successfully updated your profile');
     }
   }

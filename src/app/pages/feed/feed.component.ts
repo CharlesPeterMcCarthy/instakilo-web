@@ -58,7 +58,6 @@ export class FeedComponent implements OnInit {
 
     this._postsService.getPosts(this.postRequestCount, this.lastEvaluatedKey)
       .subscribe((data: GetPostsResponse) => {
-        console.log(data);
         if (data) this.sortData(data);
         this._spinner.hide(spinnerName);
         this.retrievingPosts = false;

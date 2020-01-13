@@ -43,14 +43,12 @@ export class SearchComponent implements OnInit {
 
   private getPostsByHashTag = (hashTag: string): void => {
     this._postsService.getPostsByHashTag(hashTag).subscribe((data: PostsBriefResponse) => {
-      console.log(data);
       if (data.success) this.posts = data.posts;
     });
   }
 
   private getPostsByLocation = (placeId: string): void => {
     this._postsService.getPostsByLocation(placeId).subscribe((data: PostsByLocationResponse) => {
-      console.log(data);
       if (data.success) {
         this.locationName = data.locationName;
         this.posts = data.posts;
@@ -60,7 +58,6 @@ export class SearchComponent implements OnInit {
 
   private getPostsByUser = (userId: string): void => {
     this._postsService.getPostsByUser(userId).subscribe((data: PostsByUserResponse) => {
-      console.log(data);
       if (data.success) {
         this.user = data.user;
         this.posts = data.posts;

@@ -15,7 +15,6 @@ export class ViewProfileComponent implements OnInit {
 
   @Input() public profile: MyUserProfile | UserProfile;
   @Input() public isMyProfile: boolean = false;
-  public isHorizontal: boolean = true;
   public avatar: SafeStyle;
 
   public icons: IconCollection = {
@@ -26,7 +25,6 @@ export class ViewProfileComponent implements OnInit {
     private _title: Title,
     private route: ActivatedRoute,
     private usersService: UsersService,
-    private _cdr: ChangeDetectorRef,
     private _sanitization: DomSanitizer
   ) { }
 
@@ -35,8 +33,6 @@ export class ViewProfileComponent implements OnInit {
     this._title.setTitle(`${this.isMyProfile ? 'My Profile' : this.profile.username} | InstaKilo`);
   }
 
-  public onImageLoad = (img: HTMLImageElement): void => {
-    this.isHorizontal = img.width > img.height;
-  }
+  public myProfile = (): MyUserProfile => this.profile as MyUserProfile;
 
 }
