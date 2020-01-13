@@ -1,0 +1,31 @@
+<div class="view-profile" *ngIf="profile">
+  <button class="btn btn-primary btn-md edit-profile-btn orange-btn" type="button" *ngIf="isMyProfile" [routerLink]="[ '/profile/edit' ]">
+    Edit Profile <fa-icon [icon]="icons.edit"></fa-icon>
+  </button>
+
+  <div class="avatar-container">
+    <img
+      (load)="onImageLoad(img)"
+      [src]="profile.avatar && profile.avatar.imageURL || './assets/images/noavatar.jpg'"
+      [class.horizontal]="isHorizontal"
+      [class.vertical]="!isHorizontal"
+      #img>
+  </div>
+
+  <div *ngIf="isMyProfile">
+    {{ profile.email }}
+  </div>
+  <div>
+    {{ profile.username }}
+  </div>
+  <div>
+    {{ profile.firstName }}
+  </div>
+  <div>
+    {{ profile.lastName }}
+  </div>
+  <div>
+    {{ profile.times.signUpAt }}
+  </div>
+</div>
+

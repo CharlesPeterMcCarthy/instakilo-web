@@ -1,0 +1,8 @@
+<h1 class="page-heading" *ngIf="isMyProfile && !editProfile">My Profile</h1>
+<h1 class="page-heading" *ngIf="isMyProfile && editProfile">Edit Profile</h1>
+<h1 class="page-heading" *ngIf="!isMyProfile && !editProfile">View Profile</h1>
+
+<div class="profile content-panel">
+  <view-profile *ngIf="!editProfile" [profile]="profile" [isMyProfile]="isMyProfile"></view-profile>
+  <edit-profile *ngIf="editProfile && profile" [profile]="profile"></edit-profile>
+</div>

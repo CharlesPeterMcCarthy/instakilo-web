@@ -33,6 +33,9 @@ import { HomeComponent } from './pages/home/home.component';
 import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from './components/modal/modal.component';
 import { TimeSincePipe } from './pipes/time-since/time-since.pipe';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
+import { ViewProfileComponent } from './components/view-profile/view-profile.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +62,10 @@ import { TimeSincePipe } from './pipes/time-since/time-since.pipe';
     GenericSearchResultsPipe,
     HomeComponent,
     ModalComponent,
-    TimeSincePipe
+    TimeSincePipe,
+    ProfileComponent,
+    EditProfileComponent,
+    ViewProfileComponent
   ],
   imports: [
     AppRoutingModule,
