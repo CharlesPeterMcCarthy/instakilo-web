@@ -3,7 +3,6 @@ import { AuthService } from './services/auth/auth.service';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { faSignOutAlt, IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { UsersService } from './services/users/users.service';
 
 @Component({
   selector: 'app-root',
@@ -19,8 +18,7 @@ export class AppComponent implements OnInit {
   constructor(
     private _title: Title,
     private _router: Router,
-    private auth: AuthService,
-    private _user: UsersService
+    private auth: AuthService
   ) { }
 
   public async ngOnInit(): Promise<void> {
@@ -38,5 +36,9 @@ export class AppComponent implements OnInit {
     await this.auth.logout();
     await this._router.navigate(['/']);
   }
+
+  public isLoggedIn = (): boolean => this.auth.isLoggedIn();
+
+  public username = (): string => this.auth.user && this.auth.user.getUsername();
 
 }

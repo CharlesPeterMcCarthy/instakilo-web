@@ -1,62 +1,72 @@
 <h1 class="page-heading">Create Post</h1>
 
-<form [formGroup]="postForm" (ngSubmit)="submitForm()" (keydown.enter)="formEnterKey($event)" class="create-post-form">
+<form [formGroup]="postForm" (ngSubmit)="submitForm()" (keydown.enter)="formEnterKey($event)" class="create-post-form content-panel">
   <div class="form-group uploaded-image">
     <label title="Click to upload a new image">
-      <div class="edit-image-badge">
+      <div class="edit-image-badge" *ngIf="imageURL">
         <fa-icon [icon]="icons.edit"></fa-icon>
       </div>
       <input type="file" accept="image/*" (change)="imageSelected($event)" hidden>
-      <img src="{{ imageURL || './assets/images/noimage.png' }}">
+      <img src="{{ imageURL || './assets/svg/select.svg' }}" [class.not-selected]="!imageURL" [class.selected]="imageURL" *ngIf="!courieringImage">
     </label>
   </div>
 
-  <div class="form-group location-group">
-    <div *ngIf="location">
-      <fa-icon [icon]="icons.reset" class="reset-location" (click)="resetLocation()"></fa-icon>{{ location.locationName }}
-    </div>
+  <div *ngIf="!imageURL && !courieringImage" class="text-center">
+    <hr>
+    <strong>Please click on the image above to select a new image to upload</strong>
+  </div>
+  <div *ngIf="!imageURL && courieringImage" class="text-center">
+    <strong>Upload in progress, please wait...</strong>
+  </div>
 
-    <div *ngIf="!location">
-      <label for="location-field" title="Enter the location the image was taken">Location</label>
-      <div class="input-container">
-        <input type="text" class="form-control" id="location-field"
-               formControlName="location"
-               (keyup)="locationKeyup(locInput.value)"
-               (keyup.arrowDown)="highlightDown()"
-               (keyup.arrowUp)="highlightUp()"
-               (keyup.enter)="selectHighlightedLocation()"
-               #locInput>
-        <fa-icon [icon]="icons.close" (click)="clearLocationField()" *ngIf="locationField.value"></fa-icon>
+  <div *ngIf="imageURL">
+    <div class="form-group location-group">
+      <div *ngIf="location">
+        <fa-icon [icon]="icons.reset" class="reset-location" (click)="resetLocation()"></fa-icon>{{ location.locationName }}
       </div>
-      <div class="hint-text" *ngIf="!matchingPlaces || !matchingPlaces.length">Begin typing the name of the location that this image was taken. We will search for the closest matching locations and suggest them to you.</div>
-      <div class="suggested-places">
-        <ul class="list-group">
-          <li class="list-group-item suggested-place {{ isHighlightedLocation(place) ? 'highlighted' : '' }}"
-              *ngFor="let place of matchingPlaces" (click)="setLocation(place)" (mouseenter)="setHighlightedLocation(place)">
-            <span class="main-text">{{ placeMainText(place) }}</span>
-            <span class="secondary-text">{{ placeSecondaryText(place) }}</span>
-          </li>
-        </ul>
+
+      <div *ngIf="!location">
+        <label for="location-field" title="Enter the location the image was taken">Location</label>
+        <div class="input-container">
+          <input type="text" class="form-control" id="location-field"
+                 formControlName="location"
+                 (keyup)="locationKeyup(locInput.value)"
+                 (keyup.arrowDown)="highlightDown()"
+                 (keyup.arrowUp)="highlightUp()"
+                 (keyup.enter)="selectHighlightedLocation()"
+                 #locInput>
+          <fa-icon [icon]="icons.close" (click)="clearLocationField()" *ngIf="locationField.value"></fa-icon>
+        </div>
+        <div class="hint-text" *ngIf="!matchingPlaces || !matchingPlaces.length">Begin typing the name of the location that this image was taken. We will search for the closest matching locations and suggest them to you.</div>
+        <div class="suggested-places">
+          <ul class="list-group">
+            <li class="list-group-item suggested-place {{ isHighlightedLocation(place) ? 'highlighted' : '' }}"
+                *ngFor="let place of matchingPlaces" (click)="setLocation(place)" (mouseenter)="setHighlightedLocation(place)">
+              <span class="main-text">{{ placeMainText(place) }}</span>
+              <span class="secondary-text">{{ placeSecondaryText(place) }}</span>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="form-group">
-    <label for="description-field" title="Enter a description of what the image is about">Description</label>
-    <textarea class="form-control" rows="3" id="description-field" formControlName="description" (keyup)="descriptionKeyup(descInput.value)" #descInput></textarea>
-    <div class="hint-text">Add a description about the image - Words beginning with a # symbol will be added as hashtags. Hashtags are used for filtering images.</div>
-  </div>
-
-  <div class="form-group" *ngIf="hashTags.length">
-    <label>HashTags</label>
-    <div class="hash-tag-list">
-      <span class="hash-tag" *ngFor="let tag of hashTags">
-        {{ tag }}
-      </span>
+    <div class="form-group">
+      <label for="description-field" title="Enter a description of what the image is about">Description</label>
+      <textarea class="form-control" rows="3" id="description-field" formControlName="description" (keyup)="descriptionKeyup(descInput.value)" #descInput></textarea>
+      <div class="hint-text">Add a description about the image - Words beginning with a # symbol will be added as hashtags. Hashtags must be 2 characters or more in length, not including the hash symbol. Hashtags are used for filtering images.</div>
     </div>
-  </div>
 
-  <button type="submit" class="btn btn-lg btn-block btn-primary">Share <fa-icon [icon]="icons.share"></fa-icon></button>
+    <div class="form-group" *ngIf="hashTags.length">
+      <label>HashTags</label>
+      <div class="hash-tag-list">
+        <span class="hash-tag" *ngFor="let tag of hashTags">
+          {{ tag }}
+        </span>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-lg btn-block orange-btn">Share <fa-icon [icon]="icons.share"></fa-icon></button>
+  </div>
 </form>
 
 <spinner [text]="'Sharing...'" [name]="'sharing'"></spinner>

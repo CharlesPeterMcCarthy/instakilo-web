@@ -1,42 +1,62 @@
-<h1 class="page-heading" *ngIf="!isConfirmed && !error">Confirming Email</h1>
-<h1 class="page-heading" *ngIf="isConfirmed">Email Confirmed</h1>
-<h1 class="page-heading" *ngIf="error && !requestedCode">Unable To Confirm Email</h1>
-<h1 class="page-heading" *ngIf="requestedCode">Check Your Email</h1>
+<h1 class="page-heading wide-screen-gap move-left" *ngIf="!isConfirmed && !error && !requestedCode">Confirming Email</h1>
+<h1 class="page-heading wide-screen-gap move-left" *ngIf="isConfirmed">Email Confirmed</h1>
+<h1 class="page-heading wide-screen-gap move-left" *ngIf="error && !requestedCode">Unable To Confirm Email</h1>
+<h1 class="page-heading wide-screen-gap move-left" *ngIf="requestedCode">Check Your Email</h1>
 
-<div *ngIf="!requestedCode">
-  <p *ngIf="isConfirmed">Your email address has been successfully confirmed.</p>
+<div *ngIf="!requestedCode" class="content-panel">
+  <div *ngIf="isConfirmed" class="text-center">
+    <img src="../../../assets/svg/confirm.svg">
+    <p>
+      <strong>Your email address has been successfully confirmed.</strong>
+    </p>
+  </div>
 
   <div *ngIf="!isConfirmed">
-    <div *ngIf="error && error === 'CodeMismatchException'">
+    <div *ngIf="error" class="text-center">
+      <img src="../../../assets/svg/error.svg">
+    </div>
+
+    <div *ngIf="error && error === 'CodeMismatchException'" class="text-center">
       <p class="error">The confirmation code supplied is incorrect.
         Please check your email and click on the link supplied.</p>
-      <p>If this issues persists, you can request a new code.</p>
+      <p>If this issues persists, you can request a new confirmation link.</p>
       <p>It is also possible that you have confirmed your account. You can attempt to login.</p>
+      <hr>
       <div class="text-right">
         <button class="btn btn-primary" (click)="requestNewCode()">Request New Code</button>
         <button class="btn btn-primary" (click)="goToLogin()">Go To Login</button>
       </div>
     </div>
 
-    <div *ngIf="error && error === 'NotAuthorizedException'">
+    <div *ngIf="error && error === 'NotAuthorizedException'" class="text-center">
       <p class="error">This account has already been confirmed.</p>
+      <hr>
       <div class="text-right">
         <button class="btn btn-primary" (click)="goToLogin()">Go To Login</button>
       </div>
     </div>
 
-    <div *ngIf="error && error === 'ExpiredCodeException'">
+    <div *ngIf="error && error === 'ExpiredCodeException'" class="text-center">
       <p class="error">The confirmation code you entered has expired.</p>
       <p>Please request a new one.</p>
+      <hr>
       <div class="text-right">
         <button class="btn btn-primary" (click)="requestNewCode()">Request New Code</button>
       </div>
+    </div>
+
+    <div *ngIf="error && error === 'LimitExceededException'" class="text-center">
+      <p class="error">You have exceeded the limit on attempts to confirm your email address.</p>
+      <p>Try again in a little while.</p>
     </div>
   </div>
 </div>
 
-<div *ngIf="requestedCode">
-  <p>A new confirmation link & code has been sent to your email.</p>
+<div class="content-panel text-center" *ngIf="requestedCode">
+  <img src="../../../assets/svg/emailsent.svg">
+  <p>
+    <strong>A new confirmation link has been sent to your email.</strong>
+  </p>
 </div>
 
 <spinner [text]="'Confirming...'" [name]="'confirming'"></spinner>

@@ -69,7 +69,8 @@ export class NavComponent implements OnInit {
     must have the corresponding action (function) declared before the nav link.
   */
   public navLinksLeft: NavLink[] = [
-    { text: 'Feed', url: '/feed' }
+    { text: 'Feed', url: '/feed' },
+    { text: 'Search', url: '/search' }
   ];
 
   public navLinksRightLoggedIn: NavLink[] = [

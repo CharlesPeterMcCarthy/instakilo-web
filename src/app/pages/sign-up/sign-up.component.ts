@@ -5,6 +5,9 @@ import { Router } from '@angular/router';
 import { NOTYF } from '../../utils/notyf.token';
 import { Notyf } from 'notyf';
 import { faUserPlus, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { Title } from '@angular/platform-browser';
+import { NgxSpinnerService } from 'ngx-spinner';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-sign-up',
@@ -13,28 +16,24 @@ import { faUserPlus, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 })
 export class SignUpComponent implements OnInit {
 
-  private worked: boolean = false;
+  public worked: boolean = false;
   public signUpIcon: IconDefinition = faUserPlus;
   private emailErrorTypes: string[] = [ 'InvalidEmailException' ];
   private passwordErrorTypes: string[] = [ 'InvalidPasswordException' ];
   private userNameErrorTypes: string[] = [ 'UsernameExistsException', 'InvalidUsernameException' ];
   private dobErrorTypes: string[] = [ 'MissingBirthDateException', 'BirthDateTooLongException', 'BirthDateTooShortException' ];
-  public signup: FormGroup = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl(''),
-    confirmpassword: new FormControl(''),
-    email: new FormControl(''),
-    dob: new FormControl(''),
-    firstname: new FormControl(''),
-    lastname: new FormControl('')
-  });
+  public signup: FormGroup;
 
   constructor(
+    private _title: Title,
     private fb: FormBuilder,
     private _auth: AuthService,
     private _router: Router,
+    private _spinner: NgxSpinnerService,
     @Inject(NOTYF) private _notyf: Notyf
-  ) { }
+  ) {
+    this._title.setTitle('Sign Up | InstaKilo');
+  }
 
   public ngOnInit(): void {
     this.signup = this.fb.group({
@@ -44,7 +43,7 @@ export class SignUpComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       firstname: ['', [Validators.required]],
       lastname: ['', [Validators.required]],
-      dob: ['', [Validators.required]]
+      dob: [moment().format('YYYY-MM-DD'), [Validators.required]]
     });
 
     this.signup.valueChanges.subscribe((fields: { [key: string]: any }) => {
@@ -67,6 +66,8 @@ export class SignUpComponent implements OnInit {
   private isDOBError = (code: string): boolean => this.dobErrorTypes.indexOf(code) > -1;
 
   public onSubmit = async (): Promise<void> => {
+    await this._spinner.show('spinner');
+
     const res: CustomResponse = await this._auth.signUp(
       this.username.value.trim(),
       this.email.value.trim(),
@@ -78,6 +79,8 @@ export class SignUpComponent implements OnInit {
 
     if (res.success) this.worked = true;
     else this.handleError(res.error);
+
+    await this._spinner.hide('spinner');
   }
 
   private handleError = (err: CustomAuthError): void => {

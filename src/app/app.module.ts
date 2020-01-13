@@ -30,6 +30,11 @@ import { SearchPostsFormComponent } from './components/search-posts-form/search-
 import { SearchPostsByComponent } from './components/search-posts-form/search-posts-by/search-posts-by.component';
 import { GenericSearchResultsPipe } from './pipes/generic-search-results/generic-search-results.pipe';
 import { HomeComponent } from './pages/home/home.component';
+import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TimeSincePipe } from './pipes/time-since/time-since.pipe';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
+import { ViewProfileComponent } from './components/view-profile/view-profile.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +59,11 @@ import { HomeComponent } from './pages/home/home.component';
     SearchPostsFormComponent,
     SearchPostsByComponent,
     GenericSearchResultsPipe,
-    HomeComponent
+    HomeComponent,
+    TimeSincePipe,
+    ProfileComponent,
+    EditProfileComponent,
+    ViewProfileComponent
   ],
   imports: [
     AppRoutingModule,
@@ -64,7 +73,9 @@ import { HomeComponent } from './pages/home/home.component';
     AmplifyAngularModule,
     ReactiveFormsModule,
     FormsModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    NgbModule,
+    NgbModalModule
   ],
   providers: [
     {

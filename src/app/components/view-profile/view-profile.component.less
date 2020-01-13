@@ -1,0 +1,59 @@
+.view-profile {
+  position: relative;
+
+  .edit-profile-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 10;
+  }
+
+  .avatar-container {
+    margin-bottom: 20px;
+    position: relative;
+
+    div.img-wrapper {
+      height: 200px;
+      width: 200px;
+      border-radius: 50%;
+      background-size: cover;
+      background-position: center;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+
+      .posts-count {
+        background-color: #a427d6;
+        color: white;
+        width: 100px;
+        text-align: center;
+        padding: 2px;
+        border-radius: 4px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -2px;
+        margin-left: auto;
+        margin-right: auto;
+        transition: background-color 0.4s;
+
+        &:hover {
+          background-color: #9a24c9;
+        }
+      }
+    }
+  }
+
+  div {
+    &.info-container {
+      padding: 10px;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+      p {
+        &.info {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}

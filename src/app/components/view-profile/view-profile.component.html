@@ -1,0 +1,38 @@
+<div class="view-profile" *ngIf="profile">
+  <button class="btn btn-primary btn-md edit-profile-btn orange-btn" type="button" *ngIf="isMyProfile" [routerLink]="[ '/profile/edit' ]">
+    Edit Profile <fa-icon [icon]="icons.edit"></fa-icon>
+  </button>
+
+  <div class="avatar-container">
+    <div class="img-wrapper" [style.background-image]="avatar">
+      <div class="posts-count pointer" [routerLink]="[ '/search/user', profile._id ]" *ngIf="profile.postsCount">
+        {{ profile.postsCount }} Posts
+      </div>
+      <div class="posts-count" *ngIf="!profile.postsCount">
+        {{ profile.postsCount }} Posts
+      </div>
+    </div>
+  </div>
+
+  <div class="info-container" *ngIf="isMyProfile">
+    <label>Email Address</label>
+    <p class="info">{{ profile.email }}</p>
+  </div>
+  <div class="info-container">
+    <label>Username</label>
+    <p class="info">{{ profile.username }}</p>
+  </div>
+  <div class="info-container">
+    <label>First Name</label>
+    <p class="info">{{ profile.firstName }}</p>
+  </div>
+  <div class="info-container">
+    <label>Last Name</label>
+    <p class="info">{{ profile.lastName }}</p>
+  </div>
+  <div class="info-container">
+    <label>Signed Up</label>
+    <p class="info">{{ profile.times.signedUpAt | timeSince }}</p>
+  </div>
+</div>
+

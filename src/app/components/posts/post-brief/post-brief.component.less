@@ -32,7 +32,11 @@
     fa-icon {
       position: absolute;
       right: 10px;
-      top: 6px;
+      top: -26px;
+    }
+
+    .dropdown-toggle::after {
+      display: none;
     }
   }
 
@@ -40,10 +44,20 @@
     padding: 10px;
 
     .info-row {
-      margin-bottom: 4px;
+      margin-bottom: 8px;
 
       fa-icon {
         margin-right: 10px;
+      }
+    }
+
+    .hashtags {
+      .hash-tag {
+        color: white;
+        background-color: #777;
+        padding: 6px 16px;
+        margin: 4px 8px 4px 0;
+        border-radius: 6px;
       }
     }
   }

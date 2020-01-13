@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IconCollection } from '../../interfaces/icon-collection';
 import { faSignInAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,7 @@ import { faSignInAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 })
 export class HomeComponent implements OnInit {
 
-  private imageSrc: string = '';
+  public imageSrc: string = '';
 
   private images: string[] = [
     '../../../assets/svg/home1.svg',
@@ -23,7 +24,11 @@ export class HomeComponent implements OnInit {
     signup: faUserPlus
   };
 
-  constructor() { }
+  constructor(
+    private _title: Title
+  ) {
+    this._title.setTitle('Home | InstaKilo');
+  }
 
   public ngOnInit(): void {
     this.chooseRandomImage();

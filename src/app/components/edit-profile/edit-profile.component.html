@@ -1,0 +1,33 @@
+<form *ngIf="profile" [formGroup]="form" (ngSubmit)="submit()">
+  <div class="row">
+    <div class="form-group col-12 col offset-md-2 col-md-8">
+      <label for="firstname">First Name</label>
+      <input id="firstname" formControlName="firstName" class="form-control" type="string" [class.error]="firstName.invalid && firstName.touched" />
+      <span *ngIf="firstName.invalid && firstName.touched" class="error">
+        You must enter a first name
+      </span>
+    </div>
+
+    <div class="form-group col-12 offset-md-2 col-md-8">
+      <label for="lastname">Last Name</label>
+      <input id="lastname" formControlName="lastName" class="form-control" type="string" [class.error]="lastName.invalid && lastName.touched" />
+      <span *ngIf="lastName.invalid && lastName.touched" class="error">
+        You must enter a last name
+      </span>
+    </div>
+
+    <div class="form-group col-12 offset-md-2 col-md-8">
+      <label for="dob">Date of Birth</label>
+      <input id="dob" formControlName="dob" class="form-control" type="date" [class.error]="dob.invalid && dob.touched" />
+      <span *ngIf="dob.invalid && dob.touched" class="error">
+        You must enter a date of birth
+      </span>
+    </div>
+
+    <div class="text-right col-12 offset-md-2 col-md-8">
+      <button class="btn btn-md orange-btn" type="submit" [disabled]="!form.valid">
+        Update Profile <fa-icon [icon]="icons.save"></fa-icon>
+      </button>
+    </div>
+  </div>
+</form>

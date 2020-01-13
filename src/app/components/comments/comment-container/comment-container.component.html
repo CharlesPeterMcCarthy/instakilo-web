@@ -1,3 +1,15 @@
-<p>comment-container works!</p>
-<comment-enter></comment-enter>
-<comment-display></comment-display>
+<comment-enter
+  [postId]="post._id"
+  (commentsEE)="updateComments($event)"
+></comment-enter>
+<comment-display
+  *ngFor="let comment of post.comments"
+  [comment]="comment"
+  [postId]="post._id"
+  [postCreatorId]="post.createdBy._id"
+  (commentsEE)="updateComments($event)"
+></comment-display>
+
+<div *ngIf="!post.comments.length" class="text-center">
+  <strong>No comments yet</strong>
+</div>

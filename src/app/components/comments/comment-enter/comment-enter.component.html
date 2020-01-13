@@ -1,8 +1,8 @@
-<form [formGroup]="commentForm" (ngSubmit)="onSubmit()" class="commentForm">
-    <div class="form-group">
-    <fa-icon [icon]="icons.comments"></fa-icon>
-    <input id="commentText" type="text" formControlName="commentText" placeholder="Enter Comment"/>
+<form [formGroup]="commentForm" (ngSubmit)="onSubmit()" class="comment-form">
+  <div class="form-group">
+    <input class="form-control" type="text" formControlName="commentText" placeholder="Enter Comment" />
     <button class="btn btn-primary" type="submit" [disabled]="commentForm.invalid">
-    <fa-icon [icon]="icons.continue"></fa-icon></button>
-    </div> 
+      <fa-icon [icon]="icons.send"></fa-icon>
+    </button>
+  </div>
 </form>

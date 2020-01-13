@@ -1,5 +1,20 @@
-<h3 *ngIf="searchType === 'hashtag'"><strong>#{{ searchValue }}</strong> Posts</h3>
-<h3 *ngIf="searchType === 'location' && locationName">Posts from <strong>{{ locationName }}</strong></h3>
-<div *ngFor="let post of posts" class="search-img">
-  <img src="{{ post.imgURL }}">
+<div class="content-panel results" *ngIf="posts">
+  <h3 *ngIf="searchType === 'hashtag'"><strong>#{{ searchValue }}</strong> Posts</h3>
+  <h3 *ngIf="searchType === 'location' && locationName">Posts from <strong>{{ locationName }}</strong></h3>
+  <h3 *ngIf="searchType === 'user' && user && posts.length">Posts by <strong class="pointer" [routerLink]="[ '/profile', user._id ]">{{ user.username }}</strong></h3>
+
+  <div *ngFor="let post of posts" class="search-img">
+    <a [routerLink]="[ '/post', post._id ]">
+      <img src="{{ post.imgURL || post.imageURL }}">
+    </a>
+  </div>
+
+  <div *ngIf="!posts.length" class="text-center">
+    <strong>No posts to show</strong>
+  </div>
+
+  <div *ngIf="posts.length" class="text-center results-count">
+    <hr>
+    <small>Showing {{ posts.length }} post{{ posts.length === 0 || posts.length > 1 ? 's' : '' }}</small>
+  </div>
 </div>

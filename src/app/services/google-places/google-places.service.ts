@@ -26,4 +26,6 @@ export class GooglePlacesService {
       this.placesSubject.next(places)
     );
 
+  public resetResults = (): void => this.placesSubject.next(null);
+
 }

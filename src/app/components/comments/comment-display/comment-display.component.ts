@@ -1,11 +1,13 @@
 import { Component, OnInit, Inject, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { NOTYF } from 'src/app/utils/notyf.token';
 import { Notyf } from 'notyf';
 import { IconCollection } from 'src/app/interfaces/icon-collection';
-import { faDumpster } from '@fortawesome/free-solid-svg-icons';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { PostsService } from 'src/app/services/posts/posts.service';
-import { Comment } from "@instakilo/common";
+import { Comment } from '@instakilo/common';
+import { UpdatedCommentsResponse } from '../../../interfaces/api-response';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'comment-display',
@@ -13,56 +15,49 @@ import { Comment } from "@instakilo/common";
   styleUrls: ['./comment-display.component.less']
 })
 export class CommentDisplayComponent implements OnInit {
-  
-  @Input() username: string;
-  @Input() commentText: string;
-  @Input() id: string;
-  @Input() postId: string;
-  @Input() comments: Comment[];
-  @Input() currentUsername: string;
-  @Output() commentEmit = new EventEmitter();
-  isOwned: boolean=false;
+
+  @Input() public comment: Comment;
+  @Input() public postId: string;
+  @Input() public postCreatorId: string;
+  @Output() public commentsEE: EventEmitter<Comment[]> = new EventEmitter<Comment[]>();
+  public isDeleting: boolean = false;
+  public deleteAuthorised: boolean = false;
+  private isOwnedByUser: boolean = false;
 
   public icons: IconCollection = {
-    delete: faDumpster
+    delete: faTimes
   };
 
-  public deleteForm: FormGroup = new FormGroup({
-    commentText: new FormControl('')
-  });
-
   constructor(
-    private _fb: FormBuilder,
     private _postService: PostsService,
-    @Inject(NOTYF) private _notyf: Notyf
+    private modalService: NgbModal,
+    private _authService: AuthService,
+    @Inject(NOTYF) private notyf: Notyf
   ) { }
- 
-  ngOnInit(): void {
-    /*
-    if(this.username=this.currentUsername)
-    {
-      this.isOwned=true;
-    }
-    */
-    console.log(this.username, this.currentUsername);
+
+  public async ngOnInit(): Promise<void> {
+    const userId = await this._authService.userId();
+    this.isOwnedByUser = userId === this.comment.user._id;
+    this.deleteAuthorised = userId === this.comment.user._id || userId === this.postCreatorId;
   }
 
-  public onSubmit = async (): Promise<void> => {
-    /*
-    --failed attempt at removing from array
-    this.comments.forEach(e => {
-      if(e._id = this.id)
-      {
-        e._id=null,
-        e.datetime=null,
-        e.text=null,
-        e.user=null;
-      }
+  public deleteComment = (modal: any): void => {
+    this.modalService.open(modal).result.then((result: string) => { // Button clicked on modal
+      if (result !== 'DELETE') return;
+
+      this.isDeleting = true;
+
+      this._postService.deleteComment(this.postId, this.comment._id).subscribe((res: UpdatedCommentsResponse) => {
+        if (res.success && res.comments) {
+          this.commentsEE.emit(res.comments);
+          this.notyf.success(`${ this.isOwnedByUser ? 'Your' : 'The' } comment has been successfully deleted`);
+        }
+
+        this.isDeleting = false;
+      });
+    }, (reason: string) => { // Closed modal by backdrop or other
+      console.log(reason);
     });
-    */
-    this.commentEmit.emit(this.comments);
-    this._postService.deleteComment(this.postId,this.id).subscribe();
-    this._postService.deleteComment(this.postId,this.id);
   }
 
 }

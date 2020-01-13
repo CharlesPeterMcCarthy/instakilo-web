@@ -10,12 +10,12 @@ import {
   GenericResponse,
   GetOwnPostsResponse,
   GetPostResponse,
-  GetPostsResponse, 
-  MatchingHashTagsResponse, 
-  MatchingLocationsResponse,
-  PostsBriefResponse, 
-  PostsByLocationResponse,
-  PostsResponse, 
+  GetPostsResponse,
+  MatchingHashTagsResponse,
+  MatchingLocationsResponse, MatchingUsersResponse,
+  PostsBriefResponse,
+  PostsByLocationResponse, PostsByUserResponse,
+  PostsResponse,
   UpdatedCommentsResponse
 } from '../../interfaces/api-response';
 
@@ -106,6 +106,12 @@ export class PostsService {
       { placeId, ...this.attachAccessToken() }
     ) as Observable<PostsByLocationResponse>;
 
+  public getPostsByUser = (userId: string): Observable<PostsByUserResponse> =>
+    this._http.post(
+      `${this.baseURL}/posts-by-user`,
+      { userId, ...this.attachAccessToken() }
+    ) as Observable<PostsByUserResponse>;
+
   public getMatchingHashTags = (hashTag: string): Observable<MatchingHashTagsResponse> =>
     this._http.post(
       `${this.baseURL}/matching-hashtags`,
@@ -117,6 +123,12 @@ export class PostsService {
       `${this.baseURL}/matching-locations`,
       { location, ...this.attachAccessToken() }
     ) as Observable<MatchingLocationsResponse>;
+
+  public getMatchingUsers = (username: string): Observable<MatchingUsersResponse> =>
+    this._http.post(
+      `${this.baseURL}/matching-users`,
+      { username, ...this.attachAccessToken() }
+    ) as Observable<MatchingUsersResponse>;
 
   private attachAccessToken = (): { token: string } => ({ token: this._authService.getAccessToken() });
 

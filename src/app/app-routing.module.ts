@@ -10,6 +10,7 @@ import { FeedComponent } from './pages/feed/feed.component';
 import { ViewPostComponent } from './pages/view-post/view-post.component';
 import { SearchComponent } from './pages/search/search.component';
 import { HomeComponent } from './pages/home/home.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [ LoggedOutGuard ] },
@@ -20,7 +21,11 @@ const routes: Routes = [
   { path: 'feed', component: FeedComponent, canActivate: [ LoggedInGuard ] },
   { path: 'post/:id', component: ViewPostComponent, canActivate: [ LoggedInGuard ] },
   { path: 'search', component: SearchComponent, canActivate: [ LoggedInGuard ] },
-  { path: 'search/:type/:value', component: SearchComponent, canActivate: [ LoggedInGuard ] }
+  { path: 'search/:type/:value', component: SearchComponent, canActivate: [ LoggedInGuard ] },
+  { path: 'profile', component: ProfileComponent, canActivate: [ LoggedInGuard ] },
+  { path: 'profile/edit', component: ProfileComponent, canActivate: [ LoggedInGuard ] },
+  { path: 'profile/:userId', component: ProfileComponent, canActivate: [ LoggedInGuard ] },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

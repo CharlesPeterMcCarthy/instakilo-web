@@ -1,10 +1,10 @@
 <h1 class="page-heading wide-screen-gap">Login</h1>
 
-<form [formGroup]="loginForm" class="login-form auth-form">
+<form [formGroup]="loginForm" class="login-form content-panel">
   <div class="form-group">
     <label for="username">Username</label>
     <input type="text" id="username" class="form-control {{ username.invalid && username.touched ? 'error' :'' }}" formControlName="username">
-    <span *ngIf="username.invalid && username.touched">
+    <span *ngIf="username.invalid && username.touched && !username.errors.UserNotFoundException && !username.errors.UserNotConfirmedException">
       You must enter a username
     </span>
     <span *ngIf="username.errors && username.errors.UserNotFoundException">
@@ -30,3 +30,5 @@
     <button class="btn btn-primary btn-lg wide-btn orange-btn" [disabled]="loginForm.invalid" (click)="login()">Login <fa-icon [icon]="loginIcon"></fa-icon></button>
   </div>
 </form>
+
+<spinner [text]="'Logging In...'" name="spinner"></spinner>
