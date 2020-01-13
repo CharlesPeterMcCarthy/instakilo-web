@@ -1,5 +1,5 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { UserProfile } from '@instakilo/common';
@@ -39,6 +39,10 @@ export class EditProfileComponent implements OnInit {
       dob: new FormControl(this.profile.dob, Validators.required)
     });
   }
+
+  public get firstName(): AbstractControl { return this.form.get('firstName'); }
+  public get lastName(): AbstractControl { return this.form.get('lastName'); }
+  public get dob(): AbstractControl { return this.form.get('dob'); }
 
   public submit = async (): Promise<void> => {
     if (this.form.valid) {

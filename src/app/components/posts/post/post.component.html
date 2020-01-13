@@ -31,7 +31,7 @@
     </div>
 
     <div class="comments info-row with-border">
-      <h5><fa-icon [icon]="icons.comments"></fa-icon> Comments ({{ post.commentCount }})</h5>
+      <h5><fa-icon [icon]="icons.comments"></fa-icon> Comments ({{ post.commentCount || 0 }})</h5>
       <comment-container [post]="post"></comment-container>
     </div>
   </div>

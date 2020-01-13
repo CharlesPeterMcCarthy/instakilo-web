@@ -4,28 +4,28 @@
   </button>
 
   <div class="avatar-container">
-    <img
-      (load)="onImageLoad(img)"
-      [src]="profile.avatar && profile.avatar.imageURL || './assets/images/noavatar.jpg'"
-      [class.horizontal]="isHorizontal"
-      [class.vertical]="!isHorizontal"
-      #img>
+    <div class="img-wrapper" [style.background-image]="avatar"></div>
   </div>
 
-  <div *ngIf="isMyProfile">
-    {{ profile.email }}
+  <div class="info-container" *ngIf="isMyProfile">
+    <label>Email Address</label>
+    <p class="info">{{ profile.email }}</p>
   </div>
-  <div>
-    {{ profile.username }}
+  <div class="info-container">
+    <label>Username</label>
+    <p class="info">{{ profile.username }}</p>
   </div>
-  <div>
-    {{ profile.firstName }}
+  <div class="info-container">
+    <label>First Name</label>
+    <p class="info">{{ profile.firstName }}</p>
   </div>
-  <div>
-    {{ profile.lastName }}
+  <div class="info-container">
+    <label>Last Name</label>
+    <p class="info">{{ profile.lastName }}</p>
   </div>
-  <div>
-    {{ profile.times.signUpAt }}
+  <div class="info-container">
+    <label>Signed Up</label>
+    <p class="info">{{ profile.times.signedUpAt | timeSince }}</p>
   </div>
 </div>
 

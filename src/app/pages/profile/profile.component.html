@@ -3,6 +3,6 @@
 <h1 class="page-heading" *ngIf="!isMyProfile && !editProfile">View Profile</h1>
 
 <div class="profile content-panel">
-  <view-profile *ngIf="!editProfile" [profile]="profile" [isMyProfile]="isMyProfile"></view-profile>
+  <view-profile *ngIf="!editProfile && profile" [profile]="profile" [isMyProfile]="isMyProfile"></view-profile>
   <edit-profile *ngIf="editProfile && profile" [profile]="profile"></edit-profile>
 </div>

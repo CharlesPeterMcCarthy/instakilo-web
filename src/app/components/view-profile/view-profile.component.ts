@@ -4,6 +4,7 @@ import { UsersService } from 'src/app/services/users/users.service';
 import { MyUserProfile, UserProfile } from '@instakilo/common';
 import { IconCollection } from '../../interfaces/icon-collection';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 
 @Component({
   selector: 'view-profile',
@@ -15,6 +16,7 @@ export class ViewProfileComponent implements OnInit {
   @Input() public profile: MyUserProfile | UserProfile;
   @Input() public isMyProfile: boolean = false;
   public isHorizontal: boolean = true;
+  public avatar: SafeStyle;
 
   public icons: IconCollection = {
     edit: faPencilAlt
@@ -23,10 +25,13 @@ export class ViewProfileComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private usersService: UsersService,
-    private _cdr: ChangeDetectorRef
+    private _cdr: ChangeDetectorRef,
+    private _sanitization: DomSanitizer
   ) { }
 
-  public ngOnInit(): void { }
+  public ngOnInit(): void {
+    this.avatar = this._sanitization.bypassSecurityTrustStyle(`url(${ this.profile.avatar && this.profile.avatar.imageURL || './assets/images/noavatar.jpg' })`);
+  }
 
   public onImageLoad = (img: HTMLImageElement): void => {
     this.isHorizontal = img.width > img.height;
