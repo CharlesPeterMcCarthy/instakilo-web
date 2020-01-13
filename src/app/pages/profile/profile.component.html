@@ -6,3 +6,5 @@
   <view-profile *ngIf="!editProfile && profile" [profile]="profile" [isMyProfile]="isMyProfile"></view-profile>
   <edit-profile *ngIf="editProfile && profile" [profile]="profile"></edit-profile>
 </div>
+
+<spinner [text]="'Retrieving Profile...'" name="spinner"></spinner>

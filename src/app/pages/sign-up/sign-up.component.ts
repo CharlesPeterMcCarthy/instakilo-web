@@ -6,6 +6,7 @@ import { NOTYF } from '../../utils/notyf.token';
 import { Notyf } from 'notyf';
 import { faUserPlus, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Title } from '@angular/platform-browser';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-sign-up',
@@ -35,6 +36,7 @@ export class SignUpComponent implements OnInit {
     private fb: FormBuilder,
     private _auth: AuthService,
     private _router: Router,
+    private _spinner: NgxSpinnerService,
     @Inject(NOTYF) private _notyf: Notyf
   ) {
     this._title.setTitle('Sign Up | InstaKilo');
@@ -71,6 +73,8 @@ export class SignUpComponent implements OnInit {
   private isDOBError = (code: string): boolean => this.dobErrorTypes.indexOf(code) > -1;
 
   public onSubmit = async (): Promise<void> => {
+    await this._spinner.show('spinner');
+
     const res: CustomResponse = await this._auth.signUp(
       this.username.value.trim(),
       this.email.value.trim(),
@@ -82,6 +86,8 @@ export class SignUpComponent implements OnInit {
 
     if (res.success) this.worked = true;
     else this.handleError(res.error);
+
+    await this._spinner.hide('spinner');
   }
 
   private handleError = (err: CustomAuthError): void => {

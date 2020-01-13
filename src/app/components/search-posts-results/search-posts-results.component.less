@@ -1,9 +1,32 @@
-.search-img {
-  display: inline;
+.results {
+  position: relative;
+  text-align: center;
 
-  img {
-    width: 30%;
-    padding-bottom: 30%;
-    object-fit: cover;
+  .search-img {
+    display: inline-block;
+
+    img {
+      width:180px;
+      height:180px;
+      position: relative;
+      margin: 1px;
+      object-fit: cover;
+
+      @media screen and (max-width: 300px) {
+        width:80px;
+        height:80px;
+      }
+
+      @media screen and (min-width: 301px) and (max-width: 576px) {
+        width:100px;
+        height:100px;
+      }
+
+      @media screen and (min-width: 577px) and (max-width: 800px) {
+        width:140px;
+        height:140px;
+      }
+    }
+
   }
 }

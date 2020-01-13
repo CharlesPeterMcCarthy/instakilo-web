@@ -1,7 +1,7 @@
 <h1 class="page-heading wide-screen-gap" *ngIf="!worked">Sign Up</h1>
 
-<form *ngIf="!worked" [formGroup]="signup" (ngSubmit)="onSubmit()" class="signup content-panel">
-  <div class="form-group">
+<form *ngIf="!worked" [formGroup]="signup" (ngSubmit)="onSubmit()" class="signup content-panel row">
+  <div class="form-group col-12 col offset-md-2 col-md-8">
     <label for="firstname">First Name</label>
     <input id="firstname" type="text" formControlName="firstname" class="form-control {{ firstName.invalid && firstName.touched ? 'error' : '' }}" />
     <span *ngIf="firstName.invalid && firstName.touched">
@@ -9,7 +9,7 @@
     </span>
   </div>
 
-  <div class="form-group">
+  <div class="form-group col-12 col offset-md-2 col-md-8">
     <label for="lastname">Last Name</label>
     <input id="lastname" type="text" formControlName="lastname" class="form-control {{ lastName.invalid && lastName.touched ? 'error' : '' }}" />
     <span *ngIf="lastName.invalid && lastName.touched">
@@ -17,7 +17,7 @@
     </span>
   </div>
 
-  <div class="form-group">
+  <div class="form-group col-12 col offset-md-2 col-md-8">
     <label for="dob">Date of Birth</label>
     <input id="dob" type="date" formControlName="dob" class="form-control {{ dob.invalid && dob.touched ? 'error' : '' }}" />
     <span *ngIf="dob.invalid && dob.touched">
@@ -34,8 +34,8 @@
     </span>
   </div>
 
-  <div class="form-group">
-    <label for="Username">User Name</label>
+  <div class="form-group col-12 col offset-md-2 col-md-8">
+    <label for="Username">Username</label>
     <input id="username" type="text" formControlName="username" class="form-control {{ username.invalid && username.touched ? 'error' : '' }}" />
     <span *ngIf="username.invalid && username.touched">
       You must enter a username
@@ -45,7 +45,7 @@
     </span>
   </div>
 
-  <div class="form-group">
+  <div class="form-group col-12 col offset-md-2 col-md-8">
     <label for="password">Password</label>
     <input id="password" type="password" formControlName="password" class="form-control {{ password.errors && password.touched ? 'error' : '' }}" />
     <span *ngIf="password.invalid && password.touched">
@@ -63,18 +63,15 @@
     </span>
   </div>
 
-  <div class="form-group">
+  <div class="form-group col-12 col offset-md-2 col-md-8">
     <label for="confirmpassword">Confirm Password</label>
     <input id="confirmpassword" type="password" formControlName="confirmpassword" class="form-control {{ confirmpassword.errors && confirmpassword.touched ? 'error' : '' }}" />
-    <span *ngIf="confirmpassword.invalid && confirmpassword.touched">
-      You must confirm your password
-    </span>
     <span *ngIf="confirmpassword.touched && password.touched && confirmpassword.errors && confirmpassword.errors.PasswordMismatch">
       Passwords do not match
     </span>
   </div>
 
-  <div class="form-group">
+  <div class="form-group col-12 col offset-md-2 col-md-8">
     <label for="email">Email</label>
     <input id="email" type="email" formControlName="email" class="form-control {{ email.errors && email.touched ? 'error' : '' }}" />
     <span *ngIf="email.invalid && email.touched">
@@ -85,12 +82,14 @@
     </span>
   </div>
 
-  <div class="text-right">
+  <div class="text-right col-12 col offset-md-2 col-md-8">
     <button class="btn btn-primary btn-lg wide-btn orange-btn" type="submit" [disabled]="signup.invalid">Sign Up <fa-icon [icon]="signUpIcon"></fa-icon></button>
   </div>
 </form>
 
-<div *ngIf="worked">
+<div *ngIf="worked" class="content-panel">
   <h1 class="page-heading wide-screen-gap">You have successfully signed up for InstaKilo!</h1>
   <p>Please check your email and following the link to confirm your account.</p>
 </div>
+
+<spinner [text]="'Signing Up...'" name="spinner"></spinner>
