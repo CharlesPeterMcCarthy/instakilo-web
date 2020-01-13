@@ -1,4 +1,13 @@
-import { MyUserProfile, Post, UserProfile, PostBrief, HashTagSearchResult, LocationSearchResult, Comment } from '@instakilo/common';
+import {
+  MyUserProfile,
+  Post,
+  UserProfile,
+  PostBrief,
+  HashTagSearchResult,
+  LocationSearchResult,
+  Comment,
+  UserSearchResult
+} from '@instakilo/common';
 
 export interface GenericResponse {
   success: boolean;
@@ -47,8 +56,22 @@ export interface MatchingHashTagsResponse extends GenericResponse {
   // success
 }
 
+export interface PostsByUserResponse extends GenericResponse {
+  posts: PostBrief[];
+  user: {
+    _id: string;
+    username: string;
+  };
+  // success
+}
+
 export interface MatchingLocationsResponse extends GenericResponse {
   locations: LocationSearchResult[];
+  // success
+}
+
+export interface MatchingUsersResponse extends GenericResponse {
+  users: UserSearchResult[];
   // success
 }
 

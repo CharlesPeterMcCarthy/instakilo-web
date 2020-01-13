@@ -8,6 +8,7 @@ import { faSave } from '@fortawesome/free-solid-svg-icons';
 import { UsersService } from '../../services/users/users.service';
 import { NOTYF } from '../../utils/notyf.token';
 import { Notyf } from 'notyf';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'edit-profile',
@@ -24,12 +25,15 @@ export class EditProfileComponent implements OnInit {
   };
 
   constructor(
+    private _title: Title,
     private fb: FormBuilder,
     private _auth: AuthService,
     private _router: Router,
     private _usersService: UsersService,
     @Inject(NOTYF) private _notyf: Notyf
-  ) { }
+  ) {
+    this._title.setTitle('Edit Profile | InstaKilo');
+  }
 
   public ngOnInit(): void {
     console.log(this.profile);

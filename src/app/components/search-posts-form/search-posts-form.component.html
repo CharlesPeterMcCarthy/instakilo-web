@@ -9,12 +9,12 @@
     [noResults]="noMatchingHashTags"
     [isSearching]="isSearching"
     (keyPressedEE)="hashTagSearch($event)"
-    *ngIf="!matchingLocationSearchTerm"
+    *ngIf="!matchingLocationSearchTerm && !matchingUserSearchTerm"
 
   >
   </search-posts-by>
 
-  <p class="or-text" *ngIf="!matchingHashTagSearchTerm && !matchingLocationSearchTerm">OR</p>
+  <p class="or-text" *ngIf="!matchingHashTagSearchTerm && !matchingLocationSearchTerm && !matchingUserSearchTerm">OR</p>
 
   <search-posts-by
     searchBy="Location"
@@ -26,7 +26,23 @@
     [noResults]="noMatchingLocations"
     [isSearching]="isSearching"
     (keyPressedEE)="locationSearch($event)"
-    *ngIf="!matchingHashTagSearchTerm"
+    *ngIf="!matchingHashTagSearchTerm && !matchingUserSearchTerm"
+  >
+  </search-posts-by>
+
+  <p class="or-text" *ngIf="!matchingHashTagSearchTerm && !matchingLocationSearchTerm && !matchingUserSearchTerm">OR</p>
+
+  <search-posts-by
+    searchBy="User"
+    [searchByIcon]="icons.user"
+    searchHelpText="Type a part of or the full username, eg. John"
+    linkStart="/search/user/"
+    [searchTerm]="matchingUserSearchTerm"
+    [matchResults]="matchingUsers | genericSearchResults : 'user'"
+    [noResults]="noMatchingUsers"
+    [isSearching]="isSearching"
+    (keyPressedEE)="userSearch($event)"
+    *ngIf="!matchingHashTagSearchTerm && !matchingLocationSearchTerm"
   >
   </search-posts-by>
 </div>

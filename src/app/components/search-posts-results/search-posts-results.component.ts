@@ -11,6 +11,10 @@ export class SearchPostsResultsComponent implements OnInit {
   @Input() public searchType: string;
   @Input() public searchValue: string;
   @Input() public locationName: string;
+  @Input() public user: {
+    _id: string;
+    username: string;
+  };
   @Input() public posts: PostBrief[];
 
   constructor() { }

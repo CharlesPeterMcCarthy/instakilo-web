@@ -4,7 +4,14 @@
   </button>
 
   <div class="avatar-container">
-    <div class="img-wrapper" [style.background-image]="avatar"></div>
+    <div class="img-wrapper" [style.background-image]="avatar">
+      <div class="posts-count pointer" [routerLink]="[ '/search/user', profile._id ]" *ngIf="profile.postsCount">
+        {{ profile.postsCount }} Posts
+      </div>
+      <div class="posts-count" *ngIf="!profile.postsCount">
+        {{ profile.postsCount }} Posts
+      </div>
+    </div>
   </div>
 
   <div class="info-container" *ngIf="isMyProfile">

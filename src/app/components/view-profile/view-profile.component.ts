@@ -4,7 +4,7 @@ import { UsersService } from 'src/app/services/users/users.service';
 import { MyUserProfile, UserProfile } from '@instakilo/common';
 import { IconCollection } from '../../interfaces/icon-collection';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
-import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
+import { DomSanitizer, SafeStyle, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'view-profile',
@@ -23,6 +23,7 @@ export class ViewProfileComponent implements OnInit {
   };
 
   constructor(
+    private _title: Title,
     private route: ActivatedRoute,
     private usersService: UsersService,
     private _cdr: ChangeDetectorRef,
@@ -31,6 +32,7 @@ export class ViewProfileComponent implements OnInit {
 
   public ngOnInit(): void {
     this.avatar = this._sanitization.bypassSecurityTrustStyle(`url(${ this.profile.avatar && this.profile.avatar.imageURL || './assets/images/noavatar.jpg' })`);
+    this._title.setTitle(`${this.isMyProfile ? 'My Profile' : this.profile.username} | InstaKilo`);
   }
 
   public onImageLoad = (img: HTMLImageElement): void => {

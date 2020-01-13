@@ -9,6 +9,7 @@
 
   .avatar-container {
     margin-bottom: 20px;
+    position: relative;
 
     div.img-wrapper {
       height: 200px;
@@ -18,6 +19,27 @@
       background-position: center;
       margin-left: auto;
       margin-right: auto;
+      position: relative;
+
+      .posts-count {
+        background-color: #a427d6;
+        color: white;
+        width: 100px;
+        text-align: center;
+        padding: 2px;
+        border-radius: 4px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -2px;
+        margin-left: auto;
+        margin-right: auto;
+        transition: background-color 0.4s;
+
+        &:hover {
+          background-color: #9a24c9;
+        }
+      }
     }
   }
 

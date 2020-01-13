@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MatchingHashTagsResponse, MatchingLocationsResponse } from '../../interfaces/api-response';
+import { MatchingHashTagsResponse, MatchingLocationsResponse, MatchingUsersResponse } from '../../interfaces/api-response';
 import { PostsService } from '../../services/posts/posts.service';
 import { IconCollection } from '../../interfaces/icon-collection';
-import { faHashtag, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
-import { HashTagSearchResult, LocationSearchResult } from '@instakilo/common';
+import { faHashtag, faMapMarkerAlt, faUserAlt } from '@fortawesome/free-solid-svg-icons';
+import { HashTagSearchResult, LocationSearchResult, UserSearchResult } from '@instakilo/common';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
@@ -15,15 +15,19 @@ export class SearchPostsFormComponent implements OnInit {
 
   public matchingHashTags: HashTagSearchResult[];
   public matchingLocations: LocationSearchResult[];
+  public matchingUsers: UserSearchResult[];
   public noMatchingHashTags: boolean = false;
   public noMatchingLocations: boolean = false;
+  public noMatchingUsers: boolean = false;
   public isSearching: boolean = false;
   public matchingHashTagSearchTerm: string;
   public matchingLocationSearchTerm: string;
+  public matchingUserSearchTerm: string;
 
   public icons: IconCollection = {
     location: faMapMarkerAlt,
-    hashtag: faHashtag
+    hashtag: faHashtag,
+    user: faUserAlt
   };
 
   constructor(
@@ -70,6 +74,27 @@ export class SearchPostsFormComponent implements OnInit {
     } else {
       this.matchingLocations = [];
       this.noMatchingLocations = false;
+    }
+  }
+
+  public userSearch = (value: string): void => {
+    this.matchingUserSearchTerm = value;
+
+    if (this.matchingUserSearchTerm) {
+      this.isSearching = true;
+
+      this._postsService.getMatchingUsers(this.matchingUserSearchTerm).subscribe((data: MatchingUsersResponse) => {
+        console.log(data);
+        if (data.success) {
+          this.noMatchingUsers = !data.users.length; // Set to true if no matching users are returned (or false if length > 0)
+          this.matchingUsers = data.users;
+        }
+
+        this.isSearching = false;
+      });
+    } else {
+      this.matchingUsers = [];
+      this.noMatchingUsers = false;
     }
   }
 
